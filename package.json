@@ -43,10 +43,7 @@
     "prettier": "^2.2.1"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint"
-    ],
-    "**/*.+(jsx?|md|css|html)": [
+    "**/**/**/**/*.(js|jsx|md|css|html)": [
       "prettier --trailing-comma es5 --single-quote --write"
     ],
     "**/*.json": [
