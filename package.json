@@ -37,16 +37,19 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
-    "husky": "^4.3.6",
+    "husky": "^5.0.6",
     "lint-staged": "^10.5.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1"
   },
   "lint-staged": {
-    "*.{js,jsx,md,css,html}": [
+    "*.js": [
+      "eslint"
+    ],
+    "**/*.+(jsx?|md|css|html)": [
       "prettier --trailing-comma es5 --single-quote --write"
     ],
-    "*.json": [
+    "**/*.json": [
       "prettier --write"
     ],
     "yarn.lock": [
