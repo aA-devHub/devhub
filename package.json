@@ -1,0 +1,57 @@
+{
+  "name": "devhub",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"**/*.+(js|json|css)\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css,html}": [
+      "prettier --trailing-comma es5 --single-quote --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ],
+    "package-lock.json": [
+      "git rm --cached"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aA-devHub/devhub.git"
+  },
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/aA-devHub/devhub/issues"
+  },
+  "homepage": "https://github.com/aA-devHub/devhub#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "validator": "^13.5.2"
+  },
+  "devDependencies": {
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1"
+  }
+}
