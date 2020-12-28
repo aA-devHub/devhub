@@ -46,3 +46,10 @@ export const login = (user) => (dispatch) =>
       dispatch(receiveCurrentUser(decoded));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
+
+export const demoLogin = () => {
+  return login({
+    email: 'dev@dev.com',
+    password: 'password',
+  });
+};
