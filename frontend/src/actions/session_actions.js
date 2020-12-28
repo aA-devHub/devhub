@@ -53,3 +53,10 @@ export const demoLogin = () => {
     password: 'password',
   });
 };
+
+// FIXME: how to store in user slice?
+export const updateUser = (user) => (dispatch) => {
+  APIUtil.updateUser(user)
+    .then((res) => dispatch(receiveCurrentUser(res.data)))
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
+};

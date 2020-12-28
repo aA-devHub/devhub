@@ -7,6 +7,10 @@ import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 
+// BEGIN testing
+import * as sessionActions from './actions/session_actions';
+// END testing
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
@@ -39,4 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   ReactDOM.render(<Root store={store} />, root);
+
+  // BEGIN testing
+  window.actions = sessionActions;
+  window.store = store;
+  // END testing
 });
