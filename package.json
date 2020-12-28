@@ -37,7 +37,7 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
-    "husky": "^5.0.6",
+    "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1"
