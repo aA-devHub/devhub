@@ -31,10 +31,21 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    // skills: {
-    //   type: String,
-    //   required: true
-    // },
+    skills: [
+      {
+        skill: String,
+        level: Number,
+      },
+    ],
+    experience: [
+      {
+        time: String,
+        company: String,
+        position: String,
+      },
+    ],
+    socials: [{ name: String, url: String }],
+    projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
   },
   {
     timestamps: true,
