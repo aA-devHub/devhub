@@ -8,7 +8,6 @@ const Project = require('../../models/Project');
 // const validateTweetInput = require('../../validation/tweets');
 
 router.get('/', (req, res) => {
-  //   debugger;
   Project.find()
     .then((projects) => res.json(projects))
     .catch((err) =>
@@ -17,24 +16,13 @@ router.get('/', (req, res) => {
 });
 
 router.get('/user/:userId', (req, res) => {
-  // debugger;
-  // Project.find({user: req.params.userId})
-  //     .then(projects => {
-  //         debugger;
-  //         console.log(projects);
-  //     })
-  Project.find().then((projects) => {
-    debugger;
-    console.log(projects);
-  });
-
-  // Project.find({user: req.params.userId})
-  //     // .then(projects => res.json(projects))
-  //     .then(projects => res.json(projects))
-  //     .catch(err =>
-  //         res.status(404).json({ noProjectsfound: 'No projects found for that user' }
-  //     )
-  // );
+  Project.find({ user: req.params.userId })
+    .then((projects) => res.json(projects))
+    .catch((err) =>
+      res
+        .status(404)
+        .json({ noProjectsfound: 'No projects found for that user' })
+    );
 });
 
 // router.get('/:id', (req, res) => {
