@@ -63,6 +63,8 @@ export default class LoginForm extends Component {
             {this.renderErrors()}
           </div>
         </form>
+
+        <button onClick={this.props.demoLogin}>Demo Login</button>
       </div>
     );
   }
