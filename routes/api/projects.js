@@ -4,25 +4,38 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
+// const User = require('../../models/User');
 // const validateTweetInput = require('../../validation/tweets');
 
 router.get('/', (req, res) => {
+  //   debugger;
   Project.find()
-    // .sort({ date: -1 })
     .then((projects) => res.json(projects))
     .catch((err) =>
       res.status(404).json({ noProjectsfound: 'No projects found' })
     );
 });
 
-// router.get('/user/:user_id', (req, res) => {
-//     Tweet.find({user: req.params.user_id})
-//         .then(tweets => res.json(tweets))
-//         .catch(err =>
-//             res.status(404).json({ notweetsfound: 'No tweets found from that user' }
-//         )
-//     );
-// });
+router.get('/user/:userId', (req, res) => {
+  // debugger;
+  // Project.find({user: req.params.userId})
+  //     .then(projects => {
+  //         debugger;
+  //         console.log(projects);
+  //     })
+  Project.find().then((projects) => {
+    debugger;
+    console.log(projects);
+  });
+
+  // Project.find({user: req.params.userId})
+  //     // .then(projects => res.json(projects))
+  //     .then(projects => res.json(projects))
+  //     .catch(err =>
+  //         res.status(404).json({ noProjectsfound: 'No projects found for that user' }
+  //     )
+  // );
+});
 
 // router.get('/:id', (req, res) => {
 //     Tweet.findById(req.params.id)
