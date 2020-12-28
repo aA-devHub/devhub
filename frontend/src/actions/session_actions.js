@@ -53,3 +53,9 @@ export const demoLogin = () => {
     password: 'password',
   });
 };
+
+export const updateUser = (user) => (dispatch) => {
+  APIUtil.updateUser(user)
+    .then((user) => dispatch(receiveCurrentUser(user)))
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
+};
