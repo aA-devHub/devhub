@@ -7,6 +7,7 @@ const passport = require('passport');
 const path = require('path');
 
 const users = require('./routes/api/users');
+const projects = require('./routes/api/projects');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 // Routes
 // app.get("/", (req, res) => { res.json({ msg: "There is no spoon"}); });
 app.use('/api/users', users);
+app.use('/api/projects', projects);
 
 mongoose
   .connect(db, { useNewUrlParser: true })
