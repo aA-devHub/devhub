@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   isAuthenticated: false,
-  user: {},
+  user: undefined,
 };
 
 export default (state = initialState, action) => {

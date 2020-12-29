@@ -167,7 +167,7 @@ function Navbar(props) {
     </Menu>
   );
 
-  if (props.user && Object.values(props.user).length) {
+  if (props.user) {
     var navIcons = (
       <React.Fragment>
         <IconButton
