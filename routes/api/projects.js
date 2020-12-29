@@ -28,7 +28,7 @@ router.get('/user/:userId', (req, res) => {
 });
 
 // Get a specific project by id
-router.get('/:id', (req, res) => {
+router.get('/:projectId', (req, res) => {
   Project.findById(req.params.id)
     .then((project) => res.json(project))
     .catch((err) =>
@@ -70,7 +70,7 @@ router.post(
 // Updates an existing project
 // TODO: This route needs editing
 // The project updating is dependent on the structure of the req.body
-router.patch('/:id', (req, res) => {
+router.patch('/:projectId', (req, res) => {
   const id = req.params.id;
 
   Project.findOne({ _id: id }).then((project) => {
@@ -96,7 +96,7 @@ router.patch('/:id', (req, res) => {
 });
 
 // Remove an existing project by id
-router.delete('/:id', (req, res) => {
+router.delete('/:projectId', (req, res) => {
   const id = req.params.id;
 
   Project.findOneAndRemove({
