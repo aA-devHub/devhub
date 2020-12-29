@@ -105,9 +105,7 @@ router.delete('/:projectId', (req, res) => {
       if (!project) {
         return res.status(404).send();
       }
-      res.send({
-        project,
-      });
+      res.send(project);
     })
     .catch((e) => {
       res.status(400).send();

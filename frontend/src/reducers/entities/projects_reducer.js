@@ -18,6 +18,7 @@ export default (state = {}, action) => {
 
     case REMOVE_PROJECT:
       let newState = Object.assign({}, state);
+      debugger;
       delete newState[action.project._id];
       return newState;
 
