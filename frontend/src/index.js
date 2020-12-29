@@ -9,6 +9,7 @@ import { logout } from './actions/session_actions';
 
 // BEGIN testing
 import * as sessionActions from './actions/session_actions';
+import * as userActions from './actions/user_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(<Root store={store} />, root);
 
   // BEGIN testing
-  window.actions = sessionActions;
+  window.sessionActions = sessionActions;
+  window.userActions = userActions;
   window.store = store;
   // END testing
 });

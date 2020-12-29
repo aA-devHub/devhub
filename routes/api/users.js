@@ -21,6 +21,12 @@ router.get(
   }
 );
 
+router.get('/', (req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch((_err) => res.status(404).json({ users: 'No users found' }));
+});
+
 router.patch('/:userId', (req, res) => {
   // const user = req.user;
   // console.log('User:', user);
