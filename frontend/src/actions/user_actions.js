@@ -25,7 +25,7 @@ export const receiveUsers = (users) => ({
 });
 
 export const fetchUsers = () => (dispatch) => {
-  UserAPI.fetchUsers()
+  return UserAPI.fetchUsers()
     .then((users) => {
       dispatch(clearUserErrors());
       dispatch(receiveUsers(users.data));
@@ -34,7 +34,7 @@ export const fetchUsers = () => (dispatch) => {
 };
 
 export const updateUser = (user) => (dispatch) => {
-  UserAPI.updateUser(user)
+  return UserAPI.updateUser(user)
     .then((res) => dispatch(receiveUser(res.data)))
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };
