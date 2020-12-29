@@ -108,7 +108,7 @@ function Navbar(props) {
     if (option === 'profile') {
       props.history.push(`/profile/${props.user.id}`);
     } else if (option === 'signout') {
-      props.logout();
+      props.signout();
       props.history.push('/');
     }
   };
@@ -198,7 +198,7 @@ function Navbar(props) {
     var navIcons = (
       <IconButton
         edge="end"
-        onClick={() => props.history.push('/login')}
+        onClick={() => props.history.push('/signin')}
         color="inherit"
       >
         <AccountCircle />
@@ -266,7 +266,7 @@ const mapSTP = ({ session }) => {
 };
 
 const mapDTP = (dispatch) => ({
-  logout: () => dispatch(logout()),
+  signout: () => dispatch(logout()),
 });
 
 export default connect(mapSTP, mapDTP)(Navbar);
