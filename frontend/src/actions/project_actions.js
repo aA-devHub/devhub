@@ -61,6 +61,12 @@ export const createProject = (data) => (dispatch) => {
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
+export const updateProject = (data) => (dispatch) => {
+  return ApiUtil.updateProject(data)
+    .then((project) => dispatch(receiveProject(project.data)))
+    .catch((errors) => receiveProjectErrors(errors.response.data));
+};
+
 export const deleteProject = (projectId) => (dispatch) => {
   return ApiUtil.deleteProject(projectId).then((project) =>
     dispatch(removeProject(project.data))
