@@ -29,7 +29,7 @@ router.get('/user/:userId', (req, res) => {
 
 // Get a specific project by id
 router.get('/:projectId', (req, res) => {
-  Project.findById(req.params.id)
+  Project.findById(req.params.projectId)
     .then((project) => res.json(project))
     .catch((err) =>
       res.status(404).json({ noProjectfound: 'No project found with that ID' })
@@ -48,18 +48,18 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    // debugger;
+
     const newProject = new Project({
       title: req.body.title,
-      github_link: req.body.github_link,
-      live_link: req.body.live_link,
+      githubLink: req.body.githubLink,
+      liveLink: req.body.liveLink,
       description: req.body.description,
-      // images: req.body.images,
-      // ui: {color: req.body.color},
-      // features: req.body.features,
+      images: req.body.images,
+      ui: req.body.ui,
+      features: req.body.features,
       mobile: req.body.mobile,
-      // browsers: req.body.browsers,
-      // future_features: req.body.future_features,
+      browsers: req.body.browsers,
+      futureFeatures: req.body.futureFeatures,
       user: req.body.user,
     });
 
@@ -71,17 +71,23 @@ router.post(
 // TODO: This route needs editing
 // The project updating is dependent on the structure of the req.body
 router.patch('/:projectId', (req, res) => {
-  const id = req.params.id;
+  const id = req.params.projectId;
 
   Project.findOne({ _id: id }).then((project) => {
     if (!project) {
       return res.status(404).send();
     }
+
     project.title = req.body.title;
+    project.githubLink = req.body.githubLink;
+    project.liveLink = req.body.liveLink;
     project.description = req.body.description;
-    project.github_link = req.body.github_link;
-    project.live_link = req.body.live_link;
+    project.images = req.body.images;
+    project.ui = req.body.ui;
+    project.features = req.body.features;
     project.mobile = req.body.mobile;
+    project.browsers = req.body.browsers;
+    project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
 
     project.save().then(
@@ -97,8 +103,7 @@ router.patch('/:projectId', (req, res) => {
 
 // Remove an existing project by id
 router.delete('/:projectId', (req, res) => {
-  const id = req.params.id;
-
+  const id = req.params.projectId;
   Project.findOneAndRemove({
     _id: id,
   })
@@ -106,9 +111,7 @@ router.delete('/:projectId', (req, res) => {
       if (!project) {
         return res.status(404).send();
       }
-      res.send({
-        project,
-      });
+      res.send(project);
     })
     .catch((e) => {
       res.status(400).send();
