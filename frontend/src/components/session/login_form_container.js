@@ -10,7 +10,7 @@ const leaves =
   'https://res.cloudinary.com/willwang/image/upload/v1609184956/leaves_phog8l.png';
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: '90vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -91,29 +91,29 @@ function SigninForm({ currentUser }) {
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl}></img>
-          <Typography variant='h5' style={{ color: COLORS.DEVBLUE }}>
+          <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign in
           </Typography>
           <TextField
             className={classes.leftPanelItems}
             required
-            id='outlined-required'
-            label='EMAIL'
+            id="outlined-required"
+            label="EMAIL"
             value={email}
-            variant='outlined'
+            variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             className={classes.leftPanelItems}
             required
-            id='outlined-required'
-            label='PASSWORD'
-            type='password'
+            id="outlined-required"
+            label="PASSWORD"
+            type="password"
             value={password}
-            variant='outlined'
+            variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Typography variant='body2' style={{ marginTop: '1rem' }}>
+          <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
               onClick={navigateToSignup}
@@ -122,12 +122,12 @@ function SigninForm({ currentUser }) {
               Sign Up
             </span>
           </Typography>
-          <button type='submit' className={classes.signinButton}>
+          <button type="submit" className={classes.signinButton}>
             Sign in
           </button>
         </div>
         <div className={classes.rightPanel}>
-          <img className={classes.leaves} src={leaves} alt='leaves vector' />
+          <img className={classes.leaves} src={leaves} alt="leaves vector" />
         </div>
       </form>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import * as COLORS from '../../colors';
-// import Navbar from '../NavBar/Navbar';
+import Navbar from '../navbar/navbar';
 // import { getCurrentUserInfo, editUserAction } from '../../Actions/UserActions';
 import { Public, AccountCircle, Add } from '@material-ui/icons';
 import {
@@ -136,27 +136,7 @@ function EditUserForm({ user }) {
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
   const [github, setGithub] = useState('');
-  useEffect(() => {
-    // fetchUser(localStorage.getItem('sessionToken'));
-  }, []);
-  useEffect(() => {
-    // setName(user.name);
-    // setUsername(user.username);
-    // setLocation(user.location);
-    // setEmail(user.email);
-    // setPassword(user.password);
-    // setAvatarUrl(user.avatarUrl);
-    // setBio(user.bio);
-    // setPortfolioUrl(user.portfolioUrl);
-    // setPortfolioPassword(user.portfolioPassword);
-    // setAvailable(user.available);
-    // setPersonalUrl(user.personalUrl);
-    // setTier(user.tier);
-    // setTwitter(user.twitter);
-    // setFacebook(user.facebook);
-    // setGithub(user.github);
-    // }, [user]);
-  }, []);
+  useEffect(() => {}, []);
   const classes = useStyles();
 
   const handleListItemClick = (event, index) => {
@@ -404,7 +384,6 @@ function EditUserForm({ user }) {
 
   return (
     <div>
-      {/* <Navbar /> */}
       {/* {errors} */}
       <div className={classes.root}>
         <Grid container className={classes.form}>

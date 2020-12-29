@@ -11,10 +11,10 @@ const leaves =
   'https://res.cloudinary.com/willwang/image/upload/v1609187722/leaves_signup_okhbfo.png';
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: '90vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   form: {
     display: 'flex',
@@ -93,38 +93,38 @@ function SignupForm({ errors, signedIn, signup }) {
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl}></img>
-          <Typography variant='h5' style={{ color: COLORS.DEVBLUE }}>
+          <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign Up
           </Typography>
           <TextField
             className={classes.leftPanelItems}
             required
-            id='outlined-required'
-            label='USERNAME'
+            id="outlined-required"
+            label="USERNAME"
             value={username}
-            variant='outlined'
+            variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             className={classes.leftPanelItems}
             required
-            id='outlined-required'
-            label='EMAIL'
+            id="outlined-required"
+            label="EMAIL"
             value={email}
-            variant='outlined'
+            variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             className={classes.leftPanelItems}
             required
-            id='outlined-required'
-            label='PASSWORD'
-            type='password'
+            id="outlined-required"
+            label="PASSWORD"
+            type="password"
             value={password}
-            variant='outlined'
+            variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Typography variant='body2' style={{ marginTop: '1rem' }}>
+          <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
               onClick={navigateToSignin}
@@ -133,12 +133,12 @@ function SignupForm({ errors, signedIn, signup }) {
               Sign in
             </span>
           </Typography>
-          <button type='submit' className={classes.signupButton}>
+          <button type="submit" className={classes.signupButton}>
             Sign Up
           </button>
         </div>
         <div className={classes.rightPanel}>
-          <img className={classes.leaves} src={leaves} alt='leaves vector' />
+          <img className={classes.leaves} src={leaves} alt="leaves vector" />
         </div>
       </form>
     </div>
