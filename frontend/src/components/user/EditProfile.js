@@ -285,11 +285,8 @@ function EditUserForm({ user }) {
               onChange={(e) =>
                 setExperience({ ...experience, time: e.target.value })
               }
-              placeholder="e.g. 2002-2005"
+              placeholder="start end time: 2002-2005"
             />
-            <Typography className={classes.endnote}>
-              start and end time
-            </Typography>
           </div>
           <div style={{ width: 40 }}></div>
           <div style={{ width: '100%' }}>
@@ -299,11 +296,8 @@ function EditUserForm({ user }) {
               onChange={(e) =>
                 setExperience({ ...experience, company: e.target.value })
               }
-              placeholder="company name"
+              placeholder="company name: devHUB"
             />
-            <Typography className={classes.endnote}>
-              company: your company name
-            </Typography>
           </div>
           <div style={{ width: 40 }}></div>
           <div style={{ width: '100%' }}>
@@ -313,11 +307,8 @@ function EditUserForm({ user }) {
               onChange={(e) =>
                 setExperience({ ...experience, title: e.target.value })
               }
-              placeholder="e.g. 10"
+              placeholder="title: frontend dev"
             />
-            <Typography className={classes.endnote}>
-              level: a number between 1-10
-            </Typography>
           </div>
         </div>
       </label>
