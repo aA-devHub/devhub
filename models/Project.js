@@ -3,27 +3,38 @@ const Schema = mongoose.Schema;
 
 const ProjectSchema = new Schema({
   title: String,
-  github_link: String,
-  live_link: String,
+  githubLink: String,
+  liveLink: String,
   description: String,
+  mobile: Boolean,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   images: {
     hero: String,
     secondaries: [String],
   },
   ui: {
     color: String,
-    overview_layout: Number,
-    features_layout: Number,
-    language_layout: Number,
+    overviewLayout: Number,
+    featuresLayout: Number,
+    languageLayout: Number,
   },
-  features: [{ title: String, description: String, image: String }],
-  mobile: Boolean,
   browsers: [String],
-  future_features: [{ title: String, description: String }],
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  features: [
+    {
+      title: String,
+      description: String,
+      image: String,
+    },
+  ],
+  futureFeatures: [
+    {
+      title: String,
+      description: String,
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
