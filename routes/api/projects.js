@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
+const validateProject = require('../../validation/projects');
 
 router.get('/', (req, res) => {
   Project.find()
@@ -31,22 +32,34 @@ router.get('/:id', (req, res) => {
     );
 });
 
-// router.post('/',
-//     passport.authenticate('jwt', { session: false }),
-//     (req, res) => {
-//       const { errors, isValid } = validateTweetInput(req.body);
+// This route needs editing
+// The project creation is dependent on the structure of the req.body
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateProject(req.body);
 
-//       if (!isValid) {
-//         return res.status(400).json(errors);
-//       }
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    // debugger;
+    const newProject = new Project({
+      title: req.body.title,
+      github_link: req.body.github_link,
+      live_link: req.body.live_link,
+      description: req.body.description,
+      // images: req.body.images,
+      // ui: {color: req.body.color},
+      // features: req.body.features,
+      mobile: req.body.mobile,
+      // browsers: req.body.browsers,
+      // future_features: req.body.future_features,
+      user: req.body.user,
+    });
 
-//       const newTweet = new Tweet({
-//         text: req.body.text,
-//         user: req.user.id
-//       });
-
-//       newTweet.save().then(tweet => res.json(tweet));
-//     }
-//   );
+    newProject.save().then((project) => res.json(project));
+  }
+);
 
 module.exports = router;

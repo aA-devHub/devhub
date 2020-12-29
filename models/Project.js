@@ -22,6 +22,7 @@ const ProjectSchema = new Schema({
   future_features: [{ title: String, description: String }],
   user: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
   },
   date: {
     type: Date,
