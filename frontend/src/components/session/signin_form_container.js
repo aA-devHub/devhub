@@ -1,20 +1,19 @@
-import { signup } from '../../actions/session_actions';
-
 import * as COLORS from '../../colors';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { login, demoLogin } from '../../actions/session_actions';
 import { makeStyles, TextField, Typography } from '@material-ui/core';
 const logoUrl =
   'https://res.cloudinary.com/willwang/image/upload/v1608418616/devhublogo_plnro3.png';
 const leaves =
-  'https://res.cloudinary.com/willwang/image/upload/v1609187722/leaves_signup_okhbfo.png';
+  'https://res.cloudinary.com/willwang/image/upload/v1609184956/leaves_phog8l.png';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '90vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   form: {
     display: 'flex',
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     width: '100%',
   },
-  signupButton: {
+  signinButton: {
     marginTop: '2rem',
     width: 300,
     height: 40,
@@ -55,28 +54,27 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: 800,
     cursor: 'pointer',
-    marginBottom: '2rem',
   },
 }));
-function SignupForm({ errors, signedIn, signup }) {
-  useEffect(() => {
-    if (signedIn) {
-      history.push('/tweets');
-    }
-  }, [signedIn]);
+
+function SigninForm({ currentUser }) {
   const classes = useStyles();
   const history = useHistory();
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [errors, setErrors] = useState({});
+  useEffect(() => {
+    if (currentUser === true) {
+      history.pushState('/tweets');
+    }
+  }, [currentUser]);
   const loginUser = (e) => {
     e.preventDefault();
     const user = {
       email,
       password,
     };
-    signup(user);
+    login(user);
   };
   const renderErrors = () => (
     <ul>
@@ -85,8 +83,8 @@ function SignupForm({ errors, signedIn, signup }) {
       ))}
     </ul>
   );
-  const navigateToSignin = () => {
-    history.push('/login');
+  const navigateToSignup = () => {
+    history.push('/signup');
   };
   return (
     <div className={classes.root}>
@@ -94,17 +92,8 @@ function SignupForm({ errors, signedIn, signup }) {
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl}></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
-            Sign Up
+            Sign in
           </Typography>
-          <TextField
-            className={classes.leftPanelItems}
-            required
-            id="outlined-required"
-            label="USERNAME"
-            value={username}
-            variant="outlined"
-            onChange={(e) => setEmail(e.target.value)}
-          />
           <TextField
             className={classes.leftPanelItems}
             required
@@ -127,14 +116,14 @@ function SignupForm({ errors, signedIn, signup }) {
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
-              onClick={navigateToSignin}
+              onClick={navigateToSignup}
               style={{ color: COLORS.DEVBLUE, cursor: 'pointer' }}
             >
-              Sign in
+              Sign Up
             </span>
           </Typography>
-          <button type="submit" className={classes.signupButton}>
-            Sign Up
+          <button type="submit" className={classes.signinButton}>
+            Sign in
           </button>
         </div>
         <div className={classes.rightPanel}>
@@ -145,17 +134,13 @@ function SignupForm({ errors, signedIn, signup }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    signedIn: state.session.isSignedIn,
-    errors: state.errors.session,
-  };
-};
+const mapStateToProps = (state, _ownProps) => ({
+  errors: state.errors.session,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signup: (user) => dispatch(signup(user)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  login: (user) => dispatch(login(user)),
+  demoLogin: () => dispatch(demoLogin()),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);
