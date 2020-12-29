@@ -51,15 +51,15 @@ router.post(
 
     const newProject = new Project({
       title: req.body.title,
-      github_link: req.body.github_link,
-      live_link: req.body.live_link,
+      githubLink: req.body.githubLink,
+      liveLink: req.body.liveLink,
       description: req.body.description,
-      // images: req.body.images,
-      // ui: {color: req.body.color},
-      // features: req.body.features,
+      images: req.body.images,
+      ui: req.body.ui,
+      features: req.body.features,
       mobile: req.body.mobile,
-      // browsers: req.body.browsers,
-      // future_features: req.body.future_features,
+      browsers: req.body.browsers,
+      futureFeatures: req.body.futureFeatures,
       user: req.body.user,
     });
 
@@ -77,11 +77,17 @@ router.patch('/:projectId', (req, res) => {
     if (!project) {
       return res.status(404).send();
     }
+
     project.title = req.body.title;
+    project.githubLink = req.body.githubLink;
+    project.liveLink = req.body.liveLink;
     project.description = req.body.description;
-    project.github_link = req.body.github_link;
-    project.live_link = req.body.live_link;
+    project.images = req.body.images;
+    project.ui = req.body.ui;
+    project.features = req.body.features;
     project.mobile = req.body.mobile;
+    project.browsers = req.body.browsers;
+    project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
 
     project.save().then(

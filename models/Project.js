@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const ProjectSchema = new Schema({
   title: String,
-  github_link: String,
-  live_link: String,
+  githubLink: String,
+  liveLink: String,
   description: String,
   mobile: Boolean,
   user: {
@@ -17,9 +17,9 @@ const ProjectSchema = new Schema({
   },
   ui: {
     color: String,
-    overview_layout: Number,
-    features_layout: Number,
-    language_layout: Number,
+    overviewLayout: Number,
+    featuresLayout: Number,
+    languageLayout: Number,
   },
   browsers: [String],
   features: [
