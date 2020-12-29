@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
-// const User = require('../../models/User');
-// const validateTweetInput = require('../../validation/tweets');
 
 router.get('/', (req, res) => {
   Project.find()
@@ -25,13 +23,13 @@ router.get('/user/:userId', (req, res) => {
     );
 });
 
-// router.get('/:id', (req, res) => {
-//     Tweet.findById(req.params.id)
-//         .then(tweet => res.json(tweet))
-//         .catch(err =>
-//             res.status(404).json({ notweetfound: 'No tweet found with that ID' })
-//         );
-// });
+router.get('/:id', (req, res) => {
+  Project.findById(req.params.id)
+    .then((project) => res.json(project))
+    .catch((err) =>
+      res.status(404).json({ noProjectfound: 'No project found with that ID' })
+    );
+});
 
 // router.post('/',
 //     passport.authenticate('jwt', { session: false }),
