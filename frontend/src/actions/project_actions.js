@@ -32,8 +32,8 @@ export const fetchUserProjects = (userId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const createProject = (data) => (dispatch) => {
-  return ApiUtil.createProject(data)
-    .then((project) => dispatch(receiveProject(project)))
-    .catch((err) => console.log(err));
-};
+// export const createProject = (data) => (dispatch) => {
+//   return ApiUtil.createProject(data)
+//     .then((project) => dispatch(receiveProject(project)))
+//     .catch((err) => console.log(err));
+// };
