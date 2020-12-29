@@ -7,6 +7,7 @@ import { CssBaseline } from '@material-ui/core';
 import Navbar from './navbar/navbar';
 import SigninFormContainer from './session/signin_form_container';
 import SignupFormContainer from './session/signup_form_container';
+import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
 
         <AuthRoute exact path="/signin" component={SigninFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
+        <Route exact path="/profile/:id" component={ShowProfile} />
         <Route exact path="/edit" component={EditProfile} />
       </Switch>
     </div>
