@@ -6,6 +6,11 @@ const ProjectSchema = new Schema({
   github_link: String,
   live_link: String,
   description: String,
+  mobile: Boolean,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   images: {
     hero: String,
     secondaries: [String],
@@ -16,14 +21,20 @@ const ProjectSchema = new Schema({
     features_layout: Number,
     language_layout: Number,
   },
-  features: [{ title: String, description: String, image: String }],
-  mobile: Boolean,
   browsers: [String],
-  future_features: [{ title: String, description: String }],
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  features: [
+    {
+      title: String,
+      description: String,
+      image: String,
+    },
+  ],
+  future_features: [
+    {
+      title: String,
+      description: String,
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
