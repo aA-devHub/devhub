@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes
-// app.get("/", (req, res) => { res.json({ msg: "There is no spoon"}); });
 app.use('/api/users', users);
 app.use('/api/projects', projects);
 
