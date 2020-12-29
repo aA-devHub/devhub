@@ -39,30 +39,30 @@ export const receiveProjectErrors = (errors) => ({
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
   return ApiUtil.fetchProjects({ filter })
-    .then((projects) => dispatch(receiveProjects(projects)))
-    .catch((errors) => receiveProjectErrors(errors.response.data));
+    .then((projects) => dispatch(receiveProjects(projects.data)))
+    .catch((errors) => receiveProjectErrors(errors.response));
 };
 
 export const fetchUserProjects = (userId) => (dispatch) => {
   return ApiUtil.fetchUserProjects(userId)
-    .then((projects) => dispatch(receiveUserProjects(projects)))
+    .then((projects) => dispatch(receiveUserProjects(projects.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
 export const fetchProject = (projectId) => (dispatch) => {
   return ApiUtil.fetchProject(projectId)
-    .then((project) => dispatch(receiveProject(project)))
+    .then((project) => dispatch(receiveProject(project.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
 export const createProject = (data) => (dispatch) => {
   return ApiUtil.createProject(data)
-    .then((project) => dispatch(receiveProject(project)))
+    .then((project) => dispatch(receiveProject(project.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
 export const deleteProject = (projectId) => (dispatch) => {
   return ApiUtil.deleteProject(projectId).then((project) =>
-    dispatch(removeProject(project))
+    dispatch(removeProject(project.data))
   );
 };
