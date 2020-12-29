@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const currentUserDetails = (user) => ({
   id: user._id,
-  image_url: user.image_url,
+  imageUrl: user.imageUrl,
   notifications: user.notifications || 0,
 });
 

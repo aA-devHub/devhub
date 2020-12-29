@@ -13,9 +13,9 @@ router.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { image_url, id } = req.user;
+    const { imageUrl, id } = req.user;
     let notifications = req.user.notifications || 0;
-    res.json({ id, image_url, notifications });
+    res.json({ id, imageUrl, notifications });
   }
 );
 
