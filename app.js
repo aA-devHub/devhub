@@ -8,6 +8,7 @@ const path = require('path');
 
 const users = require('./routes/api/users');
 const projects = require('./routes/api/projects');
+const comments = require('./routes/api/comments');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/users', users);
 app.use('/api/projects', projects);
+app.use('/api/comments', comments);
 
 mongoose
   .connect(db, { useNewUrlParser: true })

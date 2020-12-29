@@ -11,6 +11,7 @@ import { logout } from './actions/session_actions';
 import * as sessionActions from './actions/session_actions';
 import * as userActions from './actions/user_actions';
 import * as projectActions from './actions/project_actions';
+import * as commentActions from './actions/comment_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.sessionActions = sessionActions;
   window.userActions = userActions;
   window.projectActions = projectActions;
+  window.commentActions = commentActions;
   window.store = store;
   // END testing
 });
