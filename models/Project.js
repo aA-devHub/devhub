@@ -29,7 +29,7 @@ const ProjectSchema = new Schema({
       image: String,
     },
   ],
-  future_features: [
+  futureFeatures: [
     {
       title: String,
       description: String,
