@@ -1,5 +1,5 @@
 import { toHashById } from '../../util/data_util';
-import { RECEIVE_USERS } from '../../actions/user_actions';
+import { RECEIVE_USERS, RECEIVE_USER } from '../../actions/user_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
@@ -7,6 +7,9 @@ export default (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
       return toHashById(action.users);
+
+    case RECEIVE_USER:
+      return Object.assign({}, state, { [action.user._id]: action.user });
 
     default:
       return state;
