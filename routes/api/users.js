@@ -13,11 +13,9 @@ router.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    res.json({
-      id: req.user.id,
-      // handle: req.user.handle,
-      email: req.user.email,
-    });
+    const { imageUrl, id } = req.user;
+    let notifications = req.user.notifications || 0;
+    res.json({ id, imageUrl, notifications });
   }
 );
 
@@ -68,7 +66,7 @@ router.post('/register', (req, res) => {
     } else {
       // Otherwise create a new user
       const newUser = new User({
-        // handle: req.body.handle,
+        // name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         ...req.body,
@@ -82,7 +80,7 @@ router.post('/register', (req, res) => {
             .save()
             // .then(user => res.json(user))
             .then((user) => {
-              const payload = { id: user.id, handle: user.handle };
+              const payload = { id: user.id, name: user.name };
 
               jwt.sign(
                 payload,
@@ -122,7 +120,7 @@ router.post('/login', (req, res) => {
 
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
-        const payload = { id: user.id, handle: user.handle };
+        const payload = { id: user.id, name: user.name };
 
         jwt.sign(
           payload,
