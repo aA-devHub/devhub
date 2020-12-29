@@ -14,7 +14,26 @@ export const receiveUserProjects = (projects) => ({
   projects,
 });
 
-export const receiveNewProject = (project) => ({
+export const receiveProject = (project) => ({
   type: RECEIVE_PROJECT,
   project,
 });
+
+export const fetchProjects = (filter) => (dispatch) => {
+  // dispatch(startLoadingProjects());
+  return ApiUtil.fetchProjects({ filter })
+    .then((projects) => dispatch(receiveProjects(projects)))
+    .catch((err) => console.log(err));
+};
+
+export const fetchUserProjects = (userId) => (dispatch) => {
+  return ApiUtil.fetchUserProjects(userId)
+    .then((projects) => dispatch(receiveUserProjects(projects)))
+    .catch((err) => console.log(err));
+};
+
+export const createProject = (data) => (dispatch) => {
+  return ApiUtil.createProject(data)
+    .then((project) => dispatch(receiveProject(project)))
+    .catch((err) => console.log(err));
+};

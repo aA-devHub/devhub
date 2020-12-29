@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const getProjects = () => {
+export const fetchProjects = () => {
   return axios.get('/api/projects');
 };
 
-export const getUserProjects = (id) => {
+export const fetchUserProjects = (id) => {
   return axios.get(`/api/projects/user/${id}`);
 };
 
