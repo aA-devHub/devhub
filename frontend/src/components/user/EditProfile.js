@@ -128,7 +128,11 @@ function EditUserForm({ user }) {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
   const [skills, setSkills] = useState({ name: '', level: '' });
-  const [experience, setExperience] = useState({ time: '', company: '', title: '' });
+  const [experience, setExperience] = useState({
+    time: '',
+    company: '',
+    title: '',
+  });
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
   const [github, setGithub] = useState('');
@@ -161,7 +165,7 @@ function EditUserForm({ user }) {
 
   const selection = (
     <div className={classes.selector}>
-      <List component='nav' aria-label='main mailbox folders'>
+      <List component="nav" aria-label="main mailbox folders">
         <ListItem
           button
           selected={selectedIndex === 0}
@@ -170,7 +174,7 @@ function EditUserForm({ user }) {
           <ListItemIcon>
             <Public />
           </ListItemIcon>
-          <ListItemText className={classes.listText} secondary='Public Info' />
+          <ListItemText className={classes.listText} secondary="Public Info" />
         </ListItem>
         <ListItem
           button
@@ -180,7 +184,7 @@ function EditUserForm({ user }) {
           <ListItemIcon>
             <AccountCircle />
           </ListItemIcon>
-          <ListItemText className={classes.listText} secondary='Account' />
+          <ListItemText className={classes.listText} secondary="Account" />
         </ListItem>
       </List>
     </div>
@@ -209,7 +213,7 @@ function EditUserForm({ user }) {
         <Typography>Password</Typography>
         <InputBase
           className={classes.baseInput}
-          type='password'
+          type="password"
           value={password || ''}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -268,7 +272,7 @@ function EditUserForm({ user }) {
               className={classes.baseInput}
               value={skills.name || ''}
               onChange={(e) => e.target.value}
-              placeholder='e.g. ruby'
+              placeholder="e.g. ruby"
             />
             <Typography className={classes.endnote}>
               language/skill name: eg. ruby
@@ -280,7 +284,7 @@ function EditUserForm({ user }) {
               className={classes.baseInput}
               value={skills.level || ''}
               onChange={(e) => setSkills({ ...skills, level: e.target.value })}
-              placeholder='e.g. 10'
+              placeholder="e.g. 10"
             />
             <Typography className={classes.endnote}>
               level: a number between 1-10
@@ -298,18 +302,24 @@ function EditUserForm({ user }) {
             <InputBase
               className={classes.baseInput}
               value={experience.time || ''}
-              onChange={(e) => setExperience({ ...experience, time: e.target.value })}
-              placeholder='e.g. 2002-2005'
+              onChange={(e) =>
+                setExperience({ ...experience, time: e.target.value })
+              }
+              placeholder="e.g. 2002-2005"
             />
-            <Typography className={classes.endnote}>start and end time</Typography>
+            <Typography className={classes.endnote}>
+              start and end time
+            </Typography>
           </div>
           <div style={{ width: 40 }}></div>
           <div style={{ width: '100%' }}>
             <InputBase
               className={classes.baseInput}
               value={experience.company || ''}
-              onChange={(e) => setExperience({ ...experience, company: e.target.value })}
-              placeholder='company name'
+              onChange={(e) =>
+                setExperience({ ...experience, company: e.target.value })
+              }
+              placeholder="company name"
             />
             <Typography className={classes.endnote}>
               company: your company name
@@ -320,8 +330,10 @@ function EditUserForm({ user }) {
             <InputBase
               className={classes.baseInput}
               value={experience.title || ''}
-              onChange={(e) => setExperience({ ...experience, title: e.target.value })}
-              placeholder='e.g. 10'
+              onChange={(e) =>
+                setExperience({ ...experience, title: e.target.value })
+              }
+              placeholder="e.g. 10"
             />
             <Typography className={classes.endnote}>
               level: a number between 1-10
@@ -329,28 +341,6 @@ function EditUserForm({ user }) {
           </div>
         </div>
       </label>
-      <div className={classes.portfolioContainer}>
-        <label className={classes.labels}>
-          <Typography>Portfolio URL</Typography>
-          <InputBase
-            className={classes.baseInput}
-            value={portfolioUrl || ''}
-            onChange={(e) => setPortfolioUrl(e.target.value)}
-          />
-        </label>
-        <Typography className={classes.endnote}>
-          Only Shared with potential employers
-        </Typography>
-        <label className={classes.labels}>
-          <Typography>Portfolio password</Typography>
-          <InputBase
-            className={classes.baseInput}
-            value={portfolioPassword || ''}
-            onChange={(e) => setPortfolioPassword(e.target.value)}
-          />
-        </label>
-        <Typography className={classes.endnote}>Only if needed.</Typography>
-      </div>
     </div>
   );
 
@@ -360,8 +350,12 @@ function EditUserForm({ user }) {
         {selectedIndex ? accountForm : pubForm}
         <Button
           onClick={() => handleSubmit()}
-          variant='contained'
-          style={{ marginTop: '2rem', backgroundColor: COLORS.DEVBLUE, color: 'white' }}
+          variant="contained"
+          style={{
+            marginTop: '2rem',
+            backgroundColor: COLORS.DEVBLUE,
+            color: 'white',
+          }}
         >
           <Typography>Save Profile</Typography>
         </Button>
@@ -389,7 +383,6 @@ function EditUserForm({ user }) {
 
   const handleSubmit = () => {
     console.log('user', bio);
-    console.log('portfolioUrl', portfolioUrl);
     const userinfo = {
       id: user.id,
       name,
@@ -417,7 +410,10 @@ function EditUserForm({ user }) {
         <Grid container className={classes.form}>
           <Grid item md={4}>
             <div className={classes.title}>
-              <Typography variant='h6' style={{ marginBottom: '1rem', fontWeight: 800 }}>
+              <Typography
+                variant="h6"
+                style={{ marginBottom: '1rem', fontWeight: 800 }}
+              >
                 Edit Profile
               </Typography>
               <Avatar
