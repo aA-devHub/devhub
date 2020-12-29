@@ -4,10 +4,17 @@ export const fetchProjects = (filter) => {
   return axios.get('/api/projects', filter);
 };
 
-export const fetchUserProjects = (id) => {
-  return axios.get(`/api/projects/user/${id}`);
+export const fetchUserProjects = (userId) => {
+  return axios.get(`/api/projects/user/${userId}`);
+};
+
+export const fetchProject = (projectId) => {
+  return axios.get(`/api/projects/${projectId}`);
 };
 
 export const createProject = (data) => {
-  return axios.post('/api/tweets/', data);
+  return axios.post('/api/projects/', data);
 };
+
+export const deleteProject = (projectId) =>
+  axios.delete(`/api/projects/${projectId}`);

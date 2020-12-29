@@ -48,7 +48,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    // debugger;
+
     const newProject = new Project({
       title: req.body.title,
       github_link: req.body.github_link,
@@ -98,16 +98,13 @@ router.patch('/:projectId', (req, res) => {
 // Remove an existing project by id
 router.delete('/:projectId', (req, res) => {
   const id = req.params.projectId;
-  debugger;
   Project.findOneAndRemove({
     _id: id,
   })
     .then((project) => {
       if (!project) {
-        debugger;
         return res.status(404).send();
       }
-      debugger;
       res.send({
         project,
       });
