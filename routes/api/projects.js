@@ -6,6 +6,8 @@ const passport = require('passport');
 const Project = require('../../models/Project');
 const validateProject = require('../../validation/projects');
 
+// Get all projects
+// Will need some pagination / limit logic
 router.get('/', (req, res) => {
   Project.find()
     .then((projects) => res.json(projects))
@@ -14,6 +16,7 @@ router.get('/', (req, res) => {
     );
 });
 
+// Get all projects of a user
 router.get('/user/:userId', (req, res) => {
   Project.find({ user: req.params.userId })
     .then((projects) => res.json(projects))
@@ -24,6 +27,7 @@ router.get('/user/:userId', (req, res) => {
     );
 });
 
+// Get a specific project by id
 router.get('/:id', (req, res) => {
   Project.findById(req.params.id)
     .then((project) => res.json(project))
@@ -32,7 +36,8 @@ router.get('/:id', (req, res) => {
     );
 });
 
-// This route needs editing
+// Creates a new project
+// TODO: This route needs editing
 // The project creation is dependent on the structure of the req.body
 router.post(
   '/',
@@ -61,5 +66,53 @@ router.post(
     newProject.save().then((project) => res.json(project));
   }
 );
+
+// Updates an existing project
+// TODO: This route needs editing
+// The project updating is dependent on the structure of the req.body
+router.patch('/:id', (req, res) => {
+  const id = req.params.id;
+
+  Project.findOne({ _id: id }).then((project) => {
+    if (!project) {
+      return res.status(404).send();
+    }
+    project.title = req.body.title;
+    project.description = req.body.description;
+    project.github_link = req.body.github_link;
+    project.live_link = req.body.live_link;
+    project.mobile = req.body.mobile;
+    project.user = req.body.user;
+
+    project.save().then(
+      (updatedProject) => {
+        res.send(updatedProject);
+      },
+      (e) => {
+        res.status(400).send(e);
+      }
+    );
+  });
+});
+
+// Remove an existing project by id
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+
+  Project.findOneAndRemove({
+    _id: id,
+  })
+    .then((project) => {
+      if (!project) {
+        return res.status(404).send();
+      }
+      res.send({
+        project,
+      });
+    })
+    .catch((e) => {
+      res.status(400).send();
+    });
+});
 
 module.exports = router;
