@@ -36,7 +36,6 @@ export const receiveProjectErrors = (errors) => ({
   errors,
 });
 
-// good
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
   return ApiUtil.fetchProjects({ filter })
@@ -50,21 +49,18 @@ export const fetchUserProjects = (userId) => (dispatch) => {
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
-// good
 export const fetchProject = (projectId) => (dispatch) => {
   return ApiUtil.fetchProject(projectId)
     .then((project) => dispatch(receiveProject(project.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
-// good
 export const createProject = (data) => (dispatch) => {
   return ApiUtil.createProject(data)
     .then((project) => dispatch(receiveProject(project.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
-// good
 export const deleteProject = (projectId) => (dispatch) => {
   return ApiUtil.deleteProject(projectId).then((project) =>
     dispatch(removeProject(project.data))

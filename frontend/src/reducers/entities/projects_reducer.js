@@ -13,6 +13,9 @@ export default (state = {}, action) => {
     case RECEIVE_PROJECTS:
       return toHashById(action.projects);
 
+    case RECEIVE_USER_PROJECTS:
+      return toHashById(action.projects);
+
     case RECEIVE_PROJECT:
       return Object.assign({}, state, { [action.project._id]: action.project });
 
