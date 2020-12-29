@@ -29,7 +29,7 @@ router.get('/user/:userId', (req, res) => {
 
 // Get a specific project by id
 router.get('/:projectId', (req, res) => {
-  Project.findById(req.params.id)
+  Project.findById(req.params.projectId)
     .then((project) => res.json(project))
     .catch((err) =>
       res.status(404).json({ noProjectfound: 'No project found with that ID' })
@@ -71,7 +71,7 @@ router.post(
 // TODO: This route needs editing
 // The project updating is dependent on the structure of the req.body
 router.patch('/:projectId', (req, res) => {
-  const id = req.params.id;
+  const id = req.params.projectId;
 
   Project.findOne({ _id: id }).then((project) => {
     if (!project) {
@@ -97,15 +97,17 @@ router.patch('/:projectId', (req, res) => {
 
 // Remove an existing project by id
 router.delete('/:projectId', (req, res) => {
-  const id = req.params.id;
-
+  const id = req.params.projectId;
+  debugger;
   Project.findOneAndRemove({
     _id: id,
   })
     .then((project) => {
       if (!project) {
+        debugger;
         return res.status(404).send();
       }
+      debugger;
       res.send({
         project,
       });
