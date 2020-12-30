@@ -5,9 +5,9 @@ export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 export const CLEAR_USER_ERRORS = 'CLEAR_USER_ERRORS';
 export const RECEIVE_USER = 'RECEIVE_USER';
 
-export const receiveUser = (user) => ({
+export const receiveUser = (payload) => ({
   type: RECEIVE_USER,
-  user,
+  payload,
 });
 
 export const clearUserErrors = () => ({
