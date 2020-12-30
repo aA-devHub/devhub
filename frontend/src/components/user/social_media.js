@@ -1,4 +1,4 @@
-const SocialMedia = ({ socials }) => {
+const SocialMedia = ({ socials, userName }) => {
   if (!socials.length) return null;
 
   const socialIcons = socials.map((social) => {
@@ -21,12 +21,14 @@ const SocialMedia = ({ socials }) => {
           'https://res.cloudinary.com/willwang/image/upload/v1609282516/gh_syxrpn.png';
         socialLink = social.github;
         break;
+      default:
+        break;
     }
 
     return (
       <div className="social-icon" key={socialType}>
         <a href={socialLink} target="blank">
-          <img src={socialIcon} />
+          <img src={socialIcon} alt={userName + `'s ` + socialType} />
         </a>
       </div>
     );
