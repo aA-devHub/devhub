@@ -9,7 +9,7 @@ export const currentUserDetails = (user) => ({
 export const fetchUsers = () => axios.get('/api/users');
 
 export const fetchUser = (userId) => {
-  return axios.patch(`/api/users/${userId}`);
+  return axios.get(`/api/users/${userId}`);
 };
 
 export const updateUser = (userData) => {
