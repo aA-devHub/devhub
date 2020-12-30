@@ -6,18 +6,26 @@ const keys = require('../../config/keys');
 const passport = require('passport');
 
 const User = require('../../models/User');
-const Comment = require('../../models/Comment');
+// const Comment = require('../../models/Comment');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+
+// Extract fields to store under state.session.user
+const sessionUserPayload = (user) => ({
+  id: user.id,
+  name: user.name,
+  imageUrl: user.imageUrl,
+  // FIXME: how to handle notifications
+  notifications: user.notifications || 0,
+});
 
 router.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { imageUrl, id } = req.user;
-    let notifications = req.user.notifications || 0;
-    res.json({ id, imageUrl, notifications });
+    const payload = sessionUserPayload(req.user);
+    res.json(payload);
   }
 );
 
@@ -27,29 +35,41 @@ router.get('/', (req, res) => {
     .catch((_err) => res.status(404).json({ users: 'No users found' }));
 });
 
-router.patch('/:userId', (req, res) => {
-  // const user = req.user;
-  // console.log('User:', user);
-  // if (!user) {
-  //   return res.status(404).json({ email: 'This user does not exist' });
-  // }
-  User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
-    if (err) {
-      console.log(err);
-
-      // TODO: add better validation?
-      // const { errors, isValid } = validateRegisterInput(req.body);
-
-      // if (!isValid) {
-      //   return res.status(400).json(errors);
-      // }
-      return res.status(400).json({ _id: 'invalid update' });
-    }
-    User.findById(req.params.userId).then((user) => res.json(user));
-  }).catch((err) => res.status(404).json(err));
-
-  return null;
+router.get('/:userId', (req, res) => {
+  User.findById(req.params.userId)
+    .then((user) => res.json(user))
+    .catch((err) => res.json(err));
 });
+
+router.patch(
+  '/:userId',
+  // FIXME: this should really only allow the current user to patch their
+  // own self
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // const user = req.user;
+    // console.log('User:', user);
+    // if (!user) {
+    //   return res.status(404).json({ email: 'This user does not exist' });
+    // }
+    User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
+      if (err) {
+        console.log(err);
+
+        // TODO: add better validation?
+        // const { errors, isValid } = validateRegisterInput(req.body);
+
+        // if (!isValid) {
+        //   return res.status(400).json(errors);
+        // }
+        return res.status(400).json({ _id: 'invalid update' });
+      }
+      User.findById(req.params.userId).then((user) => res.json(user));
+    }).catch((err) => res.status(404).json(err));
+
+    return null;
+  }
+);
 
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -80,9 +100,8 @@ router.post('/register', (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            // .then(user => res.json(user))
             .then((user) => {
-              const payload = { id: user.id, name: user.name };
+              const payload = sessionUserPayload(user);
 
               jwt.sign(
                 payload,
@@ -118,11 +137,11 @@ router.post('/login', (req, res) => {
       return res.status(404).json({ email: 'This user does not exist' });
     }
 
-    console.log(user);
+    console.log('Logged in: ', user);
 
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
-        const payload = { id: user.id, name: user.name };
+        const payload = sessionUserPayload(user);
 
         jwt.sign(
           payload,

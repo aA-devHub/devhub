@@ -47,6 +47,7 @@ const UserSchema = new Schema(
     socials: [{ name: String, url: String }],
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
   },
 
   {

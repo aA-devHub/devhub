@@ -15,21 +15,23 @@ import Cards from './project/ProjectCards';
 
 const App = () => {
   return (
-    <div>
-      <CssBaseline />
+    <React.Fragment>
       <Route path="/" component={Navbar} />
-      <Switch>
-        <Route exact path="/" component={MainPage} />
+      <div className="app">
+        <CssBaseline />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
 
-        <AuthRoute exact path="/signin" component={SigninFormContainer} />
-        <AuthRoute exact path="/signup" component={SignupFormContainer} />
-        <Route exact path="/profile/:id" component={ShowProfile} />
-        <Route exact path="/edit" component={EditProfile} />
-        {/* added route to card and cards */}
-        <Route path="/card" component={Card} />
-        <Route path="/cards" component={Cards} />
-      </Switch>
-    </div>
+          <AuthRoute exact path="/signin" component={SigninFormContainer} />
+          <AuthRoute exact path="/signup" component={SignupFormContainer} />
+          <Route exact path="/profile/:id" component={ShowProfile} />
+          <Route exact path="/edit" component={EditProfile} />
+          {/* added route to card and cards */}
+          <Route path="/card" component={Card} />
+          <Route path="/cards" component={Cards} />
+        </Switch>
+      </div>
+    </React.Fragment>
   );
 };
 
