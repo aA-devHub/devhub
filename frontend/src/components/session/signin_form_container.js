@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SigninForm({ currentUser }) {
+function SigninForm({ currentUser, login, demoLogin }) {
   const classes = useStyles();
   const history = useHistory();
   const [email, setEmail] = useState('');
@@ -137,6 +137,7 @@ function SigninForm({ currentUser }) {
 }
 
 const mapStateToProps = (state, _ownProps) => ({
+  currentUser: state.session.user,
   errors: state.errors.session,
 });
 
