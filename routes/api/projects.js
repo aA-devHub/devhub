@@ -101,6 +101,7 @@ router.post(
       browsers: req.body.browsers,
       futureFeatures: req.body.futureFeatures,
       user: req.body.user,
+      languages: req.body.languages,
     });
 
     newProject.save().then((project) => {
@@ -139,6 +140,7 @@ router.patch('/:projectId', (req, res) => {
     project.browsers = req.body.browsers;
     project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
+    project.languages = req.body.languages;
 
     project.save().then(() => {
       Project.findById(projectId)
