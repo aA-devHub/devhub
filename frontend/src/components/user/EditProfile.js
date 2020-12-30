@@ -361,7 +361,7 @@ function EditUserForm({ user }) {
       location,
       email,
       password,
-      avatar_url: avatarUrl,
+      avatarUrl,
       bio,
       skills,
       experience,

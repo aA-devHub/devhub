@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
-    // handle: {
-    //   type: String,
-    //   required: true
-    // },
     email: {
       type: String,
       required: true,
@@ -21,15 +17,16 @@ const UserSchema = new Schema(
     },
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     bio: {
       type: String,
-      required: true,
+      default: '',
     },
-    image_url: {
+    imageUrl: {
       type: String,
-      required: true,
+      default:
+        'https://res.cloudinary.com/willwang/image/upload/v1608418616/devhublogo_plnro3.png',
     },
     skills: [
       {
@@ -46,6 +43,7 @@ const UserSchema = new Schema(
     ],
     socials: [{ name: String, url: String }],
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,

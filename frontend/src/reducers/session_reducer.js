@@ -3,6 +3,8 @@ import {
   RECEIVE_CURRENT_USER,
   RECEIVE_USER_SIGN_IN,
 } from '../actions/session_actions';
+import { RECEIVE_USER } from '../actions/user_actions';
+import { currentUserDetails } from '../util/user_api_util';
 
 const initialState = {
   isAuthenticated: false,
@@ -13,6 +15,16 @@ export default (state = initialState, action) => {
   Object.freeze(state);
 
   switch (action.type) {
+    case RECEIVE_USER:
+      if (state.user && state.user.id === action.user._id) {
+        // console.log('update user ', action.user);
+        return {
+          ...state,
+          user: currentUserDetails(action.user),
+        };
+      }
+      return state;
+
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
