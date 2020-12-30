@@ -17,7 +17,7 @@ export const fetchComment = (commentId) => {
 };
 
 export const createComment = (data) => {
-  return axios.post('/api/comment/', data);
+  return axios.post('/api/comments/', data);
 };
 
 export const deleteComment = (commentId) => {

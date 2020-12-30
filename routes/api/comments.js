@@ -13,6 +13,23 @@ router.get('/', (req, res) => {
     .catch((error) => res.status(404).json(error));
 });
 
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateComment(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    return new Comment(req.body)
+      .save()
+      .then((comment) => res.json(comment))
+      .catch((errors) => res.status(404).json(errors));
+  }
+);
+
 router.get('/:commentId', (req, res) => {
   Comment.findById(req.params.commentId)
     .populate('user', 'name')
