@@ -7,6 +7,7 @@ const ProjectSchema = new Schema({
   liveLink: String,
   description: String,
   mobile: Boolean,
+  numFavorites: Number,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -28,6 +29,7 @@ const ProjectSchema = new Schema({
     languageLayout: Number,
   },
   browsers: [String],
+  technologies: [String],
   features: [
     {
       title: String,

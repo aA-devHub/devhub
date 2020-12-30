@@ -9,10 +9,25 @@ const User = require('../../models/User');
 const validateProject = require('../../validation/projects');
 const validateProjectUpdate = require('../../validation/projects');
 
+// Get featured projects
+// TODO: implement after implementing numFavorites
+// router.get('/featured', (req, res) => {
+//   Project.find(
+//     {},
+//     { title: 1, images: 1, user: 1, technologies: 1 }
+//   )
+//     .then((projects) => {
+
+//     })
+// });
+
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find({}, { title: 1, images: 1, user: 1, comments: 1 })
+  Project.find(
+    {},
+    { title: 1, images: 1, user: 1, comments: 1, technologies: 1 }
+  )
     .populate('user')
     .populate('comments')
     .then((projects) => {
@@ -35,7 +50,10 @@ router.get('/', (req, res) => {
 
 // Get all projects of a user
 router.get('/user/:userId', (req, res) => {
-  Project.find({ user: req.params.userId }, { title: 1, images: 1, user: 1 })
+  Project.find(
+    { user: req.params.userId },
+    { title: 1, images: 1, user: 1, comments: 1, technologies: 1 }
+  )
     .populate('user')
     .populate('comments')
     .then((projects) => {
@@ -95,6 +113,7 @@ router.post(
       browsers: req.body.browsers,
       futureFeatures: req.body.futureFeatures,
       user: req.body.user,
+      languages: req.body.languages,
     });
 
     newProject.save().then((project) => {
@@ -133,6 +152,7 @@ router.patch('/:projectId', (req, res) => {
     project.browsers = req.body.browsers;
     project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
+    project.languages = req.body.languages;
 
     project.save().then(() => {
       Project.findById(projectId)
