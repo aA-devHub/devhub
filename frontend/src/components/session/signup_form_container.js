@@ -14,28 +14,27 @@ const useStyles = makeStyles((theme) => ({
     height: '90vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   form: {
     display: 'flex',
+    height: '70vh',
     boxShadow: '0px 18px 40px 0px rgba(0, 0, 0, 0.3)',
   },
   logo: {
     maxWidth: 100,
     maxHeight: 100,
-    marginBottom: '2rem',
+    marginTop: 20,
   },
   leftPanel: {
     flex: 0.5,
-    margin: '30px 0 0 20px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: 20,
   },
   leftPanelItems: {
     minWidth: 300,
-    marginTop: '2rem',
+    marginTop: '0.5rem',
   },
   rightPanel: {
     flex: 0.5,
@@ -69,13 +68,19 @@ function SignupForm({ errors, signedIn, signup }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const loginUser = (e) => {
+  const signupUser = (e) => {
     e.preventDefault();
     const user = {
+      name: username,
       email,
       password,
+      password2: passwordConfirmation,
     };
+    console.log('user', user);
+    console.log('email', email);
+    console.log('password', password);
     signup(user);
   };
   const renderErrors = () => (
@@ -90,7 +95,7 @@ function SignupForm({ errors, signedIn, signup }) {
   };
   return (
     <div className={classes.root}>
-      <form className={classes.form} onSubmit={loginUser}>
+      <form className={classes.form} onSubmit={signupUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl}></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
@@ -103,7 +108,8 @@ function SignupForm({ errors, signedIn, signup }) {
             label="USERNAME"
             value={username}
             variant="outlined"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
+            style={{ height: 70 }}
           />
           <TextField
             className={classes.leftPanelItems}
@@ -113,6 +119,7 @@ function SignupForm({ errors, signedIn, signup }) {
             value={email}
             variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
+            style={{ height: 70 }}
           />
           <TextField
             className={classes.leftPanelItems}
@@ -123,6 +130,18 @@ function SignupForm({ errors, signedIn, signup }) {
             value={password}
             variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
+            style={{ height: 70 }}
+          />
+          <TextField
+            className={classes.leftPanelItems}
+            required
+            id="outlined-required"
+            label="CONFIRM PASSWORD"
+            type="password"
+            value={passwordConfirmation}
+            variant="outlined"
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            style={{ height: 70 }}
           />
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
@@ -147,7 +166,7 @@ function SignupForm({ errors, signedIn, signup }) {
 
 const mapStateToProps = (state) => {
   return {
-    signedIn: state.session.isSignedIn,
+    signedIn: state.session.user,
     errors: state.errors.session,
   };
 };
