@@ -8,8 +8,8 @@ import { fetchUser } from '../../actions/user_actions';
 
 function ShowProfile({ currentUser, fetchUser, user, history }) {
   useEffect(() => {
-    // fetchUser(1);
-  });
+    fetchUser(1);
+  }, []);
 
   const tempUser = {
     id: '5fec146c17aa2e1917d69701',
