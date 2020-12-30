@@ -28,6 +28,7 @@ const ProjectSchema = new Schema({
     languageLayout: Number,
   },
   browsers: [String],
+  technologies: [String],
   features: [
     {
       title: String,
