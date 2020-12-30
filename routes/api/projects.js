@@ -47,7 +47,12 @@ router.get('/user/:userId', (req, res) => {
 // Get a specific project by id
 router.get('/:projectId', (req, res) => {
   Project.findById(req.params.projectId)
-    .then((project) => res.json(project))
+    .populate('user')
+    .then((project) => {
+      const user = project.user;
+      project.user = project.user._id;
+      return res.json({ project, user });
+    })
     .catch((err) =>
       res.status(404).json({ noProjectfound: 'No project found with that ID' })
     );
