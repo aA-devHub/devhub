@@ -7,8 +7,9 @@ const validateComment = require('../../validation/comments');
 
 router.get('/', (req, res) => {
   Comment.find()
+    .populate('user', 'name')
     .then((comments) => res.json(comments))
-    .catch((err) => res.status(404).json({ comments: 'No comments found' }));
+    .catch((error) => res.status(404).json(error));
 });
 
 router.get('/:commentId', (req, res) => {
