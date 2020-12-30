@@ -1,15 +1,18 @@
-// import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-// import * as COLORS from '../../colors';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
+import { fetchUser } from '../../actions/user_actions';
 
-function ShowProfile({ currentUser, user, history }) {
+function ShowProfile({ currentUser, fetchUser, user, history }) {
+  useEffect(() => {
+    // fetchUser(1);
+  });
+
   const tempUser = {
-    id: '5fe90d636ee7c9ca9f6f2d23',
+    id: '5fec146c17aa2e1917d69701',
     handle: 'dev',
     name: 'frodo',
     title: 'Legend',
@@ -54,8 +57,66 @@ function ShowProfile({ currentUser, user, history }) {
     ],
   };
 
-  const jobs = tempUser.experience.reverse().map((job) => (
-    <div className="job">
+  const tempProjects = [
+    {
+      title: 'Meth Lab',
+      _id: '1',
+      images: {
+        hero:
+          'https://www.hobbydb.com/processed_uploads/subject_photo/subject_photo/image/12781/1461967414-16468-4084/Screen_20Shot_202016-04-29_20at_204.02.35_20PM_large.png',
+        secondaries: [
+          'https://github.com/kaycbas/rocket/raw/main/app/assets/images/readme/list.png',
+        ],
+      },
+    },
+    {
+      title: 'Creatine Gym',
+      _id: '2',
+      images: {
+        hero:
+          'https://randomwordgenerator.com/img/picture-generator/54e0dd474d51b10ff3d8992cc12c30771037dbf852547940752979d4974f_640.jpg',
+        secondaries: [
+          'https://github.com/kaycbas/rocket/raw/main/app/assets/images/readme/list.png',
+        ],
+      },
+    },
+    {
+      title: 'Instagram Thot',
+      _id: '3',
+      images: {
+        hero:
+          'https://randomwordgenerator.com/img/picture-generator/57e6d4424a5aab14f1dc8460962e33791c3ad6e04e507440742f7cd0974fc1_640.jpg',
+        secondaries: [
+          'https://github.com/kaycbas/rocket/raw/main/app/assets/images/readme/list.png',
+        ],
+      },
+    },
+    {
+      title: 'wewekhdajkhsajkf',
+      _id: '4',
+      images: {
+        hero:
+          'https://randomwordgenerator.com/img/picture-generator/brushes-1683134_640.jpg',
+        secondaries: [
+          'https://github.com/kaycbas/rocket/raw/main/app/assets/images/readme/list.png',
+        ],
+      },
+    },
+    {
+      title: 'Cookies',
+      _id: '5',
+      images: {
+        hero:
+          'https://randomwordgenerator.com/img/picture-generator/55e3dd404253a814f1dc8460962e33791c3ad6e04e50744076287ad39e49c6_640.jpg',
+        secondaries: [
+          'https://github.com/kaycbas/rocket/raw/main/app/assets/images/readme/list.png',
+        ],
+      },
+    },
+  ];
+
+  const jobs = tempUser.experience.reverse().map((job, idx) => (
+    <div className="job" key={idx}>
       <span className="job-dates">
         {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
       </span>
@@ -64,8 +125,8 @@ function ShowProfile({ currentUser, user, history }) {
     </div>
   ));
 
-  const skills = tempUser.skills.map((skill) => (
-    <div className="skill">
+  const skills = tempUser.skills.map((skill, idx) => (
+    <div className="skill" key={idx}>
       <span className="skill-name">{skill.skill}</span>
       <div className="skill-level-container">
         <div className="skill-level" style={{ width: skill.level * 10 }}></div>
@@ -99,7 +160,7 @@ function ShowProfile({ currentUser, user, history }) {
           <SocialMedia socials={tempUser.socials} userName={tempUser.name} />
         </div>
       </div>
-      <ProjectCarousel />
+      <ProjectCarousel projects={tempProjects} />
       <div className="user-details">
         <div className="work-info">
           <h3 className="info-title">Work</h3>
@@ -127,8 +188,14 @@ const mapSTP = (store, ownProps) => {
   return {
     currentUser: store.session.user,
     user: store.entities.users[ownProps.match.params.id],
-    projects: store.entities.projects,
+    projects: Object.values(store.entities.projects),
   };
 };
 
-export default connect(mapSTP)(ShowProfile);
+const mapDTP = (dispatch) => {
+  return {
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+  };
+};
+
+export default connect(mapSTP, mapDTP)(ShowProfile);
