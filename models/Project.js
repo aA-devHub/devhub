@@ -7,10 +7,17 @@ const ProjectSchema = new Schema({
   liveLink: String,
   description: String,
   mobile: Boolean,
+  numFavorites: Number,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
   images: {
     hero: String,
     secondaries: [String],
@@ -22,6 +29,7 @@ const ProjectSchema = new Schema({
     languageLayout: Number,
   },
   browsers: [String],
+  technologies: [String],
   features: [
     {
       title: String,

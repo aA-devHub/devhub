@@ -72,10 +72,15 @@ router.patch(
         // }
         return res.status(400).json({ _id: 'invalid update' });
       }
-      User.findById(req.params.userId).then((user) => res.json(user));
-    }).catch((err) => res.status(404).json(err));
-
-    return null;
+      User.findById(req.params.userId)
+        .populate('projects')
+        .then((user) => {
+          const projects = user.projects.slice();
+          user.projects = projects.map((e) => e._id);
+          res.json({ user, projects });
+        });
+      return null;
+    });
   }
 );
 

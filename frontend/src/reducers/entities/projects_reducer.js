@@ -15,7 +15,9 @@ export default (state = {}, action) => {
       return toHashById(action.payload.projects);
 
     case RECEIVE_PROJECT:
-      return Object.assign({}, state, { [action.project._id]: action.project });
+      return Object.assign({}, state, {
+        [action.payload.project._id]: action.payload.project,
+      });
 
     case REMOVE_PROJECT:
       let newState = Object.assign({}, state);
