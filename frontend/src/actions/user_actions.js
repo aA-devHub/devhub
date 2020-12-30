@@ -50,18 +50,24 @@ export const updateUser = (user) => (dispatch) => {
 
 // XXX: Would it be simpler to only allow currentUser to favorite a
 // project, and if so, how to pass the userId in?
-export const addFavorite = (user, projectId) => {
-  return updateUser({
-    id: user._id,
-    favorites: user.favorites.concat([projectId]),
-  });
+export const addFavorite = (user, projectId) => (dispatch) => {
+  let favorites = Object.assign({}, user.favorites);
+  if (!favorites.indexOf(projectId)) {
+    return dispatch(
+      updateUser({
+        id: user._id,
+        favorites: user.favorites.concat([projectId]),
+      })
+    );
+  }
+  return null;
 };
 
-export const removeFavorite = (user, projectId) => {
-  let favorites = Object.assign({}, user.favorites);
-  delete favorites[projectId];
-  return updateUser({
-    id: user._id,
-    favorites,
-  });
+export const removeFavorite = (user, projectId) => (dispatch) => {
+  return dispatch(
+    updateUser({
+      id: user._id,
+      favorites: user.favorites.filter((x) => x !== projectId),
+    })
+  );
 };

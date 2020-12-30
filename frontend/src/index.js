@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary
+  // let curr = await currentUser();
   window.currentUser = function () {
     const state = store.getState();
     if (!state.session.user) return null;
