@@ -18,24 +18,23 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     display: 'flex',
+    height: '70vh',
     boxShadow: '0px 18px 40px 0px rgba(0, 0, 0, 0.3)',
   },
   logo: {
     maxWidth: 100,
     maxHeight: 100,
-    marginBottom: '2rem',
+    marginTop: 20,
   },
   leftPanel: {
     flex: 0.5,
-    margin: '30px 0 0 20px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: 20,
   },
   leftPanelItems: {
     minWidth: 300,
-    marginTop: '2rem',
+    marginTop: '0.5rem',
   },
   rightPanel: {
     flex: 0.5,
@@ -74,7 +73,7 @@ function SignupForm({ errors, signedIn, signup }) {
   const signupUser = (e) => {
     e.preventDefault();
     const user = {
-      handle: username,
+      name: username,
       email,
       password,
       password2: passwordConfirmation,
@@ -110,6 +109,7 @@ function SignupForm({ errors, signedIn, signup }) {
             value={username}
             variant="outlined"
             onChange={(e) => setUsername(e.target.value)}
+            style={{ height: 70 }}
           />
           <TextField
             className={classes.leftPanelItems}
@@ -119,6 +119,7 @@ function SignupForm({ errors, signedIn, signup }) {
             value={email}
             variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
+            style={{ height: 70 }}
           />
           <TextField
             className={classes.leftPanelItems}
@@ -129,6 +130,7 @@ function SignupForm({ errors, signedIn, signup }) {
             value={password}
             variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
+            style={{ height: 70 }}
           />
           <TextField
             className={classes.leftPanelItems}
@@ -139,6 +141,7 @@ function SignupForm({ errors, signedIn, signup }) {
             value={passwordConfirmation}
             variant="outlined"
             onChange={(e) => setPasswordConfirmation(e.target.value)}
+            style={{ height: 70 }}
           />
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
