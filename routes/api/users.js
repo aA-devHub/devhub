@@ -27,29 +27,41 @@ router.get('/', (req, res) => {
     .catch((_err) => res.status(404).json({ users: 'No users found' }));
 });
 
-router.patch('/:userId', (req, res) => {
-  // const user = req.user;
-  // console.log('User:', user);
-  // if (!user) {
-  //   return res.status(404).json({ email: 'This user does not exist' });
-  // }
-  User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
-    if (err) {
-      console.log(err);
-
-      // TODO: add better validation?
-      // const { errors, isValid } = validateRegisterInput(req.body);
-
-      // if (!isValid) {
-      //   return res.status(400).json(errors);
-      // }
-      return res.status(400).json({ _id: 'invalid update' });
-    }
-    User.findById(req.params.userId).then((user) => res.json(user));
-  }).catch((err) => res.status(404).json(err));
-
-  return null;
+router.get('/:userId', (req, res) => {
+  User.findById(req.params.userId)
+    .then((user) => res.json(user))
+    .catch((err) => res.json(err));
 });
+
+router.patch(
+  '/:userId',
+  // FIXME: this should really only allow the current user to patch their
+  // own self
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // const user = req.user;
+    // console.log('User:', user);
+    // if (!user) {
+    //   return res.status(404).json({ email: 'This user does not exist' });
+    // }
+    User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
+      if (err) {
+        console.log(err);
+
+        // TODO: add better validation?
+        // const { errors, isValid } = validateRegisterInput(req.body);
+
+        // if (!isValid) {
+        //   return res.status(400).json(errors);
+        // }
+        return res.status(400).json({ _id: 'invalid update' });
+      }
+      User.findById(req.params.userId).then((user) => res.json(user));
+    }).catch((err) => res.status(404).json(err));
+
+    return null;
+  }
+);
 
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);

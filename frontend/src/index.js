@@ -53,5 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
   window.projectActions = projectActions;
   window.commentActions = commentActions;
   window.store = store;
+
+  // return the current user if logged in, fetching user data if necessary
+  window.currentUser = function () {
+    const state = store.getState();
+    if (!state.session.user) return null;
+
+    const userId = state.session.user.id;
+    return (
+      state.entities.users[userId] ||
+      store.dispatch(userActions.fetchUser(userId))
+    );
+  };
   // END testing
 });

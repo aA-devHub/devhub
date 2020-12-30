@@ -33,8 +33,35 @@ export const fetchUsers = () => (dispatch) => {
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };
 
+export const fetchUser = (userId) => (dispatch) => {
+  return UserAPI.fetchUser(userId)
+    .then((res) => {
+      dispatch(clearUserErrors());
+      dispatch(receiveUser(res.data));
+    })
+    .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
+};
+
 export const updateUser = (user) => (dispatch) => {
   return UserAPI.updateUser(user)
     .then((res) => dispatch(receiveUser(res.data)))
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
+};
+
+// XXX: Would it be simpler to only allow currentUser to favorite a
+// project, and if so, how to pass the userId in?
+export const addFavorite = (user, projectId) => {
+  return updateUser({
+    id: user._id,
+    favorites: user.favorites.concat([projectId]),
+  });
+};
+
+export const removeFavorite = (user, projectId) => {
+  let favorites = Object.assign({}, user.favorites);
+  delete favorites[projectId];
+  return updateUser({
+    id: user._id,
+    favorites,
+  });
 };
