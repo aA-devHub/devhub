@@ -7,6 +7,7 @@ const ProjectSchema = new Schema({
   liveLink: String,
   description: String,
   mobile: Boolean,
+  numFavorites: Number,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',

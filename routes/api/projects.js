@@ -9,6 +9,18 @@ const User = require('../../models/User');
 const validateProject = require('../../validation/projects');
 const validateProjectUpdate = require('../../validation/projects');
 
+// Get featured projects
+// TODO: implement after implementing numFavorites
+// router.get('/featured', (req, res) => {
+//   Project.find(
+//     {},
+//     { title: 1, images: 1, user: 1, technologies: 1 }
+//   )
+//     .then((projects) => {
+
+//     })
+// });
+
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
