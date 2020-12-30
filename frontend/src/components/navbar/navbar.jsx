@@ -106,7 +106,7 @@ function Navbar(props) {
     handleMobileMenuClose();
 
     if (option === 'profile') {
-      props.history.push(`/profile/${props.user.id}`);
+      props.history.push(`/profile/${props.currentUser.id}`);
     } else if (option === 'signout') {
       props.signout();
       props.history.push('/');
@@ -167,7 +167,7 @@ function Navbar(props) {
     </Menu>
   );
 
-  if (props.user) {
+  if (props.currentUser) {
     var navIcons = (
       <React.Fragment>
         <IconButton
@@ -261,7 +261,7 @@ function Navbar(props) {
 
 const mapSTP = ({ session }) => {
   return {
-    user: session.user,
+    currentUser: session.user,
   };
 };
 
