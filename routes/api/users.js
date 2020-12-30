@@ -44,7 +44,7 @@ router.get('/:userId', (req, res) => {
     .then((user) => {
       const projects = user.projects.slice();
       user.projects = projects.map((e) => e._id);
-      return res.json({ user, projects });
+      res.json({ user, projects });
     })
     .catch((err) => res.json(err));
 });
