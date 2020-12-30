@@ -13,11 +13,17 @@ h6 {
   font-weight: normal;
 }
 
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .pointer:hover {
   cursor: pointer;
 }
 
 /* User Show Page */
+
 .icon-overlay {
   padding: 20px;
   display: flex;
@@ -129,17 +135,40 @@ h6 {
   justify-content: space-around;
 }
 
-.extra-info,
 .work-info,
-.skills {
+.skills,
+.extra-info {
   display: flex;
   flex-flow: column nowrap;
 }
 
 .info-title {
   font-weight: 600;
-  align-self: center;
   margin-bottom: 10px;
+}
+
+.work-info .info-title {
+  align-self: flex-start;
+}
+
+.job {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 20px;
+}
+
+.job > *,
+.extra-info > * {
+  margin-bottom: 5px;
+}
+
+.job-dates {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.skills .info-title {
+  align-self: center;
 }
 
 .skill {
@@ -164,4 +193,13 @@ h6 {
   position: absolute;
   background-color: rgba(42, 199, 198, 1);
   height: 100%;
+}
+
+.extra-info .info-title {
+  align-self: flex-end;
+}
+
+.extra-info {
+  display: flex;
+  align-items: flex-end;
 }
