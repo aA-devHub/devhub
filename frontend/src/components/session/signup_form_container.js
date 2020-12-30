@@ -57,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2rem',
   },
 }));
-function SignupForm({ errors, signedIn, signup }) {
+function SignupForm({ errors, currentUser, signup }) {
   useEffect(() => {
-    if (signedIn) {
-      history.push('/tweets');
+    if (currentUser) {
+      history.push('/');
     }
-  }, [signedIn]);
+  }, []);
   const classes = useStyles();
   const history = useHistory();
   const [username, setUsername] = useState('');
@@ -79,8 +79,7 @@ function SignupForm({ errors, signedIn, signup }) {
       password2: passwordConfirmation,
     };
     console.log('user', user);
-    console.log('email', email);
-    console.log('password', password);
+    console.log('signing up');
     signup(user);
   };
   const renderErrors = () => (
@@ -91,7 +90,7 @@ function SignupForm({ errors, signedIn, signup }) {
     </ul>
   );
   const navigateToSignin = () => {
-    history.push('/login');
+    history.push('/signin');
   };
   return (
     <div className={classes.root}>
@@ -166,7 +165,7 @@ function SignupForm({ errors, signedIn, signup }) {
 
 const mapStateToProps = (state) => {
   return {
-    signedIn: state.session.user,
+    currentUser: state.session.user,
     errors: state.errors.session,
   };
 };
