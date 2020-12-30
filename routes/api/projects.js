@@ -152,7 +152,9 @@ router.get('/:projectId/comments', (req, res) => {
   const { projectId } = req.params;
   Project.findById(projectId)
     .populate('comments')
-    .then((project) => res.json(project.comments))
+    .then((project) => {
+      return res.json(project.comments);
+    })
     .catch((errors) => res.status(400).json(errors));
 });
 
