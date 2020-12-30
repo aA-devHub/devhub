@@ -98,7 +98,9 @@ router.post(
     });
 
     newProject.save().then((project) => {
-      User.findById(project.user).then((user) => res.json({ project, user }));
+      User.findById(project.user).then((user) =>
+        res.json({ project, user, comments: [] })
+      );
     });
   }
 );
@@ -113,9 +115,9 @@ router.patch('/:projectId', (req, res) => {
   //   return res.status(400).json(errors);
   // }
 
-  const id = req.params.projectId;
+  const projectId = req.params.projectId;
 
-  Project.findOne({ _id: id }).then((project) => {
+  Project.findOne({ _id: projectId }).then((project) => {
     if (!project) {
       return res.status(404).send();
     }
@@ -132,14 +134,19 @@ router.patch('/:projectId', (req, res) => {
     project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
 
-    project.save().then(
-      (updatedProject) => {
-        User.findById(updatedProject.user).then((user) =>
-          res.json({ project, user })
-        );
-      },
-      (e) => res.status(400).send(e)
-    );
+    project.save().then(() => {
+      Project.findById(projectId)
+        .populate('comments')
+        .then((updatedProject) => {
+          const comments = updatedProject.comments;
+          updatedProject.comments = updatedProject.comments.map(
+            (comment) => comment._id
+          );
+          User.findById(updatedProject.user).then((user) =>
+            res.json({ project: updatedProject, user, comments })
+          );
+        });
+    });
   });
 });
 
