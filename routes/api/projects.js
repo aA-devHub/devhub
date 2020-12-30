@@ -38,15 +38,6 @@ router.get('/', (req, res) => {
 //     );
 // });
 
-router.get('/', async (req, res) => {
-  const projects = await Project.find({}, { title: 1, images: 1 });
-  // loop through projects and find each project's user
-  //
-  {
-    projects, users;
-  }
-});
-
 // Get all projects of a user
 router.get('/user/:userId', (req, res) => {
   Project.find({ user: req.params.userId }, { title: 1, images: 1 })
