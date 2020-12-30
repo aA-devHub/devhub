@@ -11,7 +11,7 @@ import SignupFormContainer from './session/signup_form_container';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
-import Card from './project/ProjectCard';
+import Card from './project/Carousel';
 import Cards from './project/ProjectCards';
 
 const App = () => {
