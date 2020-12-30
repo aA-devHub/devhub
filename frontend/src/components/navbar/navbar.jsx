@@ -167,8 +167,9 @@ function Navbar(props) {
     </Menu>
   );
 
+  let navIcons;
   if (props.currentUser) {
-    var navIcons = (
+    navIcons = (
       <React.Fragment>
         <IconButton
           aria-label="show 11 new notifications"
@@ -188,14 +189,15 @@ function Navbar(props) {
           color="inherit"
         >
           <img
-            src="https://www.meme-arsenal.com/memes/a5133aafa806da3cef7e432b785e2da3.jpg"
+            src={props.currentUser.imageUrl}
             className={classes.user}
+            alt="user avatar"
           />
         </IconButton>
       </React.Fragment>
     );
   } else {
-    var navIcons = (
+    navIcons = (
       <IconButton
         edge="end"
         onClick={() => props.history.push('/signin')}
@@ -207,9 +209,14 @@ function Navbar(props) {
   }
 
   return (
-    <div className={classes.grow}>
+    <div
+      className={classes.grow}
+      style={{ position: 'sticky', top: 0, left: 0, right: 0, zIndex: 999 }}
+    >
       <AppBar position="static" style={{ backgroundColor: colors.NAVBARBLACK }}>
-        <Toolbar>
+        <Toolbar
+          style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}
+        >
           <img
             src="../../logo.png"
             alt="logo"
