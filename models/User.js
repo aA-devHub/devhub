@@ -36,15 +36,19 @@ const UserSchema = new Schema(
     ],
     experience: [
       {
-        time: String,
+        start: Date,
+        end: Date,
         company: String,
         position: String,
       },
     ],
+    yearsOfExperience: Number,
+    location: String,
     socials: [{ name: String, url: String }],
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
+
   {
     timestamps: true,
   }

@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
+
+const User = require('../../models/User');
+const Comment = require('../../models/Comment');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
@@ -138,6 +140,14 @@ router.post('/login', (req, res) => {
       }
     });
   });
+});
+
+router.get('/:userId/comments', (req, res) => {
+  const { userId } = req.params;
+  User.findById(userId)
+    .populate('comments')
+    .then((user) => res.json(user.comments))
+    .catch((errors) => res.status(400).json(errors));
 });
 
 module.exports = router;
