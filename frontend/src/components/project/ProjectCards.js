@@ -17,31 +17,31 @@ function ProjectCards({ projects }) {
           <Card />
         </Grid>
       ))} */}
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
-      <Grid item md={3} sm={6}>
+      <Grid item md={4} sm={6}>
         <Card />
       </Grid>
     </Grid>
