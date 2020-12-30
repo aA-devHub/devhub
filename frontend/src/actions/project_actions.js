@@ -1,20 +1,14 @@
 import * as ApiUtil from '../util/project_api_util';
 
 export const RECEIVE_PROJECTS = 'RECEIVE_PROJECTS';
-export const RECEIVE_USER_PROJECTS = 'RECEIVE_USER_PROJECTS';
 export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const REMOVE_PROJECT = 'REMOVE_PROJECT';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
 export const CLEAR_PROJECT_ERRORS = 'CLEAR_PROJECT_ERRORS';
 
-export const receiveProjects = (projects) => ({
+export const receiveProjects = (payload) => ({
   type: RECEIVE_PROJECTS,
-  projects,
-});
-
-export const receiveUserProjects = (projects) => ({
-  type: RECEIVE_USER_PROJECTS,
-  projects,
+  payload,
 });
 
 export const receiveProject = (project) => ({
@@ -36,16 +30,17 @@ export const receiveProjectErrors = (errors) => ({
   errors,
 });
 
+// TODO accept payload
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
   return ApiUtil.fetchProjects({ filter })
-    .then((projects) => dispatch(receiveProjects(projects.data)))
+    .then((payload) => dispatch(receiveProjects(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response));
 };
 
 export const fetchUserProjects = (userId) => (dispatch) => {
   return ApiUtil.fetchUserProjects(userId)
-    .then((projects) => dispatch(receiveUserProjects(projects.data)))
+    .then((payload) => dispatch(receiveProjects(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
