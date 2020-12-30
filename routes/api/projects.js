@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
+// const User = require('../../models/User');
+
 const validateProject = require('../../validation/projects');
 
 // Get all projects
@@ -16,6 +18,33 @@ router.get('/', (req, res) => {
     .catch((err) =>
       res.status(404).json({ noProjectsfound: 'No projects found' })
     );
+});
+
+// router.get('/', (req, res) => {
+//   Project.find({}, { title: 1, images: 1, user: 1 })
+//     .populate('user')
+//     .then((projects) => {
+//       let users = [];
+//       projects.forEach(proj => {
+//         if (!users.includes(proj.user)) {
+//           users.push(proj.user);
+//         }
+//         delete proj.user;
+//       });
+//       res.json({ projects, users });
+//     })
+//     .catch((err) =>
+//       res.status(404).json({ noProjectsfound: 'No projects found' })
+//     );
+// });
+
+router.get('/', async (req, res) => {
+  const projects = await Project.find({}, { title: 1, images: 1 });
+  // loop through projects and find each project's user
+  //
+  {
+    projects, users;
+  }
 });
 
 // Get all projects of a user
