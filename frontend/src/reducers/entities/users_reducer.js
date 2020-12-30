@@ -10,7 +10,8 @@ export default (state = {}, action) => {
       return toHashById(action.users);
 
     case RECEIVE_USER:
-      return Object.assign({}, state, { [action.user._id]: action.user });
+      const { user } = action.payload;
+      return Object.assign({}, state, { [user._id]: user });
 
     case RECEIVE_PROJECTS:
       return toHashById(action.payload.users);
