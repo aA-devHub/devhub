@@ -118,4 +118,12 @@ router.delete('/:projectId', (req, res) => {
     });
 });
 
+router.get('/:projectId/comments', (req, res) => {
+  const { projectId } = req.params;
+  Project.findById(projectId)
+    .populate('comments')
+    .then((project) => res.json(project.comments))
+    .catch((errors) => res.status(400).json(errors));
+});
+
 module.exports = router;
