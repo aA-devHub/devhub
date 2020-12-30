@@ -7,6 +7,7 @@ const Project = require('../../models/Project');
 const User = require('../../models/User');
 
 const validateProject = require('../../validation/projects');
+const validateProjectUpdate = require('../../validation/projects');
 
 // Get all projects
 // Will prob need some limit / filtering logic
@@ -93,6 +94,13 @@ router.post(
 // Updates an existing project
 // TODO: May need updating
 router.patch('/:projectId', (req, res) => {
+  // Add validation to see if req has proper parameters (_id, user, etc)
+  // const { errors, isValid } = validateProjectUpdate(req.body);
+
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
   const id = req.params.projectId;
 
   Project.findOne({ _id: id }).then((project) => {
@@ -120,11 +128,6 @@ router.patch('/:projectId', (req, res) => {
       },
       (e) => res.status(400).send(e)
     );
-
-    // project.save().then(
-    //   (updatedProject) => res.send(updatedProject),
-    //   (e) => res.status(400).send(e)
-    // );
   });
 });
 
