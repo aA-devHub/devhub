@@ -10,16 +10,6 @@ const validateProject = require('../../validation/projects');
 
 // Get all projects
 // Will prob need some limit / filtering logic
-// router.get('/', (req, res) => {
-//   Project.find({}, { title: 1, images: 1 })
-//     .then((projects) => {
-//       res.json(projects);
-//     })
-//     .catch((err) =>
-//       res.status(404).json({ noProjectsfound: 'No projects found' })
-//     );
-// });
-
 router.get('/', (req, res) => {
   Project.find({}, { title: 1, images: 1, user: 1 })
     .populate('user')
