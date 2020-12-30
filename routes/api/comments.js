@@ -5,6 +5,7 @@ const passport = require('passport');
 const Comment = require('../../models/Comment');
 const validateComment = require('../../validation/comments');
 
+// Note: GET routes populate user field with user's namte
 router.get('/', (req, res) => {
   Comment.find()
     .populate('user', 'name')
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
 
 router.get('/:commentId', (req, res) => {
   Comment.findById(req.params.commentId)
+    .populate('user', 'name')
     .then((comment) => res.json(comment))
     .catch((_err) => res.status(404).json({ comment: 'Comment not found' }));
 });
