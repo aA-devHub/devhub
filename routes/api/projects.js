@@ -7,10 +7,12 @@ const Project = require('../../models/Project');
 const validateProject = require('../../validation/projects');
 
 // Get all projects
-// Will need some pagination / limit logic
+// Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find()
-    .then((projects) => res.json(projects))
+  Project.find({}, { title: 1, images: 1 })
+    .then((projects) => {
+      res.json(projects);
+    })
     .catch((err) =>
       res.status(404).json({ noProjectsfound: 'No projects found' })
     );
@@ -18,7 +20,7 @@ router.get('/', (req, res) => {
 
 // Get all projects of a user
 router.get('/user/:userId', (req, res) => {
-  Project.find({ user: req.params.userId })
+  Project.find({ user: req.params.userId }, { title: 1, images: 1 })
     .then((projects) => res.json(projects))
     .catch((err) =>
       res
@@ -37,8 +39,7 @@ router.get('/:projectId', (req, res) => {
 });
 
 // Creates a new project
-// TODO: This route needs editing
-// The project creation is dependent on the structure of the req.body
+// TODO: May need updating
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
@@ -68,8 +69,7 @@ router.post(
 );
 
 // Updates an existing project
-// TODO: This route needs editing
-// The project updating is dependent on the structure of the req.body
+// TODO: May need updating
 router.patch('/:projectId', (req, res) => {
   const id = req.params.projectId;
 

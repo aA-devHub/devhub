@@ -16,5 +16,9 @@ export const createProject = (data) => {
   return axios.post('/api/projects/', data);
 };
 
+export const updateProject = (data) => {
+  return axios.patch(`/api/projects/${data._id}`, data);
+};
+
 export const deleteProject = (projectId) =>
   axios.delete(`/api/projects/${projectId}`);
