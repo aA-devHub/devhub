@@ -17,6 +17,7 @@ const sessionUserPayload = (user) => ({
   name: user.name,
   imageUrl: user.imageUrl,
   // FIXME: how to handle notifications
+  // notifications are counts of unread messages + comments
   notifications: user.notifications || 0,
 });
 
@@ -29,15 +30,22 @@ router.get(
   }
 );
 
+// XXX: not really used?
 router.get('/', (req, res) => {
   User.find()
     .then((users) => res.json(users))
     .catch((_err) => res.status(404).json({ users: 'No users found' }));
 });
 
+// Return user details and populate projects slice with user's projects
 router.get('/:userId', (req, res) => {
   User.findById(req.params.userId)
-    .then((user) => res.json(user))
+    .populate('projects')
+    .then((user) => {
+      const projects = user.projects.slice();
+      user.projects = projects.map((e) => e._id);
+      return res.json({ user, projects });
+    })
     .catch((err) => res.json(err));
 });
 
@@ -71,6 +79,7 @@ router.patch(
   }
 );
 
+// => '/signup'
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
