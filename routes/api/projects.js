@@ -12,17 +12,21 @@ const validateProjectUpdate = require('../../validation/projects');
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find({}, { title: 1, images: 1, user: 1 })
+  Project.find({}, { title: 1, images: 1, user: 1, comments: 1 })
     .populate('user')
+    .populate('comments')
     .then((projects) => {
       let users = [];
+      let comments = [];
       projects.forEach((proj) => {
         if (!users.includes(proj.user)) {
           users.push(proj.user);
         }
+        comments = comments.concat(proj.comments);
         proj.user = proj.user._id;
+        delete proj.comments;
       });
-      return res.json({ projects, users });
+      return res.json({ projects, users, comments });
     })
     .catch((err) =>
       res.status(404).json({ noProjectsfound: 'No projects found' })
@@ -33,10 +37,16 @@ router.get('/', (req, res) => {
 router.get('/user/:userId', (req, res) => {
   Project.find({ user: req.params.userId }, { title: 1, images: 1, user: 1 })
     .populate('user')
+    .populate('comments')
     .then((projects) => {
       const user = projects[0].user;
-      projects.forEach((proj) => (proj.user = proj.user._id));
-      return res.json({ projects, users: [user] });
+      let comments = [];
+      projects.forEach((proj) => {
+        proj.user = proj.user._id;
+        comments = comments.concat(proj.comments);
+        delete proj.comments;
+      });
+      return res.json({ projects, users: [user], comments });
     })
     .catch((err) =>
       res
@@ -49,10 +59,13 @@ router.get('/user/:userId', (req, res) => {
 router.get('/:projectId', (req, res) => {
   Project.findById(req.params.projectId)
     .populate('user')
+    .populate('comments')
     .then((project) => {
       const user = project.user;
+      const comments = project.comments;
       project.user = project.user._id;
-      return res.json({ project, user });
+      project.comments = project.comments.map((comment) => comment._id);
+      return res.json({ project, user, comments });
     })
     .catch((err) =>
       res.status(404).json({ noProjectfound: 'No project found with that ID' })
@@ -60,7 +73,6 @@ router.get('/:projectId', (req, res) => {
 });
 
 // Creates a new project
-// TODO: May need updating
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
