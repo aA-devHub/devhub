@@ -6,10 +6,12 @@ import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';
 
-function ShowProfile({ currentUser, fetchUser, user, history }) {
+function ShowProfile({ currentUser, fetchUser, profileUser, history, match }) {
   useEffect(() => {
-    fetchUser(1);
+    fetchUser(match.params.id);
   }, []);
+
+  if (profileUser == undefined) return null;
 
   const tempUser = {
     id: '5fec146c17aa2e1917d69701',
@@ -187,7 +189,7 @@ function ShowProfile({ currentUser, fetchUser, user, history }) {
 const mapSTP = (store, ownProps) => {
   return {
     currentUser: store.session.user,
-    user: store.entities.users[ownProps.match.params.id],
+    profileUser: store.entities.users[ownProps.match.params.id],
     projects: Object.values(store.entities.projects),
   };
 };
