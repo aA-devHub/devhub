@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
-// const User = require('../../models/User');
+const User = require('../../models/User');
 
 const validateProject = require('../../validation/projects');
 
@@ -84,7 +84,9 @@ router.post(
       user: req.body.user,
     });
 
-    newProject.save().then((project) => res.json(project));
+    newProject.save().then((project) => {
+      User.findById(project.user).then((user) => res.json({ project, user }));
+    });
   }
 );
 
@@ -111,9 +113,18 @@ router.patch('/:projectId', (req, res) => {
     project.user = req.body.user;
 
     project.save().then(
-      (updatedProject) => res.send(updatedProject),
+      (updatedProject) => {
+        User.findById(updatedProject.user).then((user) =>
+          res.json({ project, user })
+        );
+      },
       (e) => res.status(400).send(e)
     );
+
+    // project.save().then(
+    //   (updatedProject) => res.send(updatedProject),
+    //   (e) => res.status(400).send(e)
+    // );
   });
 });
 
