@@ -19,3 +19,20 @@ module.exports = function validateProject(data) {
     isValid: Object.keys(errors).length === 0,
   };
 };
+
+module.exports = function validateProjectUpdate(data) {
+  let errors = {};
+
+  if (Validator.isEmpty(data._id)) {
+    errors.text = 'Project _id field is required';
+  }
+
+  if (Validator.isEmpty(data.user)) {
+    errors.text = 'Project user field is required';
+  }
+
+  return {
+    errors,
+    isValid: Object.keys(errors).length === 0,
+  };
+};

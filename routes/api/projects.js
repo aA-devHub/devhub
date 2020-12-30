@@ -4,24 +4,29 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Project = require('../../models/Project');
-// const User = require('../../models/User');
+const User = require('../../models/User');
 
 const validateProject = require('../../validation/projects');
+const validateProjectUpdate = require('../../validation/projects');
 
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find({}, { title: 1, images: 1, user: 1 })
+  Project.find({}, { title: 1, images: 1, user: 1, comments: 1 })
     .populate('user')
+    .populate('comments')
     .then((projects) => {
       let users = [];
+      let comments = [];
       projects.forEach((proj) => {
         if (!users.includes(proj.user)) {
           users.push(proj.user);
         }
+        comments = comments.concat(proj.comments);
         proj.user = proj.user._id;
+        delete proj.comments;
       });
-      return res.json({ projects, users });
+      return res.json({ projects, users, comments });
     })
     .catch((err) =>
       res.status(404).json({ noProjectsfound: 'No projects found' })
@@ -32,10 +37,16 @@ router.get('/', (req, res) => {
 router.get('/user/:userId', (req, res) => {
   Project.find({ user: req.params.userId }, { title: 1, images: 1, user: 1 })
     .populate('user')
+    .populate('comments')
     .then((projects) => {
       const user = projects[0].user;
-      projects.forEach((proj) => (proj.user = proj.user._id));
-      return res.json({ projects, users: [user] });
+      let comments = [];
+      projects.forEach((proj) => {
+        proj.user = proj.user._id;
+        comments = comments.concat(proj.comments);
+        delete proj.comments;
+      });
+      return res.json({ projects, users: [user], comments });
     })
     .catch((err) =>
       res
@@ -47,14 +58,21 @@ router.get('/user/:userId', (req, res) => {
 // Get a specific project by id
 router.get('/:projectId', (req, res) => {
   Project.findById(req.params.projectId)
-    .then((project) => res.json(project))
+    .populate('user')
+    .populate('comments')
+    .then((project) => {
+      const user = project.user;
+      const comments = project.comments;
+      project.user = project.user._id;
+      project.comments = project.comments.map((comment) => comment._id);
+      return res.json({ project, user, comments });
+    })
     .catch((err) =>
       res.status(404).json({ noProjectfound: 'No project found with that ID' })
     );
 });
 
 // Creates a new project
-// TODO: May need updating
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
@@ -79,16 +97,27 @@ router.post(
       user: req.body.user,
     });
 
-    newProject.save().then((project) => res.json(project));
+    newProject.save().then((project) => {
+      User.findById(project.user).then((user) =>
+        res.json({ project, user, comments: [] })
+      );
+    });
   }
 );
 
 // Updates an existing project
 // TODO: May need updating
 router.patch('/:projectId', (req, res) => {
-  const id = req.params.projectId;
+  // Add validation to see if req has proper parameters (_id, user, etc)
+  // const { errors, isValid } = validateProjectUpdate(req.body);
 
-  Project.findOne({ _id: id }).then((project) => {
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
+  const projectId = req.params.projectId;
+
+  Project.findOne({ _id: projectId }).then((project) => {
     if (!project) {
       return res.status(404).send();
     }
@@ -105,10 +134,19 @@ router.patch('/:projectId', (req, res) => {
     project.futureFeatures = req.body.futureFeatures;
     project.user = req.body.user;
 
-    project.save().then(
-      (updatedProject) => res.send(updatedProject),
-      (e) => res.status(400).send(e)
-    );
+    project.save().then(() => {
+      Project.findById(projectId)
+        .populate('comments')
+        .then((updatedProject) => {
+          const comments = updatedProject.comments;
+          updatedProject.comments = updatedProject.comments.map(
+            (comment) => comment._id
+          );
+          User.findById(updatedProject.user).then((user) =>
+            res.json({ project: updatedProject, user, comments })
+          );
+        });
+    });
   });
 });
 
@@ -133,7 +171,9 @@ router.get('/:projectId/comments', (req, res) => {
   const { projectId } = req.params;
   Project.findById(projectId)
     .populate('comments')
-    .then((project) => res.json(project.comments))
+    .then((project) => {
+      return res.json(project.comments);
+    })
     .catch((errors) => res.status(400).json(errors));
 });
 
