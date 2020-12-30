@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import Root from './components/root';
+import App from './components/app';
 import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
@@ -45,7 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const root = document.getElementById('root');
 
-  ReactDOM.render(<Root store={store} />, root);
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    root
+  );
 
   // BEGIN testing
   window.sessionActions = sessionActions;

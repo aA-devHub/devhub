@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { demoLogin, logout } from '../../actions/session_actions';
+import Cards from '../project/ProjectCards';
 
 const mapStateToProps = (state, ownProps) => ({
   signedIn: state.session.isAuthenticated,
@@ -23,21 +24,7 @@ class MainPage extends Component {
 
     return (
       <div>
-        <h1>DevHub</h1>
-        <br />
-
-        {!signedIn && (
-          <button
-            onClick={() => {
-              demoLogin();
-              return <Redirect to="/" />;
-            }}
-          >
-            Demo Login
-          </button>
-        )}
-
-        {signedIn && <button onClick={() => logout()}>Logout</button>}
+        <Cards />
 
         <footer>Copyright &copy; 2020 Devhub</footer>
       </div>

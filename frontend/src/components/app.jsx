@@ -1,6 +1,7 @@
 import React from 'react';
+import './app.scss';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import MainPage from './main/main_page';
 import { CssBaseline } from '@material-ui/core';
@@ -15,7 +16,7 @@ import Cards from './project/ProjectCards';
 
 const App = () => {
   return (
-    <React.Fragment>
+    <Router>
       <Route path="/" component={Navbar} />
       <div className="app">
         <CssBaseline />
@@ -31,7 +32,7 @@ const App = () => {
           <Route path="/cards" component={Cards} />
         </Switch>
       </div>
-    </React.Fragment>
+    </Router>
   );
 };
 
