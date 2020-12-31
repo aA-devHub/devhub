@@ -60,11 +60,11 @@ export const updateMessage = (message) => (dispatch) => {
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };
 
-export const toggleMessageRead = (message) => (dispatch) => {
+export const toggleMessageRead = (messageId) => (dispatch) => {
   return dispatch(
     updateMessage({
-      id: message._id,
-      read: !message.read,
+      id: messageId,
+      toggleRead: true,
     })
   );
 };

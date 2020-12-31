@@ -68,6 +68,10 @@ router.patch(
       return res.status(400).json(errors);
     }
 
+    if (req.body.toggleRead) {
+      req.body.read = !req.body.read;
+    }
+
     return Message.findByIdAndUpdate(messageId, req.body, { new: true })
       .then((message) => res.send(message))
       .catch((err) => res.status(404).json(err));
