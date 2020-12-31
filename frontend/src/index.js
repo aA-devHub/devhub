@@ -14,6 +14,7 @@ import * as sessionActions from './actions/session_actions';
 import * as userActions from './actions/user_actions';
 import * as projectActions from './actions/project_actions';
 import * as commentActions from './actions/comment_actions';
+import * as messageActions from './actions/message_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.userActions = userActions;
   window.projectActions = projectActions;
   window.commentActions = commentActions;
+  window.messageActions = messageActions;
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary
