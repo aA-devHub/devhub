@@ -3,6 +3,7 @@ import * as COLORS from '../../colors';
 import { fetchUser, updateUser } from '../../actions/user_actions';
 import { Public, AccountCircle, Add } from '@material-ui/icons';
 import {
+  Divider,
   List,
   ListItem,
   ListItemText,
@@ -117,14 +118,19 @@ const useStyles = makeStyles((theme) => ({
 function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
   const [socials, setSocials] = useState([]);
+  const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [github, setGithub] = useState('');
+  const [,] = useState('');
+
   const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
   useEffect(() => {
@@ -133,16 +139,25 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       setTitle(user.title);
       setLocation(user.location);
       setName(user.name);
-      setUsername(user.username);
       setEmail(user.email);
       setBio(user.bio);
       setAvatarUrl(user.imageUrl);
+      user.socials.forEach((element) => {
+        if (element.hasOwnProperty('facebook')) setFacebook(element.facebook);
+        else if (element.hasOwnProperty('twitter')) setTwitter(element.twitter);
+        else if (element.hasOwnProperty('instagram'))
+          setInstagram(element.instagram);
+        else if (element.hasOwnProperty('linkedin'))
+          setLinkedin(element.linkedin);
+        else if (element.hasOwnProperty('github')) setGithub(element.github);
+      });
     });
   }, []);
 
-  // setSkills(user.skills);
+  // renderSkills = () => {
+  // skills
+  // };
   const classes = useStyles();
-
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
@@ -186,22 +201,12 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       </label>
       <label className={classes.labels}>
         <Typography>Email</Typography>
-
         <InputBase
           className={classes.baseInput}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      {/* <label className={classes.labels}>
-        <Typography>Password</Typography>
-        <InputBase
-          className={classes.baseInput}
-          type="password"
-          value={password || ''}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label> */}
     </div>
   );
 
@@ -237,37 +242,79 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
           // rowsMax='5'
         />
       </label>
-      {/* <label className={classes.labels}>
+      <label className={classes.labels}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography>Skills</Typography>
           <Add style={{ color: 'gray' }} />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ width: '100%' }}>
-            <InputBase
-              className={classes.baseInput}
-              value={skills.name || ''}
-              onChange={(e) => e.target.value}
-              placeholder="e.g. ruby"
-            />
-            <Typography className={classes.endnote}>
-              language/skill name: eg. ruby
-            </Typography>
-          </div>
-          <div style={{ width: 40 }}></div>
-          <div style={{ width: '100%' }}>
-            <InputBase
-              className={classes.baseInput}
-              value={skills.level || ''}
-              onChange={(e) => setSkills({ ...skills, level: e.target.value })}
-              placeholder="e.g. 10"
-            />
-            <Typography className={classes.endnote}>
-              level: a number between 1-10
-            </Typography>
-          </div>
-        </div>
-      </label> */}
+        <Divider />
+        {/* {renderSkills()} */}
+      </label>
+      <br></br>
+      <Typography>Socials</Typography>
+      <Divider style={{ marginTop: '1rem' }} />
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609451981/instagram_uk5pzd.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={instagram}
+          onChange={(e) => setInstagram(e.target.value)}
+        />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609451981/linkedin_k6foep.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={linkedin}
+          onChange={(e) => setLinkedin(e.target.value)}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/fb_zkz2ev.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={facebook}
+          onChange={(e) => {
+            setFacebook(e.target.value);
+            console.log('facebook', facebook);
+          }}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/twitter_crwwns.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={twitter}
+          onChange={(e) => setTwitter(e.target.value)}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/gh_syxrpn.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={github}
+          onChange={(e) => setGithub(e.target.value)}
+        />
+      </div>
+
       {/* <label className={classes.labels}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography>Experience</Typography>
@@ -357,7 +404,13 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       email,
       imageUrl: avatarUrl,
       bio,
-      socials,
+      socials: [
+        { facebook },
+        { twitter },
+        { instagram },
+        { github },
+        { linkedin },
+      ],
     };
     updateUser(userinfo);
     history.push(`/users/${user._id}`);

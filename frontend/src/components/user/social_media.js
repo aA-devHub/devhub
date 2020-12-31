@@ -2,6 +2,7 @@ const SocialMedia = ({ socials, userName }) => {
   if (!socials.length) return null;
 
   const socialIcons = socials.map((social) => {
+    socials: [{ facebook: 'facebook.com' }, { twitter: 'twitter.com' }];
     const socialType = Object.keys(social)[0];
     let socialIcon, socialLink;
 

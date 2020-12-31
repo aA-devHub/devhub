@@ -44,6 +44,7 @@ export const fetchUser = (userId) => (dispatch) => {
 };
 
 export const updateUser = (user) => (dispatch) => {
+  debugger;
   return UserAPI.updateUser(user)
     .then((res) => dispatch(receiveUser(res.data)))
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
