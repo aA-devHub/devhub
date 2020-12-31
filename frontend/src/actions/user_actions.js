@@ -62,7 +62,7 @@ export const userAddFavorite = (user, projectId) => (dispatch) => {
   return null;
 };
 
-export const removeFavorite = (user, projectId) => (dispatch) => {
+export const userRemoveFavorite = (user, projectId) => (dispatch) => {
   return dispatch(
     updateUser({
       id: user._id,
