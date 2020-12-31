@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import '../app.scss';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch, Route } from 'react-router-dom';
 
@@ -10,8 +11,9 @@ import SignupFormContainer from './session/signup_form_container';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
-import Card from './project/ProjectCard';
-import Cards from './project/ProjectCards';
+import Cards from './project/FilterCards';
+import Card from './project/TinderCard';
+import Footer from './main/Footer';
 
 const App = () => {
   return (
@@ -31,6 +33,7 @@ const App = () => {
           <Route path="/cards" component={Cards} />
         </Switch>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

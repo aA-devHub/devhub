@@ -1,10 +1,13 @@
-import React from 'react';
-import { makeStyles, Avatar, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import Carousel from 'react-material-ui-carousel';
+import { useHistory } from 'react-router-dom';
+import { makeStyles, Avatar, Typography, Button } from '@material-ui/core';
 import { Star, KeyboardArrowUp } from '@material-ui/icons';
 import * as COLORS from '../../colors';
 
 // function ProjectCard({ proj }) {
 function ProjectCard({ project }) {
+  const history = useHistory();
   const proj = {
     user: {
       id: 1,
@@ -33,6 +36,7 @@ function ProjectCard({ project }) {
       height: '100%',
       borderRadius: 10,
       marginBottom: '.3rem',
+      cursor: 'pointer',
       '& > img': {
         width: '100%',
         height: '100%',
@@ -68,15 +72,34 @@ function ProjectCard({ project }) {
       borderRadius: 7,
     },
   }));
+  const [autoplay, setAutoplay] = useState(false);
   const classes = useStyles();
   const favoriteProject = () => {
     // favorite();
   };
   return (
     <div className={classes.root}>
-      <div className={classes.image}>
-        <img src={proj.images[0]} />
-      </div>
+      <Carousel
+        animation="slide"
+        autoPlay={autoplay}
+        style={{ height: 500 }}
+        interval={1500}
+        indicators={false}
+        timeout={500}
+      >
+        {proj.images.map((item, i) => (
+          <div
+            className={classes.image}
+            key={i}
+            onMouseOver={() => setAutoplay(true)}
+            onMouseOut={() => setAutoplay(false)}
+            onClick={() => history.push('/projects/1')}
+          >
+            <img src={item} />
+          </div>
+        ))}
+      </Carousel>
+
       <div className={classes.userDisplay}>
         <div className={classes.leftPanel}>
           <Avatar className={classes.avatar} src={proj.user.avatarUrl} />

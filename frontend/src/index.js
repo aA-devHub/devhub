@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import Root from './components/root';
+import App from './components/app';
 import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
@@ -43,9 +45,30 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
+  class ScrollToTop extends Component {
+    componentDidUpdate(prevProps) {
+      if (this.props.location !== prevProps.location) {
+        console.log('here');
+        window.scrollTo(0, 0);
+      }
+    }
+    render() {
+      return this.props.children;
+    }
+  }
+
   const root = document.getElementById('root');
 
-  ReactDOM.render(<Root store={store} />, root);
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router>
+        <ScrollToTop>
+          <App />
+        </ScrollToTop>
+      </Router>
+    </Provider>,
+    root
+  );
 
   // BEGIN testing
   window.sessionActions = sessionActions;

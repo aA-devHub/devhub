@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { login, demoLogin } from '../../actions/session_actions';
 import { makeStyles, TextField, Typography } from '@material-ui/core';
+import { fetchUser } from '../../util/user_api_util';
 const logoUrl =
   'https://res.cloudinary.com/willwang/image/upload/v1608418616/devhublogo_plnro3.png';
 const leaves =
