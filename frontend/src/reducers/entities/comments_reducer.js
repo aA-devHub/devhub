@@ -5,6 +5,10 @@ import {
   RECEIVE_USER_COMMENTS,
   REMOVE_COMMENT,
 } from '../../actions/comment_actions';
+import {
+  RECEIVE_PROJECTS,
+  RECEIVE_PROJECT,
+} from '../../actions/project_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
@@ -22,6 +26,10 @@ export default (state = {}, action) => {
       let newState = Object.assign({}, state);
       delete newState[action.commentId];
       return newState;
+
+    case RECEIVE_PROJECTS:
+    case RECEIVE_PROJECT:
+      return toHashById(action.payload.comments);
 
     default:
       return state;

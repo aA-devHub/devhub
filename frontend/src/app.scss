@@ -1,3 +1,7 @@
+/* SASS Variables */
+
+$devhub-blue: rgba(42, 199, 198, 1);
+
 /* Resets & General */
 h1,
 h2,
@@ -46,6 +50,7 @@ h6 {
   display: flex;
   position: relative;
   padding: 80px 0;
+  margin-bottom: 20px;
 }
 
 .user-header:before {
@@ -55,7 +60,7 @@ h6 {
   top: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(42, 199, 198, 1);
+  background-color: $devhub-blue;
   border-radius: 0 0 10px 0;
   z-index: 0;
   max-height: 500px;
@@ -84,7 +89,7 @@ h6 {
   bottom: -15px;
   right: -15px;
   left: 15px;
-  border: 3px solid rgba(42, 199, 198, 1);
+  border: 3px solid $devhub-blue;
   border-radius: 7.5px;
   z-index: -1;
 }
@@ -114,19 +119,16 @@ h6 {
 
 .social-icon {
   margin-left: 30px;
+  transition: all 0.25s;
+}
+
+.social-icon:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .social-icon img {
   height: 50px;
-}
-
-.project-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.04);
-  margin: 40px 0;
-  padding: 80px 0;
 }
 
 .user-details {
@@ -191,7 +193,7 @@ h6 {
 .skill-level {
   content: '';
   position: absolute;
-  background-color: rgba(42, 199, 198, 1);
+  background-color: $devhub-blue;
   height: 100%;
 }
 
@@ -205,3 +207,259 @@ h6 {
 }
 
 /* Projects Carousel */
+
+.carousel-header {
+  text-align: center;
+}
+
+.carousel-header .carousel-title {
+  color: $devhub-blue;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+$default-height: 80%;
+$default-width: 25%;
+$level2-height: $default-height - 8%;
+$level2-width: $default-width - 8%;
+$level1-height: $default-height - 2%;
+$level1-width: $default-width - 2%;
+$level0-height: $default-height + 3%;
+$level0-width: $default-width + 3%;
+$level-2-left: 15%;
+$level-1-left: 30%;
+$level0-left: 50%;
+$level1-left: 70%;
+$level2-left: 85%;
+$level-2-bs: -0.1em 0.1em 0.2em rgba(0, 0, 0, 0.2);
+$level-1-bs: -0.2em 0.2em 0.4em rgba(0, 0, 0, 0.2);
+$level2-bs: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.2);
+$level1-bs: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.2);
+$level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
+
+#project-carousel {
+  position: relative;
+  height: 450px;
+  margin-bottom: 20px;
+}
+
+#project-carousel > .arrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100%;
+  z-index: 1000;
+  color: rgba(0, 0, 0, 0.25);
+  transition: all 500ms;
+  &-right {
+    right: 0;
+  }
+  &-left {
+    left: 0;
+  }
+  &:hover {
+    color: $devhub-blue;
+  }
+}
+
+.project-carousel-item {
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px;
+  border-radius: 5px;
+  overflow: hidden;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: box-shadow 1s, height 250ms, width 250ms, left 1s, margin-top 1s,
+    line-height 250ms, background-color 1s, top 0.25s;
+}
+
+.project-carousel-item.hovered {
+  top: 200px;
+}
+
+.project-carousel-item .project-title {
+  font-size: 26px;
+  color: rgba(142, 142, 142, 1);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.5s;
+}
+
+.project-carousel-item .project-subtitle {
+  color: rgba(142, 142, 142, 1);
+}
+
+.project-carousel-item .project-image {
+  width: 100%;
+  height: 60%;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05);
+  background-position: center;
+  background-size: cover;
+  transition: all 0.5s;
+}
+
+.project-carousel-item.level-2 {
+  box-shadow: $level-2-bs;
+  height: $level2-height;
+  width: $level2-width;
+  line-height: $level2-height;
+  left: $level-2-left;
+}
+
+.project-carousel-item.level-1 {
+  box-shadow: $level-1-bs;
+  height: $level1-height;
+  width: $level1-width;
+  line-height: $level1-height;
+  left: $level-1-left;
+}
+
+.project-carousel-item.level0 {
+  box-shadow: $level0-bs;
+  height: $level0-height;
+  width: $level0-width;
+  line-height: $level0-height;
+  left: $level0-left;
+}
+
+.project-carousel-item.level1 {
+  box-shadow: $level1-bs;
+  height: $level1-height;
+  width: $level1-width;
+  line-height: $level1-height;
+  left: $level1-left;
+}
+
+.project-carousel-item.level2 {
+  box-shadow: $level2-bs;
+  height: $level2-height;
+  width: $level2-width;
+  line-height: $level2-height;
+  left: $level2-left;
+}
+
+.project-carousel-item.level-2,
+.project-carousel-item.level2 {
+  z-index: 0;
+}
+
+.project-carousel-item.level-2 .project-image,
+.project-carousel-item.level2 .project-image {
+  opacity: 0.6;
+}
+
+.project-carousel-item.level-2 .project-title,
+.project-carousel-item.level2 .project-title {
+  font-size: 18px;
+}
+
+.project-carousel-item.level-1,
+.project-carousel-item.level1 {
+  z-index: 1;
+}
+
+.project-carousel-item.level-1 .project-image,
+.project-carousel-item.level1 .project-image {
+  opacity: 0.8;
+}
+
+.project-carousel-item.level-1 .project-title,
+.project-carousel-item.level1 .project-title {
+  font-size: 20px;
+}
+
+.project-carousel-item.level0 {
+  z-index: 2;
+}
+
+.project-carousel-item.left-enter {
+  opacity: 0;
+  left: $level2-left;
+  height: $level2-height - $default-height;
+  width: $level2-width - $default-width;
+  line-height: $level2-height - 30;
+
+  &.left-enter-active {
+    opacity: 1;
+    left: $level2-left;
+    height: $level2-height;
+    width: $level2-width;
+    line-height: $level2-height;
+    transition: box-shadow 1s, left 1s, opacity 1s, height 250ms, width 250ms,
+      margin-top 1s, line-height 1s;
+  }
+}
+
+.project-carousel-item.left-leave {
+  opacity: 1;
+  left: $level-2-left;
+  height: $level2-height;
+  width: $level2-width;
+  line-height: $level2-height;
+  z-index: -1;
+
+  &.left-leave-active {
+    z-index: -1;
+    left: $level-2-left;
+    opacity: 0;
+    height: $level2-height - $default-height;
+    width: $level2-width - $default-width;
+    line-height: 120px;
+    transition: box-shadow 1s, left 1s, opacity 1s, height 250ms, width 250ms,
+      margin-top 1s, line-height 1s;
+  }
+}
+
+.project-carousel-item.right-enter {
+  opacity: 0;
+  left: $level-2-left;
+  height: $level2-height - $default-height;
+  width: $level2-width - $default-width;
+  line-height: $level2-height - 30;
+
+  &.right-enter-active {
+    left: $level-2-left;
+    opacity: 1;
+    height: $level2-height;
+    line-height: $level2-height;
+    width: $level2-width;
+    transition: box-shadow 1s, left 1s, opacity 1s, height 250ms, width 250ms,
+      margin-top 1s, line-height 1s;
+  }
+}
+
+.project-carousel-item.right-leave {
+  left: $level2-left;
+  height: $level2-height;
+  opacity: 1;
+  line-height: $level2-height;
+  width: $level2-width;
+
+  &.right-leave-active {
+    left: $level2-left;
+    opacity: 0;
+    height: $level2-height - $default-height;
+    width: $level2-width - $default-width;
+    line-height: $level2-height - 30;
+    transition: box-shadow 1s, left 1s, opacity 1s, height 250ms, width 250ms,
+      margin-top 1s, line-height 1s;
+  }
+}
+
+.noselect {
+  -webkit-user-select: none;
+  -html-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

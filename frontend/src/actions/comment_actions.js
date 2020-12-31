@@ -49,7 +49,7 @@ export const fetchUserComments = (userId) => (dispatch) => {
 
 export const fetchProjectComments = (projectId) => (dispatch) => {
   return CommentAPI.fetchProjectComments(projectId)
-    .then((comments) => dispatch(receiveUserComments(comments)))
+    .then((comments) => dispatch(receiveComments(comments.data)))
     .catch((errors) => receiveCommentErrors(errors.response.data));
 };
 
