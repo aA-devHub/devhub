@@ -9,9 +9,9 @@ import { fetchUser } from '../../actions/user_actions';
 function ShowProfile({ currentUser, fetchUser, profileUser, history, match }) {
   useEffect(() => {
     fetchUser(match.params.id);
-  }, []);
+  }, [fetchUser, match.params.id]);
 
-  if (profileUser == undefined) return null;
+  if (profileUser === undefined) return null;
 
   const tempUser = {
     id: '5fec146c17aa2e1917d69701',
