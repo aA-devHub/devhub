@@ -21,6 +21,19 @@ const validateProjectUpdate = require('../../validation/projects');
 //     })
 // });
 
+// Return project titles, ids matching query
+// Incoming query looks like:
+// {
+//   search: String,
+//   tags: [ String ],
+// }
+router.get('/search', (req, res) => {
+  const { tags, search } = req.query;
+
+  const tagsRegex = new RegExp(tags.join('$|^'), 'i');
+  let filter = {};
+});
+
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
