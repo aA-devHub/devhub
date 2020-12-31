@@ -87,8 +87,6 @@ function ProjectCard({ project }) {
         interval={1500}
         indicators={false}
         timeout={500}
-        onMouseOver={() => setAutoplay(true)}
-        onMouseOut={() => setAutoplay(false)}
       >
         {proj.images.map((item, i) => (
           <div

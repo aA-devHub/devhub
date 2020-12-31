@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../colors';
-// import { getCurrentUserInfo, editUserAction } from '../../Actions/UserActions';
+import { fetchUser, updateUser } from '../../actions/user_actions';
 import { Public, AccountCircle, Add } from '@material-ui/icons';
 import {
   List,
@@ -14,6 +14,7 @@ import {
   Typography,
   fade,
   InputBase,
+  IconButton,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -113,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditUserForm({ user }) {
+function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -123,16 +124,23 @@ function EditUserForm({ user }) {
   const [password, setPassword] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
-  const [skills, setSkills] = useState({ name: '', level: '' });
-  const [experience, setExperience] = useState({
-    time: '',
-    company: '',
-    title: '',
-  });
-  const [twitter, setTwitter] = useState('');
-  const [facebook, setFacebook] = useState('');
-  const [github, setGithub] = useState('');
-  useEffect(() => {}, []);
+  const [socials, setSocials] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [experience, setExperience] = useState([]);
+  useEffect(() => {
+    fetchUser(userId).then(({ user }) => {
+      console.log('user', user);
+      setTitle(user.title);
+      setLocation(user.location);
+      setName(user.name);
+      setUsername(user.username);
+      setEmail(user.email);
+      setBio(user.bio);
+      setAvatarUrl(user.imageUrl);
+    });
+  }, []);
+
+  // setSkills(user.skills);
   const classes = useStyles();
 
   const handleListItemClick = (event, index) => {
@@ -168,12 +176,12 @@ function EditUserForm({ user }) {
   const accountForm = (
     <div>
       <label className={classes.labels}>
-        <Typography>User Name</Typography>
-        {/* TODO why it's showing the use name? */}
+        <Typography>Name</Typography>
+
         <InputBase
           className={classes.baseInput}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </label>
       <label className={classes.labels}>
@@ -185,7 +193,7 @@ function EditUserForm({ user }) {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <label className={classes.labels}>
+      {/* <label className={classes.labels}>
         <Typography>Password</Typography>
         <InputBase
           className={classes.baseInput}
@@ -193,22 +201,14 @@ function EditUserForm({ user }) {
           value={password || ''}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </label>
+      </label> */}
     </div>
   );
 
+  const renderSocialInfo = () => <div></div>;
+
   const pubForm = (
     <div>
-      <label className={classes.labels}>
-        <Typography>
-          Name<span style={{ color: 'red' }}>*</span>
-        </Typography>
-        <InputBase
-          className={classes.baseInput}
-          value={name || ''}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
       <label className={classes.labels}>
         <Typography>Location</Typography>
 
@@ -237,7 +237,7 @@ function EditUserForm({ user }) {
           // rowsMax='5'
         />
       </label>
-      <label className={classes.labels}>
+      {/* <label className={classes.labels}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography>Skills</Typography>
           <Add style={{ color: 'gray' }} />
@@ -267,8 +267,8 @@ function EditUserForm({ user }) {
             </Typography>
           </div>
         </div>
-      </label>
-      <label className={classes.labels}>
+      </label> */}
+      {/* <label className={classes.labels}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography>Experience</Typography>
           <Add style={{ color: 'gray' }} />
@@ -307,7 +307,7 @@ function EditUserForm({ user }) {
             />
           </div>
         </div>
-      </label>
+      </label> */}
     </div>
   );
 
@@ -351,22 +351,16 @@ function EditUserForm({ user }) {
   const handleSubmit = () => {
     console.log('user', bio);
     const userinfo = {
-      id: user.id,
+      id: userId,
       name,
-      username,
       location,
       email,
-      password,
-      avatarUrl,
+      imageUrl: avatarUrl,
       bio,
-      skills,
-      experience,
-      twitter,
-      facebook,
-      github,
+      socials,
     };
-    // updateUser(userinfo);
-    // history.push(`/users/${user.id}`);
+    updateUser(userinfo);
+    history.push(`/users/${user._id}`);
   };
 
   return (
@@ -382,10 +376,22 @@ function EditUserForm({ user }) {
               >
                 Edit Profile
               </Typography>
-              <Avatar
-                src={avatarUrl}
-                style={{ marginRight: 10, width: 100, height: 100 }}
-              />
+              <label>
+                <Avatar
+                  src={avatarUrl}
+                  style={{
+                    marginRight: 10,
+                    width: 100,
+                    height: 100,
+                    cursor: 'pointer',
+                  }}
+                />
+                <input
+                  type="file"
+                  hidden
+                  onChange={(e) => handleAvatar(e.target.files[0])}
+                />
+              </label>
             </div>
             {selection}
           </Grid>
@@ -397,9 +403,13 @@ function EditUserForm({ user }) {
 }
 
 export default connect(
-  (state) => ({ user: state.user, state }),
+  (state) => ({
+    userId: state.session.user.id,
+    user: state.entities.users[state.session.user.id],
+  }),
   (dispatch) => ({
-    // fetchUser: (sessionToken) => dispatch(getCurrentUserInfo(sessionToken)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+    updateUser: (user) => dispatch(updateUser(user)),
     // updateUser: (user) => dispatch(editUserAction(user)),
   })
 )(EditUserForm);
