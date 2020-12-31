@@ -6,7 +6,7 @@ const StepHeader = ({ step, title, changeStep }) => {
   var backClasses = '';
   var nextClasses = '';
 
-  if (step == 1) {
+  if (step === 1) {
     backClasses = 'hidden';
   }
 
@@ -25,6 +25,7 @@ const StepHeader = ({ step, title, changeStep }) => {
       </Button>
       <h1 className="step-title">{title}</h1>
       <Button
+        className={nextClasses}
         onClick={() => changeStep('next')}
         variant="contained"
         style={{

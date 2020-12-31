@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StepHeader from './step_header';
 import { Typography, InputBase, RadioGroup, Radio } from '@material-ui/core';
-import { FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
+import { FormControlLabel, FormControl } from '@material-ui/core';
 
 class Step1 extends Component {
   constructor(props) {
@@ -100,7 +100,7 @@ class Step1 extends Component {
               >
                 <FormControlLabel
                   value="light"
-                  control={<Radio color="red" />}
+                  control={<Radio color="default" />}
                   label="Light"
                 />
                 <FormControlLabel

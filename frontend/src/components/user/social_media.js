@@ -11,6 +11,11 @@ const SocialMedia = ({ socials, userName }) => {
           'https://res.cloudinary.com/willwang/image/upload/v1609282516/fb_zkz2ev.png';
         socialLink = social.facebook;
         break;
+      case 'instagram':
+        socialIcon =
+          'https://res.cloudinary.com/willwang/image/upload/v1609451981/instagram_uk5pzd.png';
+        socialLink = social.instagram;
+        break;
       case 'twitter':
         socialIcon =
           'https://res.cloudinary.com/willwang/image/upload/v1609282516/twitter_crwwns.png';
@@ -20,6 +25,11 @@ const SocialMedia = ({ socials, userName }) => {
         socialIcon =
           'https://res.cloudinary.com/willwang/image/upload/v1609282516/gh_syxrpn.png';
         socialLink = social.github;
+        break;
+      case 'linkedin':
+        socialIcon =
+          'https://res.cloudinary.com/willwang/image/upload/v1609451981/linkedin_k6foep.png';
+        socialLink = social.linkedin;
         break;
       default:
         break;

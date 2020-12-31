@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Step1 from './step1';
 import Step2 from './step2';
 

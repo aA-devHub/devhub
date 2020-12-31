@@ -77,10 +77,8 @@ h6 {
 }
 
 .user-image img {
-  width: 400px;
-  max-height: 400px;
+  max-height: 250px;
   border-radius: 3px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-image:before {
@@ -134,7 +132,6 @@ h6 {
 
 .user-details {
   position: relative;
-  padding: 0 40px;
   display: flex;
   justify-content: space-around;
 }
@@ -230,6 +227,17 @@ h6 {
 .extra-info {
   display: flex;
   align-items: flex-end;
+}
+
+.no-projects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.no-projects img {
+  max-height: 375px;
 }
 
 /* Projects Carousel */
