@@ -6,56 +6,59 @@ import './TinderCard.css';
 import { makeStyles } from '@material-ui/core';
 
 function TinderCards({ imgs }) {
-  const [images, setImages] = useState({
-    0: {
-      id: 0,
-      title: 'color schema',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279567/11_mzq0ms.webp',
-    },
-    1: {
-      id: 1,
-      title: 'Will Portfolio',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279611/16_eukmph.webp',
-    },
-    2: {
-      id: 2,
-      title: 'Mobile app',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279609/6_iu6kvm.webp',
-    },
-    3: {
-      id: 3,
-      title: 'web ideas',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279601/3_juvcam.webp',
-    },
-    4: {
-      id: 4,
-      title: 'uber clonne',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
-    },
-    5: {
-      id: 5,
-      title: 'uber clone',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
-    },
-    6: {
-      id: 6,
-      title: 'uber clon',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
-    },
-    7: {
-      id: 7,
-      title: 'uber clo',
-      imgUrl:
-        'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
-    },
-  });
+  const [images, setImages] = useState({});
+  useEffect(() => {
+    setImages({
+      0: {
+        id: 0,
+        title: 'color schema',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279567/11_mzq0ms.webp',
+      },
+      1: {
+        id: 1,
+        title: 'Will Portfolio',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279611/16_eukmph.webp',
+      },
+      2: {
+        id: 2,
+        title: 'Mobile app',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279609/6_iu6kvm.webp',
+      },
+      3: {
+        id: 3,
+        title: 'web ideas',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279601/3_juvcam.webp',
+      },
+      4: {
+        id: 4,
+        title: 'uber clonne',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
+      },
+      5: {
+        id: 5,
+        title: 'uber clone',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
+      },
+      6: {
+        id: 6,
+        title: 'uber clon',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
+      },
+      7: {
+        id: 7,
+        title: 'uber clo',
+        imgUrl:
+          'https://res.cloudinary.com/willwang/image/upload/v1608279584/14_nyzdla.webp',
+      },
+    });
+  }, []);
   const [display, setDisplay] = useState('');
   const useStyles = makeStyles((theme) => ({
     root: {

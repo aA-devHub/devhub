@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import App from './components/app';
 import configureStore from './store/store';
@@ -55,15 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return this.props.children;
     }
   }
+  const STP = withRouter(ScrollToTop);
 
   const root = document.getElementById('root');
 
   ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <ScrollToTop>
+        <STP>
           <App />
-        </ScrollToTop>
+        </STP>
       </Router>
     </Provider>,
     root

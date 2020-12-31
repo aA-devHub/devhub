@@ -81,12 +81,14 @@ function ProjectCard({ project }) {
   return (
     <div className={classes.root}>
       <Carousel
-        animation="slide"
+        animation="fade"
         autoPlay={autoplay}
         style={{ height: 500 }}
         interval={1500}
         indicators={false}
         timeout={500}
+        onMouseOver={() => setAutoplay(true)}
+        onMouseOut={() => setAutoplay(false)}
       >
         {proj.images.map((item, i) => (
           <div

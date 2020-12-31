@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../colors';
-import Navbar from '../navbar/navbar';
 // import { getCurrentUserInfo, editUserAction } from '../../Actions/UserActions';
 import { Public, AccountCircle, Add } from '@material-ui/icons';
 import {
@@ -8,15 +7,12 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Divider,
   Avatar,
   makeStyles,
   Button,
-  Paper,
   Grid,
   Typography,
   fade,
-  withStyles,
   InputBase,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -227,7 +223,7 @@ function EditUserForm({ user }) {
         <InputBase
           className={classes.baseInput}
           value={title || ''}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </label>
       <label className={classes.labels}>
