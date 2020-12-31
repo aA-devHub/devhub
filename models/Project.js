@@ -7,7 +7,10 @@ const ProjectSchema = new Schema({
   liveLink: String,
   description: String,
   mobile: Boolean,
-  numFavorites: Number,
+  numFavorites: {
+    type: Number,
+    default: 0,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',

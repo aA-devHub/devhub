@@ -170,6 +170,29 @@ router.patch('/:projectId', (req, res) => {
   });
 });
 
+// Favorite a project
+router.post(
+  '/:projectId/favorite',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Project.findById(req.params.projectId)
+      .populate('user')
+      .populate('comments')
+      .then((project) => {
+        const user = project.user;
+        const comments = project.comments;
+        project.user = project.user._id;
+        project.comments = project.comments.map((comment) => comment._id);
+        return res.json({ project, user, comments });
+      })
+      .catch((err) =>
+        res
+          .status(404)
+          .json({ noProjectfound: 'No project found with that ID' })
+      );
+  }
+);
+
 // Remove an existing project by id
 router.delete('/:projectId', (req, res) => {
   const id = req.params.projectId;

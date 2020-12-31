@@ -58,6 +58,7 @@ export const addFavorite = (user, projectId) => (dispatch) => {
       updateUser({
         id: user._id,
         favorites: user.favorites.concat([projectId]),
+        newFavorite: projectId,
       })
     );
   }
@@ -69,6 +70,7 @@ export const removeFavorite = (user, projectId) => (dispatch) => {
     updateUser({
       id: user._id,
       favorites: user.favorites.filter((x) => x !== projectId),
+      oldFavorite: projectId,
     })
   );
 };
