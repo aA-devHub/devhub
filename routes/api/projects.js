@@ -170,6 +170,45 @@ router.patch('/:projectId', (req, res) => {
   });
 });
 
+// Favorite a project
+router.post(
+  '/:projectId/favorite',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user._id).then((user) => {
+      user.favorites.push(req.params.projectId);
+      user.save();
+
+      Project.findById(req.params.projectId).then((project) => {
+        project.numFavorites += 1;
+        project.save();
+        res.json({ project, user: 'ignore', comments: 'ignore' });
+      });
+    });
+  }
+);
+
+// Unfavorite a project
+router.delete(
+  '/:projectId/favorite',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user._id).then((user) => {
+      const idx = user.favorites.indexOf(req.params.projectId);
+      if (idx > -1) {
+        user.favorites.splice(idx, 1);
+        user.save();
+      }
+
+      Project.findById(req.params.projectId).then((project) => {
+        project.numFavorites -= 1;
+        project.save();
+        res.json({ project, user: 'ignore', comments: 'ignore' });
+      });
+    });
+  }
+);
+
 // Remove an existing project by id
 router.delete('/:projectId', (req, res) => {
   const id = req.params.projectId;

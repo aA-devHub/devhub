@@ -10,6 +10,7 @@ const User = require('../../models/User');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const Project = require('../../models/Project');
 
 // Extract fields to store under state.session.user
 const sessionUserPayload = (user) => ({
@@ -60,6 +61,16 @@ router.patch(
     // if (!user) {
     //   return res.status(404).json({ email: 'This user does not exist' });
     // }
+    // let favorites = req.body.favorites;
+    let projectId = req.body.newFavorite || req.body.oldFavorite;
+    let incr = req.body.newFavorite ? 1 : -1;
+    if (projectId) {
+      Project.findById(projectId).then((project) => {
+        project.numFavorites += incr;
+        project.save();
+      });
+    }
+
     User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
       if (err) {
         console.log(err);
@@ -70,6 +81,7 @@ router.patch(
         // if (!isValid) {
         //   return res.status(400).json(errors);
         // }
+
         return res.status(400).json({ _id: 'invalid update' });
       }
       User.findById(req.params.userId)

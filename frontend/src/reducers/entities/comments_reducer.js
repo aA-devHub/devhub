@@ -29,6 +29,7 @@ export default (state = {}, action) => {
 
     case RECEIVE_PROJECTS:
     case RECEIVE_PROJECT:
+      if (action.payload.comments === 'ignore') return state;
       return toHashById(action.payload.comments);
 
     default:
