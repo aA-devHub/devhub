@@ -19,3 +19,7 @@ export const updateMessage = (data) => {
 export const deleteMessage = (messageId) => {
   return axios.delete(`/api/messages/${messageId}`);
 };
+
+export const toggleThread = (messageId, data) => {
+  return axios.post(`/api/messages/thread/${messageId}`, data);
+};
