@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import App from './components/app';
+import ScrollHelper from './scroll_helper';
 import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
@@ -14,6 +15,7 @@ import * as sessionActions from './actions/session_actions';
 import * as userActions from './actions/user_actions';
 import * as projectActions from './actions/project_actions';
 import * as commentActions from './actions/comment_actions';
+import * as messageActions from './actions/message_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,27 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  class ScrollToTop extends Component {
-    componentDidUpdate(prevProps) {
-      if (this.props.location !== prevProps.location) {
-        console.log('here');
-        window.scrollTo(0, 0);
-      }
-    }
-    render() {
-      return this.props.children;
-    }
-  }
-  const STP = withRouter(ScrollToTop);
-
   const root = document.getElementById('root');
 
   ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <STP>
+        <ScrollHelper>
           <App />
-        </STP>
+        </ScrollHelper>
       </Router>
     </Provider>,
     root
@@ -75,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.userActions = userActions;
   window.projectActions = projectActions;
   window.commentActions = commentActions;
+  window.messageActions = messageActions;
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary

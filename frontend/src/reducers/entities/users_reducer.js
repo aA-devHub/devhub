@@ -20,6 +20,7 @@ export default (state = {}, action) => {
       return toHashById(action.payload.users);
 
     case RECEIVE_PROJECT:
+      if (action.payload.user === 'ignore') return state;
       return Object.assign({}, state, {
         [action.payload.user._id]: action.payload.user,
       });

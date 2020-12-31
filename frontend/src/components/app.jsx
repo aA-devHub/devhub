@@ -8,7 +8,7 @@ import { CssBaseline } from '@material-ui/core';
 import Navbar from './navbar/navbar';
 import SigninFormContainer from './session/signin_form_container';
 import SignupFormContainer from './session/signup_form_container';
-import NewProject from './project/new_project';
+import UploadProject from './project/upload/upload_project';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
@@ -31,7 +31,11 @@ const App = () => {
           <ProtectedRoute exact path="/users/edit" component={EditProfile} />
           <Route exact path="/users/:id" component={ShowProfile} />
 
-          <ProtectedRoute exact path="/projects/new" component={NewProject} />
+          <ProtectedRoute
+            exact
+            path="/projects/upload"
+            component={UploadProject}
+          />
 
           {/* added route to card and cards */}
           <Route path="/card" component={Card} />
