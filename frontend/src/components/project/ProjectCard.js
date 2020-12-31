@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Avatar, Typography, Button } from '@material-ui/core';
+import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { Star, KeyboardArrowUp } from '@material-ui/icons';
 import * as COLORS from '../../colors';
 
@@ -24,6 +24,7 @@ function ProjectCard({ project }) {
     ],
     techsUsed: ['ruby', 'react', 'mern'],
     peopleFavorited: [1, 2, 3, 4],
+    title: 'a title',
   };
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -95,7 +96,7 @@ function ProjectCard({ project }) {
             onMouseOut={() => setAutoplay(false)}
             onClick={() => history.push('/projects/1')}
           >
-            <img src={item} />
+            <img src={item} alt={item.title} />
           </div>
         ))}
       </Carousel>
