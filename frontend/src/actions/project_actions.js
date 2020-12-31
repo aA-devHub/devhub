@@ -52,18 +52,24 @@ export const fetchProject = (projectId) => (dispatch) => {
 
 export const createProject = (data) => (dispatch) => {
   return ApiUtil.createProject(data)
-    .then((project) => dispatch(receiveProject(project.data)))
+    .then((payload) => dispatch(receiveProject(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
 export const updateProject = (data) => (dispatch) => {
   return ApiUtil.updateProject(data)
-    .then((project) => dispatch(receiveProject(project.data)))
+    .then((payload) => dispatch(receiveProject(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response.data));
 };
 
 export const deleteProject = (projectId) => (dispatch) => {
   return ApiUtil.deleteProject(projectId).then((project) =>
     dispatch(removeProject(project.data))
+  );
+};
+
+export const addProjectFavorite = (projectId) => (dispatch) => {
+  return ApiUtil.addProjectFavorite(projectId).then((payload) =>
+    dispatch(receiveProject(payload.data))
   );
 };

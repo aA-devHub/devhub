@@ -22,3 +22,7 @@ export const updateProject = (data) => {
 
 export const deleteProject = (projectId) =>
   axios.delete(`/api/projects/${projectId}`);
+
+export const addProjectFavorite = (projectId) => {
+  return axios.post(`/api/projects/${projectId}/favorite`);
+};

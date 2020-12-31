@@ -175,21 +175,24 @@ router.post(
   '/:projectId/favorite',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Project.findById(req.params.projectId)
-      .populate('user')
-      .populate('comments')
-      .then((project) => {
-        const user = project.user;
-        const comments = project.comments;
-        project.user = project.user._id;
-        project.comments = project.comments.map((comment) => comment._id);
-        return res.json({ project, user, comments });
-      })
-      .catch((err) =>
-        res
-          .status(404)
-          .json({ noProjectfound: 'No project found with that ID' })
-      );
+    // debugger;
+    User.findById(req.user._id).then((user) => {
+      // debugger;
+      user.favorites.push(req.params.projectId);
+      // debugger;
+      user.save();
+      // debugger;
+
+      Project.findById(req.params.projectId).then((project) => {
+        // debugger;
+        project.numFavorites += 1;
+        // debugger;
+        project.save();
+        // debugger;
+        res.json({ project, user: 'ignore', comments: 'ignore' });
+      });
+    });
+    // return res.status(400).send();
   }
 );
 
