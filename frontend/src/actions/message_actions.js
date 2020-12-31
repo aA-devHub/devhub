@@ -68,3 +68,11 @@ export const toggleMessageRead = (messageId) => (dispatch) => {
     })
   );
 };
+
+// Toggles all messages in thread between current user and
+// other user (either receiver or sender of messageId) as un/read
+export const toggleThreadRead = (messageId, read = true) => (dispatch) => {
+  return MessageAPI.toggleThread(messageId, { read })
+    .then((res) => dispatch(receiveMessages(res.data)))
+    .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
+};

@@ -5,6 +5,9 @@ const passport = require('passport');
 const Message = require('../../models/Message');
 const validateMessage = require('../../validation/messages');
 
+// filter to return all user's sent/received messages
+const userMessages = (userId) => ({ $or: [{ to: userId }, { from: userId }] });
+
 // Index returns all messages for currently logged in user (sent and received)
 router.get(
   '/',
@@ -14,14 +17,11 @@ router.get(
     const { userId, name } = req.query;
 
     // create filter for a conversation with user
-    let filter = {};
-    if (userId) {
-      filter = { $or: [{ to: userId }, { from: userId }] };
-    }
-    console.log('Filtering messages by: ', filter);
+    let filter = userId ? userMessages(userId) : {};
+    // console.log('Filtering messages by: ', filter);
 
     Message.find({
-      $or: [{ to: user._id }, { from: user._id }],
+      ...userMessages(user._id),
       ...filter,
     })
       .populate('from', 'name')
@@ -29,6 +29,34 @@ router.get(
       .sort({ createdAt: -1 })
       .then((messages) => res.json(messages))
       .catch((error) => res.status(404).json(error));
+  }
+);
+
+// Toggle entire thread with other user containing `messageId` as un/read
+// if `read` is not passed in request body, then by default thread is marked as read
+router.post(
+  '/thread/:messageId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { messageId } = req.params;
+    const user = req.user;
+    const markRead = 'read' in req.body ? req.body.read : true;
+
+    Message.findById(messageId, function (err, msg) {
+      if (err) return res.status(404).json(err);
+
+      const otherUser = msg.to === req.user._id ? msg.from : msg.to;
+      const filter = {
+        ...userMessages(user._id),
+        ...userMessages(otherUser._id),
+      };
+
+      return Message.updateMany(filter, { read: markRead }, { new: true })
+        .then((_) =>
+          Message.find(filter).then((messages) => res.json(messages))
+        )
+        .catch((errors) => res.status(404).json(errors));
+    });
   }
 );
 
