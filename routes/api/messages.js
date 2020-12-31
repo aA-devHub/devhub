@@ -6,7 +6,9 @@ const Message = require('../../models/Message');
 const validateMessage = require('../../validation/messages');
 
 // filter to return all user's sent/received messages
-const userMessages = (userId) => ({ $or: [{ to: userId }, { from: userId }] });
+export const userMessages = (userId) => ({
+  $or: [{ to: userId }, { from: userId }],
+});
 
 // Index returns all messages for currently logged in user (sent and received)
 router.get(
