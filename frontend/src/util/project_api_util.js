@@ -26,3 +26,7 @@ export const deleteProject = (projectId) =>
 export const addProjectFavorite = (projectId) => {
   return axios.post(`/api/projects/${projectId}/favorite`);
 };
+
+export const deleteProjectFavorite = (projectId) => {
+  return axios.delete(`/api/projects/${projectId}/favorite`);
+};

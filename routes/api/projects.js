@@ -175,24 +175,37 @@ router.post(
   '/:projectId/favorite',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // debugger;
     User.findById(req.user._id).then((user) => {
-      // debugger;
       user.favorites.push(req.params.projectId);
-      // debugger;
       user.save();
-      // debugger;
 
       Project.findById(req.params.projectId).then((project) => {
-        // debugger;
         project.numFavorites += 1;
-        // debugger;
         project.save();
-        // debugger;
         res.json({ project, user: 'ignore', comments: 'ignore' });
       });
     });
-    // return res.status(400).send();
+  }
+);
+
+// Unfavorite a project
+router.delete(
+  '/:projectId/favorite',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user._id).then((user) => {
+      const idx = user.favorites.indexOf(req.params.projectId);
+      if (idx > -1) {
+        user.favorites.splice(idx, 1);
+        user.save();
+      }
+
+      Project.findById(req.params.projectId).then((project) => {
+        project.numFavorites -= 1;
+        project.save();
+        res.json({ project, user: 'ignore', comments: 'ignore' });
+      });
+    });
   }
 );
 

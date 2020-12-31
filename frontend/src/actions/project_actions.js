@@ -73,3 +73,9 @@ export const addProjectFavorite = (projectId) => (dispatch) => {
     dispatch(receiveProject(payload.data))
   );
 };
+
+export const deleteProjectFavorite = (projectId) => (dispatch) => {
+  return ApiUtil.deleteProjectFavorite(projectId).then((payload) =>
+    dispatch(receiveProject(payload.data))
+  );
+};
