@@ -145,7 +145,7 @@ function ShowProfile({ currentUser, fetchUser, profileUser, history, match }) {
           </div>
           <div
             className="edit-icon pointer"
-            onClick={() => history.push('/edit')}
+            onClick={() => history.push('/users/edit')}
           >
             {currentUser && currentUser.id === tempUser.id ? <EditIcon /> : ''}
           </div>

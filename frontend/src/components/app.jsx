@@ -8,6 +8,7 @@ import { CssBaseline } from '@material-ui/core';
 import Navbar from './navbar/navbar';
 import SigninFormContainer from './session/signin_form_container';
 import SignupFormContainer from './session/signup_form_container';
+import NewProject from './project/new_project';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
@@ -17,7 +18,7 @@ import Cards from './project/ProjectCards';
 const App = () => {
   return (
     <Router>
-      <Route path="/" component={Navbar} />
+      <Navbar />
       <div className="app">
         <CssBaseline />
         <Switch>
@@ -25,8 +26,12 @@ const App = () => {
 
           <AuthRoute exact path="/signin" component={SigninFormContainer} />
           <AuthRoute exact path="/signup" component={SignupFormContainer} />
-          <Route exact path="/profile/:id" component={ShowProfile} />
-          <Route exact path="/edit" component={EditProfile} />
+
+          <ProtectedRoute exact path="/users/edit" component={EditProfile} />
+          <Route exact path="/users/:id" component={ShowProfile} />
+
+          <ProtectedRoute exact path="/projects/new" component={NewProject} />
+
           {/* added route to card and cards */}
           <Route path="/card" component={Card} />
           <Route path="/cards" component={Cards} />
