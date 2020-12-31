@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (decodedUser.exp < currentTime) {
       // Logout the user and redirect to login
       store.dispatch(logout());
-      window.location.href = '/login';
     }
   } else {
     // First time user, start w/ empty store
