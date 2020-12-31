@@ -33,7 +33,7 @@ const App = () => {
 
           <ProtectedRoute
             exact
-            path="/projects/new"
+            path="/projects/upload"
             component={UploadProject}
           />
 

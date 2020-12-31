@@ -9,14 +9,16 @@ class NewProject extends Component {
     this.state = {
       step: 1,
       title: '',
-      images: {
-        hero: '',
-        secondaries: [],
+      githubLink: '',
+      liveLink: '',
+      description: '',
+      ui: {
+        color: 'light',
       },
     };
 
-    this.nextStep = this.nextStep.bind(this);
-    this.prevStep = this.prevStep.bind(this);
+    this.changeStep = this.changeStep.bind(this);
+    this.updateMasterState = this.updateMasterState.bind(this);
   }
 
   renderStep() {
@@ -27,8 +29,7 @@ class NewProject extends Component {
       <StepComponent
         masterState={this.state}
         updateMasterState={this.updateMasterState}
-        nextStep={this.nextStep}
-        prevStep={this.prevStep}
+        changeStep={this.changeStep}
         submit={this.handleSubmit}
       />
     );
@@ -38,15 +39,9 @@ class NewProject extends Component {
     this.setState(stepState);
   }
 
-  nextStep() {
+  changeStep(dir) {
     this.setState((prevState) => ({
-      step: (prevState.step += 1),
-    }));
-  }
-
-  prevStep() {
-    this.setState((prevState) => ({
-      step: (prevState.step -= 1),
+      step: dir === 'next' ? (prevState.step += 1) : (prevState.step -= 1),
     }));
   }
 

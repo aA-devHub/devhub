@@ -106,6 +106,9 @@ function Navbar(props) {
     handleMobileMenuClose();
 
     switch (option) {
+      case 'home':
+        props.history.push('/');
+        return;
       case 'profile':
         props.history.push(`/users/${props.currentUser.id}`);
         return;
@@ -116,7 +119,10 @@ function Navbar(props) {
         props.history.push('/notifications');
         return;
       case 'uploadproject':
-        props.history.push('/projects/new');
+        props.history.push('/projects/upload');
+        return;
+      case 'signin':
+        props.history.push('/signin');
         return;
       case 'signout':
         props.signout();
@@ -206,7 +212,7 @@ function Navbar(props) {
     navIcons = (
       <React.Fragment>
         <Button
-          onClick={() => props.history.push('/projects/new')}
+          onClick={() => handleMenuClick('uploadproject')}
           variant="contained"
           style={{
             backgroundColor: COLORS.DEVBLUE,
@@ -253,7 +259,7 @@ function Navbar(props) {
     navIcons = (
       <IconButton
         edge="end"
-        onClick={() => props.history.push('/signin')}
+        onClick={() => handleMenuClick('signin')}
         color="inherit"
       >
         <AccountCircle />
@@ -274,7 +280,7 @@ function Navbar(props) {
             src="../../logo.png"
             alt="logo"
             className={classes.logo + ' pointer'}
-            onClick={() => props.history.push('/')}
+            onClick={() => handleMenuClick('home')}
           />
           <Typography
             className={(classes.title, classes.grow)}
