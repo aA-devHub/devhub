@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { IconButton, Button, Typography, Badge } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import * as colors from '../../colors';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,14 +72,14 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('750')]: {
       display: 'flex',
       alignItems: 'center',
     },
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('750')]: {
       display: 'none',
     },
   },
@@ -101,15 +101,29 @@ function Navbar(props) {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = (option) => {
+  const handleMenuClick = (option) => {
     setAnchorEl(null);
     handleMobileMenuClose();
 
-    if (option === 'profile') {
-      props.history.push(`/profile/${props.currentUser.id}`);
-    } else if (option === 'signout') {
-      props.signout();
-      props.history.push('/');
+    switch (option) {
+      case 'profile':
+        props.history.push(`/users/${props.currentUser.id}`);
+        return;
+      case 'messages':
+        props.history.push('/messages');
+        return;
+      case 'notifications':
+        props.history.push('/notifications');
+        return;
+      case 'uploadproject':
+        props.history.push('/projects/new');
+        return;
+      case 'signout':
+        props.signout();
+        props.history.push('/');
+        return;
+      default:
+        return;
     }
   };
 
@@ -126,10 +140,10 @@ function Navbar(props) {
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={handleMenuClick}
     >
-      <MenuItem onClick={() => handleMenuClose('profile')}>Profile</MenuItem>
-      <MenuItem onClick={() => handleMenuClose('signout')}>Sign Out</MenuItem>
+      <MenuItem onClick={() => handleMenuClick('profile')}>Profile</MenuItem>
+      <MenuItem onClick={() => handleMenuClick('signout')}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -145,7 +159,7 @@ function Navbar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={() => handleMenuClick('profile')}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -156,13 +170,33 @@ function Navbar(props) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem onClick={() => props.history.push('/notifications')}>
+      <MenuItem onClick={() => handleMenuClick('messages')}>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem onClick={() => handleMenuClick('notifications')}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={() => handleMenuClick('uploadproject')}>
+        <IconButton aria-label="upload new project" color="inherit">
+          <AddCircleIcon />
+        </IconButton>
+        <p>Upload Project</p>
+      </MenuItem>
+      <MenuItem onClick={() => handleMenuClick('signout')}>
+        <IconButton aria-label="sign out" color="inherit">
+          <ExitToAppIcon />
+        </IconButton>
+        <p>Sign Out</p>
       </MenuItem>
     </Menu>
   );
@@ -171,13 +205,32 @@ function Navbar(props) {
   if (props.currentUser) {
     navIcons = (
       <React.Fragment>
+        <Button
+          onClick={() => props.history.push('/projects/new')}
+          variant="contained"
+          style={{
+            backgroundColor: COLORS.DEVBLUE,
+            color: 'white',
+          }}
+        >
+          <Typography>Upload Project</Typography>
+        </Button>
         <IconButton
           aria-label="show 11 new notifications"
           color="inherit"
-          onClick={() => props.history.push('/notifications')}
+          onClick={() => handleMenuClick('notifications')}
         >
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge
+            badgeContent={4}
+            color="secondary"
+            onClick={() => handleMenuClick('messages')}
+          >
+            <MailIcon />
           </Badge>
         </IconButton>
         <IconButton
@@ -213,7 +266,7 @@ function Navbar(props) {
       className={classes.grow}
       style={{ position: 'sticky', top: 0, left: 0, right: 0, zIndex: 999 }}
     >
-      <AppBar position="static" style={{ backgroundColor: colors.NAVBARBLACK }}>
+      <AppBar position="static" style={{ backgroundColor: COLORS.NAVBARBLACK }}>
         <Toolbar
           style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}
         >
@@ -276,4 +329,4 @@ const mapDTP = (dispatch) => ({
   signout: () => dispatch(logout()),
 });
 
-export default connect(mapSTP, mapDTP)(Navbar);
+export default withRouter(connect(mapSTP, mapDTP)(Navbar));
