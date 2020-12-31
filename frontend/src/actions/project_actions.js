@@ -68,13 +68,13 @@ export const deleteProject = (projectId) => (dispatch) => {
   );
 };
 
-export const addProjectFavorite = (projectId) => (dispatch) => {
+export const addFavorite = (projectId) => (dispatch) => {
   return ApiUtil.addProjectFavorite(projectId).then((payload) =>
     dispatch(receiveProject(payload.data))
   );
 };
 
-export const deleteProjectFavorite = (projectId) => (dispatch) => {
+export const deleteFavorite = (projectId) => (dispatch) => {
   return ApiUtil.deleteProjectFavorite(projectId).then((payload) =>
     dispatch(receiveProject(payload.data))
   );
