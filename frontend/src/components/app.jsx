@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../app.scss';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import MainPage from './main/main_page';
 import { CssBaseline } from '@material-ui/core';
@@ -11,12 +11,13 @@ import SignupFormContainer from './session/signup_form_container';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
-import Card from './project/Carousel';
-import Cards from './project/ProjectCards';
+import Cards from './project/FilterCards';
+import Card from './project/TinderCard';
+import Footer from './main/Footer';
 
 const App = () => {
   return (
-    <Router>
+    <React.Fragment>
       <Route path="/" component={Navbar} />
       <div className="app">
         <CssBaseline />
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/cards" component={Cards} />
         </Switch>
       </div>
-    </Router>
+      <Footer />
+    </React.Fragment>
   );
 };
 

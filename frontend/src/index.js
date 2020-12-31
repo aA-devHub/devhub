@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './components/app';
 import configureStore from './store/store';
@@ -44,11 +45,27 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
+  class ScrollToTop extends Component {
+    componentDidUpdate(prevProps) {
+      if (this.props.location !== prevProps.location) {
+        console.log('here');
+        window.scrollTo(0, 0);
+      }
+    }
+    render() {
+      return this.props.children;
+    }
+  }
+
   const root = document.getElementById('root');
 
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <Router>
+        <ScrollToTop>
+          <App />
+        </ScrollToTop>
+      </Router>
     </Provider>,
     root
   );

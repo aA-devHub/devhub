@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Avatar, Typography, Button } from '@material-ui/core';
 import { Star, KeyboardArrowUp } from '@material-ui/icons';
 import * as COLORS from '../../colors';
 
 // function ProjectCard({ proj }) {
 function ProjectCard({ project }) {
+  const history = useHistory();
   const proj = {
     user: {
       id: 1,
@@ -34,6 +36,7 @@ function ProjectCard({ project }) {
       height: '100%',
       borderRadius: 10,
       marginBottom: '.3rem',
+      cursor: 'pointer',
       '& > img': {
         width: '100%',
         height: '100%',
@@ -90,6 +93,7 @@ function ProjectCard({ project }) {
             key={i}
             onMouseOver={() => setAutoplay(true)}
             onMouseOut={() => setAutoplay(false)}
+            onClick={() => history.push('/projects/1')}
           >
             <img src={item} />
           </div>

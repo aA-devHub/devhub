@@ -3,7 +3,10 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { demoLogin, logout } from '../../actions/session_actions';
+import FilterCards from '../project/FilterCards';
+import TinderCard from '../project/TinderCard';
 import Cards from '../project/ProjectCards';
+import Footer from './Footer';
 
 const mapStateToProps = (state, ownProps) => ({
   signedIn: state.session.isAuthenticated,
@@ -24,9 +27,10 @@ class MainPage extends Component {
 
     return (
       <div>
+        <TinderCard />
+        <FilterCards />
         <Cards />
-
-        <footer>Copyright &copy; 2020 Devhub</footer>
+        {/* <Footer /> */}
       </div>
     );
   }
