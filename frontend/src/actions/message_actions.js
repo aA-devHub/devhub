@@ -59,3 +59,12 @@ export const updateMessage = (message) => (dispatch) => {
     .then((res) => dispatch(receiveMessage(res.data)))
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };
+
+export const toggleMessageRead = (message) => (dispatch) => {
+  return dispatch(
+    updateMessage({
+      id: message._id,
+      read: !message.read,
+    })
+  );
+};
