@@ -63,18 +63,25 @@ router.patch(
   (req, res) => {
     const { messageId } = req.params;
 
-    const { errors, isValid } = validateMessage(req.body);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
+    Message.findById(messageId, function (err, message) {
+      if (err) return res.status(404).json(err);
 
-    if (req.body.toggleRead) {
-      req.body.read = !req.body.read;
-    }
-
-    return Message.findByIdAndUpdate(messageId, req.body, { new: true })
-      .then((message) => res.send(message))
-      .catch((err) => res.status(404).json(err));
+      // no need to verify if just toggling read status
+      // console.log('Message: ', message);
+      if (req.body.toggleRead) {
+        message.read = !message.read;
+      } else {
+        const { errors, isValid } = validateMessage(req.body);
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+        message.body = req.body;
+      }
+      return message
+        .save()
+        .then((msg) => res.json(msg))
+        .catch((err) => res.status(404).json(err));
+    });
   }
 );
 
