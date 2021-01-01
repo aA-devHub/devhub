@@ -11,7 +11,7 @@ const User = require('../../models/User');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 const Project = require('../../models/Project');
-import { userMessages } from './messages';
+const userMessages = require('./messages').userMessages;
 
 // Extract fields to store under state.session.user
 const sessionUserPayload = (user) => ({
