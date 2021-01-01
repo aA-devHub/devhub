@@ -36,3 +36,6 @@ npm-debug.log
 .projectile
 .log/
 package-lock.json
+
+notes.md
+notes.org

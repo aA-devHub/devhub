@@ -30,7 +30,7 @@ const validateProjectUpdate = require('../../validation/projects');
 router.get('/search', (req, res) => {
   const { tags, search } = req.query;
 
-  const tagsRegex = new RegExp(tags.join('$|^'), 'i');
+  const tagsRegex = new RegExp('^' + tags.join('$|^'), 'i');
   let filter = {};
 });
 
