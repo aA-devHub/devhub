@@ -195,4 +195,16 @@ router.get('/:userId/comments', (req, res) => {
     .catch((errors) => res.status(400).json(errors));
 });
 
+router.get(
+  '/notifications',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user._id)
+      .then((user) => {
+        return res.json(user);
+      })
+      .catch((errors) => res.status(400).json(errors));
+  }
+);
+
 module.exports = router;

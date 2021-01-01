@@ -124,6 +124,12 @@ router.post(
   }
 );
 
+router.patch(
+  '/test/:projectId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {}
+);
+
 // Updates an existing project
 // TODO: May need updating
 router.patch('/:projectId', (req, res) => {
