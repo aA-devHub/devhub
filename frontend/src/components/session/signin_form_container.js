@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { login, demoLogin } from '../../actions/session_actions';
 import { makeStyles, TextField, Typography } from '@material-ui/core';
-import { fetchUser } from '../../util/user_api_util';
+// import { fetchUser } from '../../util/user_api_util';
 const logoUrl =
   'https://res.cloudinary.com/willwang/image/upload/v1608418616/devhublogo_plnro3.png';
 const leaves =
@@ -58,16 +58,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SigninForm({ currentUser, login, demoLogin }) {
+function SigninForm({ currentUser, login, demoLogin, errors }) {
   const classes = useStyles();
-  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const history = useHistory();
   useEffect(() => {
-    if (currentUser === true) {
-      history.pushState('/tweets');
-    }
+    if (currentUser) history.push('/');
   }, [currentUser]);
   const loginUser = (e) => {
     e.preventDefault();
@@ -93,7 +90,12 @@ function SigninForm({ currentUser, login, demoLogin }) {
     <div className={classes.root}>
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
-          <img className={classes.logo} src={logoUrl}></img>
+          <img
+            onClick={demoLogin}
+            alt="devhub logo"
+            className={classes.logo}
+            src={logoUrl}
+          ></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign in
           </Typography>
@@ -128,6 +130,7 @@ function SigninForm({ currentUser, login, demoLogin }) {
           <button type="submit" className={classes.signinButton}>
             Sign in
           </button>
+          {renderErrors()}
         </div>
         <div className={classes.rightPanel}>
           <img className={classes.leaves} src={leaves} alt="leaves vector" />

@@ -96,7 +96,7 @@ function SignupForm({ errors, currentUser, signup }) {
     <div className={classes.root}>
       <form className={classes.form} onSubmit={signupUser}>
         <div className={classes.leftPanel}>
-          <img className={classes.logo} src={logoUrl}></img>
+          <img className={classes.logo} src={logoUrl} alt="devhub logo"></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign Up
           </Typography>
@@ -158,6 +158,7 @@ function SignupForm({ errors, currentUser, signup }) {
         <div className={classes.rightPanel}>
           <img className={classes.leaves} src={leaves} alt="leaves vector" />
         </div>
+        {renderErrors()}
       </form>
     </div>
   );
