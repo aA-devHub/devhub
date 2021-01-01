@@ -28,7 +28,7 @@ const buildSearchFilter = ({ tags, search }) => {
   }
 
   if (search) {
-    const re = new RegExp(search, 'i');
+    const re = new RegExp(escapeRegExp(search), 'i');
     filter = {
       ...filter,
       $or: [
