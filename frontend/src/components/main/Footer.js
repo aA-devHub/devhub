@@ -63,7 +63,7 @@ const Footer = () => {
       fontWeight: 'bold',
     },
     rightCon: {
-      padding: '2rem 5rem',
+      padding: '2rem 7rem',
     },
     footerMid: {
       flex: 1,
