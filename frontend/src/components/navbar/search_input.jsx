@@ -32,6 +32,7 @@ const SearchInput = ({
   let location = useLocation();
   useEffect(() => {
     clearTags();
+    setSearch('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
