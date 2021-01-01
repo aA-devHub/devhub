@@ -9,7 +9,7 @@ const path = require('path');
 const users = require('./routes/api/users');
 const projects = require('./routes/api/projects');
 const comments = require('./routes/api/comments');
-const messages = require('./routes/api/messages');
+const messages = require('./routes/api/messages').router;
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));

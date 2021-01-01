@@ -6,7 +6,7 @@ const Message = require('../../models/Message');
 const validateMessage = require('../../validation/messages');
 
 // filter to return all user's sent/received messages
-export const userMessages = (userId) => ({
+const userMessages = (userId) => ({
   $or: [{ to: userId }, { from: userId }],
 });
 
@@ -129,4 +129,7 @@ router.delete(
   }
 );
 
-module.exports = router;
+module.exports = {
+  router,
+  userMessages,
+};
