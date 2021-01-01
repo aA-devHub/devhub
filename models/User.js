@@ -17,23 +17,22 @@ const UserSchema = new Schema(
     },
     title: {
       type: String,
-      default: '',
+      default: 'Software Engineer',
     },
     bio: {
       type: String,
-      default: '',
+      default:
+        'This is my bio! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     imageUrl: {
       type: String,
       default:
         'https://res.cloudinary.com/willwang/image/upload/v1608418616/devhublogo_plnro3.png',
     },
-    skills: [
-      {
-        skill: String,
-        level: Number,
-      },
-    ],
+    skills: {
+      type: Map,
+      of: Number,
+    },
     experience: [
       {
         start: Date,
@@ -44,7 +43,10 @@ const UserSchema = new Schema(
     ],
     yearsOfExperience: Number,
     location: String,
-    socials: [{ name: String, url: String }],
+    socials: {
+      type: Map,
+      of: String,
+    },
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     favorites: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
