@@ -16,10 +16,25 @@ import * as userActions from './actions/user_actions';
 import * as projectActions from './actions/project_actions';
 import * as commentActions from './actions/comment_actions';
 import * as messageActions from './actions/message_actions';
+import * as tagActions from './actions/tag_actions';
+import * as searchActions from './actions/search_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
+
+  // Create a preconfigured state we can immediately add to our store
+  let preloadedState = {};
+
+  // Load any tags used for current search filtering
+  if (localStorage.tags) {
+    preloadedState = {
+      ...preloadedState,
+      ui: {
+        tags: JSON.parse(localStorage.getItem('tags')),
+      },
+    };
+  }
 
   if (localStorage.jwtToken) {
     // Set the token as a common header for all axios requests
@@ -28,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Decode the token to obtain the user's info
     const decodedUser = jwt_decode(localStorage.jwtToken);
 
-    // Create a preconfigured state we can immediately add to our store
-    const preloadedState = {
+    preloadedState = {
+      ...preloadedState,
       session: { isAuthenticated: true, user: decodedUser },
     };
 
@@ -65,6 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.projectActions = projectActions;
   window.commentActions = commentActions;
   window.messageActions = messageActions;
+  window.tagActions = tagActions;
+  window.searchActions = searchActions;
+
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary
