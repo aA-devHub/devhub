@@ -50,14 +50,27 @@ function ShowProfile({
     </div>
   ));
 
-  const skills = profileUser.skills.map((skill, idx) => (
-    <div className="skill" key={idx}>
-      <span className="skill-name">{skill.skill}</span>
-      <div className="skill-level-container">
-        <div className="skill-level" style={{ width: skill.level * 10 }}></div>
+  const renderSkills = () => {
+    var skills = [];
+
+    Object.entries(profileUser.skills).forEach(([skill, value], idx) => {
+      skills.push(
+        <div className="skill" key={idx}>
+          <span className="skill-name">{skill}</span>
+          <div className="skill-level-container">
+            <div className="skill-level" style={{ width: value * 10 }}></div>
+          </div>
+        </div>
+      );
+    });
+
+    return (
+      <div className="skills">
+        <h3 className="info-title">Skills</h3>
+        {skills}
       </div>
-    </div>
-  ));
+    );
+  };
 
   return (
     <React.Fragment>
@@ -102,10 +115,7 @@ function ShowProfile({
           <h3 className="info-title">Work</h3>
           {jobs}
         </div>
-        <div className="skills">
-          <h3 className="info-title">Skills</h3>
-          {skills}
-        </div>
+        {renderSkills()}
         <div className="extra-info">
           <h3 className="info-title">Info</h3>
           <span>{profileUser.location}</span>

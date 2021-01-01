@@ -8,9 +8,9 @@ class Step1 extends Component {
     super(props);
     this.state = {
       title: this.props.masterState.title || '',
-      githubLink: this.props.masterState.title || '',
-      liveLink: this.props.masterState.title || '',
-      description: this.props.masterState.title || '',
+      githubLink: this.props.masterState.githubLink || '',
+      liveLink: this.props.masterState.liveLink || '',
+      description: this.props.masterState.description || '',
       ui: {
         color: this.props.masterState.ui.color || 'light',
       },
