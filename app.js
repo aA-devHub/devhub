@@ -31,7 +31,11 @@ app.use('/api/comments', comments);
 app.use('/api/messages', messages);
 
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    returnOriginal: false,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log('Connected to MongoDB successfully'))
   .catch((err) => console.log(err));
 
