@@ -572,3 +572,33 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   box-shadow: rgba(25, 199, 189, 0.25) 0 0 0 0.2rem;
   border-color: #19c7bd;
 }
+
+/* Image Uploader */
+
+.image-uploader {
+  background-color: green;
+}
+
+.image-uploader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-uploader-cloud-icon {
+  color: $devhub-blue;
+  font-size: 17rem !important;
+}
+
+.image-uploader-content {
+  text-align: center;
+}
+
+.image-uploader-content h4 {
+  font-weight: bold;
+}
+
+.image-uploader-content h5 span {
+  color: $devhub-blue;
+}

@@ -1,5 +1,5 @@
 export const calculateExperience = (jobsArray) => {
-  if (!jobsArray.length) return 0;
+  if (!jobsArray.length) return null;
 
   var years = 0;
   jobsArray.forEach((job) => {

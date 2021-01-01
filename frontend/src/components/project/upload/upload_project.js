@@ -11,6 +11,10 @@ class NewProject extends Component {
       githubLink: '',
       liveLink: '',
       description: '',
+      images: {
+        hero: '',
+        secondaries: [],
+      },
       ui: {
         color: 'light',
       },
