@@ -1,6 +1,7 @@
 /* SASS Variables */
 
 $devhub-blue: rgba(42, 199, 198, 1);
+$navbar-black: #363636;
 
 /* Resets & General */
 h1,
@@ -76,10 +77,8 @@ h6 {
 }
 
 .user-image img {
-  width: 400px;
-  max-height: 400px;
+  max-height: 250px;
   border-radius: 3px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-image:before {
@@ -132,9 +131,24 @@ h6 {
 }
 
 .user-details {
-  padding: 0 40px;
+  position: relative;
   display: flex;
   justify-content: space-around;
+}
+
+.user-details:after {
+  content: '';
+  position: absolute;
+  width: 347px;
+  top: 70px;
+  right: 50px;
+  opacity: 0.8;
+  bottom: -100px;
+  transform: rotate(25deg);
+  // left: 60%;
+  background-image: url('https://res.cloudinary.com/willwang/image/upload/v1609394318/leave3_dzfi85.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .work-info,
@@ -142,6 +156,7 @@ h6 {
 .extra-info {
   display: flex;
   flex-flow: column nowrap;
+  z-index: 3;
 }
 
 .info-title {
@@ -157,6 +172,14 @@ h6 {
   display: flex;
   flex-flow: column nowrap;
   margin-bottom: 20px;
+}
+
+.job:not(:last-child):after {
+  content: '';
+  background-color: rgba(107, 39, 39, 0.1);
+  margin-top: 10px;
+  height: 3px;
+  width: 100%;
 }
 
 .job > *,
@@ -206,6 +229,17 @@ h6 {
   align-items: flex-end;
 }
 
+.no-projects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.no-projects img {
+  max-height: 375px;
+}
+
 /* Projects Carousel */
 
 .carousel-header {
@@ -250,7 +284,6 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding: 20px;
   height: 100%;
-  z-index: 1000;
   color: rgba(0, 0, 0, 0.25);
   transition: all 500ms;
   &-right {
@@ -462,4 +495,110 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* Upload/Edit Project */
+.step-container {
+  padding: 40px 20px;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-header .hidden {
+  visibility: hidden;
+}
+
+.step-title {
+  font-weight: 600;
+  color: $navbar-black;
+}
+
+.step-inner {
+  display: flex;
+}
+
+.step-inner-left,
+.step-inner-right {
+  flex: 0 0 50%;
+}
+
+.step-inner-left {
+  margin-right: 10px;
+}
+
+.step-inner-right {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 750px) {
+  .step-inner {
+    flex-flow: column nowrap;
+  }
+
+  .step-inner-left,
+  .step-inner-right {
+    margin: 0;
+  }
+}
+
+.step-input-label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.step-input {
+  width: 100%;
+}
+
+.step-input > input,
+.step-input > textarea {
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  border: 1px solid #ced4da;
+  font-size: 16px;
+  font-weight: 100;
+  height: 2rempx;
+  padding: 10px 12px;
+  margin-top: 20px;
+  transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.step-input > input:focus,
+.step-input > textarea:focus {
+  box-shadow: rgba(25, 199, 189, 0.25) 0 0 0 0.2rem;
+  border-color: #19c7bd;
+}
+
+/* Image Uploader */
+
+.image-uploader {
+  background-color: green;
+}
+
+.image-uploader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-uploader-cloud-icon {
+  color: $devhub-blue;
+  font-size: 17rem !important;
+}
+
+.image-uploader-content {
+  text-align: center;
+}
+
+.image-uploader-content h4 {
+  font-weight: bold;
+}
+
+.image-uploader-content h5 span {
+  color: $devhub-blue;
 }

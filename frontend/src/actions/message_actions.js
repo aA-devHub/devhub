@@ -34,7 +34,7 @@ export const receiveMessage = (message) => ({
 export const fetchMessages = (filter) => (dispatch) => {
   return MessageAPI.fetchMessages(filter)
     .then((messages) => {
-      dispatch(clearMessageErrors());
+      // dispatch(clearMessageErrors());
       dispatch(receiveMessages(messages.data));
     })
     .catch((errors) => receiveMessageErrors(errors));
@@ -63,8 +63,16 @@ export const updateMessage = (message) => (dispatch) => {
 export const toggleMessageRead = (messageId) => (dispatch) => {
   return dispatch(
     updateMessage({
-      id: messageId,
+      _id: messageId,
       toggleRead: true,
     })
   );
+};
+
+// Toggles all messages in thread between current user and
+// other user (either receiver or sender of messageId) as un/read
+export const toggleThreadRead = (messageId, read = true) => (dispatch) => {
+  return MessageAPI.toggleThread(messageId, { read })
+    .then((res) => dispatch(receiveMessages(res.data)))
+    .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };

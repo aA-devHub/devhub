@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import App from './components/app';
+import ScrollHelper from './scroll_helper';
 import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
@@ -39,23 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (decodedUser.exp < currentTime) {
       // Logout the user and redirect to login
       store.dispatch(logout());
-      window.location.href = '/login';
     }
   } else {
     // First time user, start w/ empty store
     store = configureStore();
-  }
-
-  class ScrollToTop extends Component {
-    componentDidUpdate(prevProps) {
-      if (this.props.location !== prevProps.location) {
-        console.log('here');
-        window.scrollTo(0, 0);
-      }
-    }
-    render() {
-      return this.props.children;
-    }
   }
 
   const root = document.getElementById('root');
@@ -63,9 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <ScrollToTop>
+        <ScrollHelper>
           <App />
-        </ScrollToTop>
+        </ScrollHelper>
       </Router>
     </Provider>,
     root

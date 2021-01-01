@@ -44,6 +44,7 @@ export const fetchUser = (userId) => (dispatch) => {
     .then((res) => {
       dispatch(clearUserErrors());
       dispatch(receiveUser(res.data));
+      return res.data;
     })
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };

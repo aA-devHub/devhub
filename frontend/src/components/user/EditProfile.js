@@ -1,23 +1,21 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../colors';
-import Navbar from '../navbar/navbar';
-// import { getCurrentUserInfo, editUserAction } from '../../Actions/UserActions';
+import { fetchUser, updateUser } from '../../actions/user_actions';
 import { Public, AccountCircle, Add } from '@material-ui/icons';
 import {
+  Divider,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
-  Divider,
   Avatar,
   makeStyles,
   Button,
-  Paper,
   Grid,
   Typography,
   fade,
-  withStyles,
   InputBase,
+  IconButton,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -117,28 +115,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditUserForm({ user }) {
+function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
-  const [skills, setSkills] = useState({ name: '', level: '' });
-  const [experience, setExperience] = useState({
-    time: '',
-    company: '',
-    title: '',
-  });
-  const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [linkedin, setLinkedin] = useState('');
   const [github, setGithub] = useState('');
-  useEffect(() => {}, []);
-  const classes = useStyles();
 
+  const [skills, setSkills] = useState([]);
+  const [experience, setExperience] = useState([]);
+  useEffect(() => {
+    fetchUser(userId).then(({ user }) => {
+      console.log('user', user);
+      setTitle(user.title);
+      setLocation(user.location);
+      setName(user.name);
+      setEmail(user.email);
+      setBio(user.bio);
+      setAvatarUrl(user.imageUrl);
+      const socials = user.socials;
+      setFacebook(socials.facebook);
+      setTwitter(socials.twitter);
+      setInstagram(socials.instagram);
+      setGithub(socials.github);
+      setLinkedin(socials.linkedin);
+    });
+  }, []);
+
+  // renderSkills = () => {
+  // skills
+  // };
+  const classes = useStyles();
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
@@ -172,47 +186,29 @@ function EditUserForm({ user }) {
   const accountForm = (
     <div>
       <label className={classes.labels}>
-        <Typography>User Name</Typography>
-        {/* TODO why it's showing the use name? */}
+        <Typography>Name</Typography>
+
         <InputBase
           className={classes.baseInput}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </label>
       <label className={classes.labels}>
         <Typography>Email</Typography>
-
         <InputBase
           className={classes.baseInput}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <label className={classes.labels}>
-        <Typography>Password</Typography>
-        <InputBase
-          className={classes.baseInput}
-          type="password"
-          value={password || ''}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
     </div>
   );
 
+  const renderSocialInfo = () => <div></div>;
+
   const pubForm = (
     <div>
-      <label className={classes.labels}>
-        <Typography>
-          Name<span style={{ color: 'red' }}>*</span>
-        </Typography>
-        <InputBase
-          className={classes.baseInput}
-          value={name || ''}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
       <label className={classes.labels}>
         <Typography>Location</Typography>
 
@@ -227,7 +223,7 @@ function EditUserForm({ user }) {
         <InputBase
           className={classes.baseInput}
           value={title || ''}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </label>
       <label className={classes.labels}>
@@ -246,33 +242,75 @@ function EditUserForm({ user }) {
           <Typography>Skills</Typography>
           <Add style={{ color: 'gray' }} />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ width: '100%' }}>
-            <InputBase
-              className={classes.baseInput}
-              value={skills.name || ''}
-              onChange={(e) => e.target.value}
-              placeholder="e.g. ruby"
-            />
-            <Typography className={classes.endnote}>
-              language/skill name: eg. ruby
-            </Typography>
-          </div>
-          <div style={{ width: 40 }}></div>
-          <div style={{ width: '100%' }}>
-            <InputBase
-              className={classes.baseInput}
-              value={skills.level || ''}
-              onChange={(e) => setSkills({ ...skills, level: e.target.value })}
-              placeholder="e.g. 10"
-            />
-            <Typography className={classes.endnote}>
-              level: a number between 1-10
-            </Typography>
-          </div>
-        </div>
+        <Divider />
+        {/* {renderSkills()} */}
       </label>
-      <label className={classes.labels}>
+      <br></br>
+      <Typography>Socials</Typography>
+      <Divider style={{ marginTop: '1rem' }} />
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609451981/instagram_uk5pzd.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={instagram}
+          onChange={(e) => setInstagram(e.target.value)}
+        />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609451981/linkedin_k6foep.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={linkedin}
+          onChange={(e) => setLinkedin(e.target.value)}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/fb_zkz2ev.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={facebook}
+          onChange={(e) => {
+            setFacebook(e.target.value);
+            console.log('facebook', facebook);
+          }}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/twitter_crwwns.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={twitter}
+          onChange={(e) => setTwitter(e.target.value)}
+        />
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <Avatar
+          src="https://res.cloudinary.com/willwang/image/upload/v1609282516/gh_syxrpn.png"
+          style={{ marginTop: 20, marginRight: 20 }}
+        />
+        <InputBase
+          className={classes.baseInput}
+          value={github}
+          onChange={(e) => setGithub(e.target.value)}
+        />
+      </div>
+
+      {/* <label className={classes.labels}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography>Experience</Typography>
           <Add style={{ color: 'gray' }} />
@@ -311,7 +349,7 @@ function EditUserForm({ user }) {
             />
           </div>
         </div>
-      </label>
+      </label> */}
     </div>
   );
 
@@ -355,22 +393,22 @@ function EditUserForm({ user }) {
   const handleSubmit = () => {
     console.log('user', bio);
     const userinfo = {
-      id: user.id,
+      id: userId,
       name,
-      username,
       location,
       email,
-      password,
-      avatarUrl,
+      imageUrl: avatarUrl,
       bio,
-      skills,
-      experience,
-      twitter,
-      facebook,
-      github,
+      socials: [
+        { facebook },
+        { twitter },
+        { instagram },
+        { github },
+        { linkedin },
+      ],
     };
-    // updateUser(userinfo);
-    // history.push(`/users/${user.id}`);
+    updateUser(userinfo);
+    history.push(`/users/${user._id}`);
   };
 
   return (
@@ -386,10 +424,22 @@ function EditUserForm({ user }) {
               >
                 Edit Profile
               </Typography>
-              <Avatar
-                src={avatarUrl}
-                style={{ marginRight: 10, width: 100, height: 100 }}
-              />
+              <label>
+                <Avatar
+                  src={avatarUrl}
+                  style={{
+                    marginRight: 10,
+                    width: 100,
+                    height: 100,
+                    cursor: 'pointer',
+                  }}
+                />
+                <input
+                  type="file"
+                  hidden
+                  onChange={(e) => handleAvatar(e.target.files[0])}
+                />
+              </label>
             </div>
             {selection}
           </Grid>
@@ -401,9 +451,13 @@ function EditUserForm({ user }) {
 }
 
 export default connect(
-  (state) => ({ user: state.user, state }),
+  (state) => ({
+    userId: state.session.user.id,
+    user: state.entities.users[state.session.user.id],
+  }),
   (dispatch) => ({
-    // fetchUser: (sessionToken) => dispatch(getCurrentUserInfo(sessionToken)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+    updateUser: (user) => dispatch(updateUser(user)),
     // updateUser: (user) => dispatch(editUserAction(user)),
   })
 )(EditUserForm);
