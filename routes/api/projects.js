@@ -9,7 +9,7 @@ const User = require('../../models/User');
 const validateProject = require('../../validation/projects');
 const validateProjectUpdate = require('../../validation/projects');
 
-const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\{{body}}');
+const escapeRegExp = (str) => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
 // Build filter from request query object, default return all
 // Incoming query looks like:
