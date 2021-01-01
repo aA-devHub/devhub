@@ -95,35 +95,21 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateProject(req.body);
-
-    if (!isValid) {
-      return res.status(400).json(errors);
+    if (typeof req.body.user === 'object' && req.body.user !== null) {
+      req.body.user = Object.values(req.body.user)[0];
     }
 
-    const newProject = new Project({
-      title: req.body.title,
-      githubLink: req.body.githubLink,
-      liveLink: req.body.liveLink,
-      description: req.body.description,
-      images: req.body.images,
-      ui: req.body.ui,
-      features: req.body.features,
-      mobile: req.body.mobile,
-      browsers: req.body.browsers,
-      futureFeatures: req.body.futureFeatures,
-      user: req.body.user,
-      languages: req.body.languages,
-    });
+    const newProject = new Project(req.body);
 
     newProject.save().then((project) => {
-      User.findById(project.user).then((user) =>
-        res.json({ project, user, comments: [] })
-      );
+      User.findById(project.user).then((user) => {
+        res.json({ project, user, comments: [] });
+      });
     });
   }
 );
 
+// Update a project
 router.patch(
   '/:projectId',
   passport.authenticate('jwt', { session: false }),
@@ -132,6 +118,9 @@ router.patch(
       if (err) {
         console.log(err);
         return res.status(400).json({ _id: 'Invalid update' });
+      }
+      if (typeof req.body.user === 'object' && req.body.user !== null) {
+        req.body.user = Object.values(req.body.user)[0];
       }
       Project.findById(req.params.projectId)
         .populate('comments')
