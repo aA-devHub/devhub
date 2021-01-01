@@ -32,6 +32,7 @@ const SearchInput = ({
   let location = useLocation();
   useEffect(() => {
     clearTags();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   // debouncing .3 seconds
@@ -44,6 +45,7 @@ const SearchInput = ({
     }, 300);
 
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, tags]);
 
   return (
