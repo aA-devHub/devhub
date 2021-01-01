@@ -123,7 +123,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [bio, setBio] = useState('');
-  const [socials, setSocials] = useState([]);
   const [facebook, setFacebook] = useState('');
   const [twitter, setTwitter] = useState('');
   const [instagram, setInstagram] = useState('');
@@ -142,15 +141,12 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       setEmail(user.email);
       setBio(user.bio);
       setAvatarUrl(user.imageUrl);
-      user.socials.forEach((element) => {
-        if (element.hasOwnProperty('facebook')) setFacebook(element.facebook);
-        else if (element.hasOwnProperty('twitter')) setTwitter(element.twitter);
-        else if (element.hasOwnProperty('instagram'))
-          setInstagram(element.instagram);
-        else if (element.hasOwnProperty('linkedin'))
-          setLinkedin(element.linkedin);
-        else if (element.hasOwnProperty('github')) setGithub(element.github);
-      });
+      const socials = user.socials;
+      setFacebook(socials.facebook);
+      setTwitter(socials.twitter);
+      setInstagram(socials.instagram);
+      setGithub(socials.github);
+      setLinkedin(socials.linkedin);
     });
   }, []);
 
