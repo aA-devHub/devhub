@@ -128,7 +128,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [instagram, setInstagram] = useState('');
   const [linkedin, setLinkedin] = useState('');
   const [github, setGithub] = useState('');
-  const [,] = useState('');
 
   const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
