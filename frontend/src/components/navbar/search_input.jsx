@@ -21,16 +21,14 @@ const SearchInput = ({ search, tags, setSearch, fetchProjects, ...props }) => {
   // debouncing .3 seconds
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (search.length > 0) {
-        fetchProjects({
-          search,
-          tags,
-        });
-      }
+      fetchProjects({
+        search,
+        tags,
+      });
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [search]);
+  }, [search, tags]);
 
   return (
     <>
