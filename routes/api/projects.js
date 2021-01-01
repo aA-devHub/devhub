@@ -79,9 +79,9 @@ router.get('/:projectId', (req, res) => {
     .populate('user')
     .populate('comments')
     .then((project) => {
-      const user = project.user;
+      let user = project.user ? project.user : 'ignore';
       const comments = project.comments;
-      project.user = project.user._id;
+      if (project.user) project.user = project.user._id;
       project.comments = project.comments.map((comment) => comment._id);
       return res.json({ project, user, comments });
     })
@@ -125,43 +125,15 @@ router.post(
 );
 
 router.patch(
-  '/test/:projectId',
+  '/:projectId',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {}
-);
-
-// Updates an existing project
-// TODO: May need updating
-router.patch('/:projectId', (req, res) => {
-  // Add validation to see if req has proper parameters (_id, user, etc)
-  // const { errors, isValid } = validateProjectUpdate(req.body);
-
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
-
-  const projectId = req.params.projectId;
-
-  Project.findOne({ _id: projectId }).then((project) => {
-    if (!project) {
-      return res.status(404).send();
-    }
-
-    project.title = req.body.title;
-    project.githubLink = req.body.githubLink;
-    project.liveLink = req.body.liveLink;
-    project.description = req.body.description;
-    project.images = req.body.images;
-    project.ui = req.body.ui;
-    project.features = req.body.features;
-    project.mobile = req.body.mobile;
-    project.browsers = req.body.browsers;
-    project.futureFeatures = req.body.futureFeatures;
-    project.user = req.body.user;
-    project.languages = req.body.languages;
-
-    project.save().then(() => {
-      Project.findById(projectId)
+  (req, res) => {
+    Project.findByIdAndUpdate(req.params.projectId, req.body, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ _id: 'Invalid update' });
+      }
+      Project.findById(req.params.projectId)
         .populate('comments')
         .then((updatedProject) => {
           const comments = updatedProject.comments;
@@ -172,9 +144,56 @@ router.patch('/:projectId', (req, res) => {
             res.json({ project: updatedProject, user, comments })
           );
         });
+      return null;
     });
-  });
-});
+  }
+);
+
+// // Updates an existing project
+// // TODO: May need updating
+// router.patch('/:projectId', (req, res) => {
+//   // Add validation to see if req has proper parameters (_id, user, etc)
+//   // const { errors, isValid } = validateProjectUpdate(req.body);
+
+//   // if (!isValid) {
+//   //   return res.status(400).json(errors);
+//   // }
+
+//   const projectId = req.params.projectId;
+
+//   Project.findOne({ _id: projectId }).then((project) => {
+//     if (!project) {
+//       return res.status(404).send();
+//     }
+
+//     project.title = req.body.title;
+//     project.githubLink = req.body.githubLink;
+//     project.liveLink = req.body.liveLink;
+//     project.description = req.body.description;
+//     project.images = req.body.images;
+//     project.ui = req.body.ui;
+//     project.features = req.body.features;
+//     project.mobile = req.body.mobile;
+//     project.browsers = req.body.browsers;
+//     project.futureFeatures = req.body.futureFeatures;
+//     project.user = req.body.user;
+//     project.languages = req.body.languages;
+
+//     project.save().then(() => {
+//       Project.findById(projectId)
+//         .populate('comments')
+//         .then((updatedProject) => {
+//           const comments = updatedProject.comments;
+//           updatedProject.comments = updatedProject.comments.map(
+//             (comment) => comment._id
+//           );
+//           User.findById(updatedProject.user).then((user) =>
+//             res.json({ project: updatedProject, user, comments })
+//           );
+//         });
+//     });
+//   });
+// });
 
 // Favorite a project
 router.post(

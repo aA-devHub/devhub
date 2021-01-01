@@ -34,7 +34,9 @@ export const receiveProjectErrors = (errors) => ({
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
   return ApiUtil.fetchProjects({ filter })
-    .then((payload) => dispatch(receiveProjects(payload.data)))
+    .then((payload) => {
+      return dispatch(receiveProjects(payload.data));
+    })
     .catch((errors) => receiveProjectErrors(errors.response));
 };
 
