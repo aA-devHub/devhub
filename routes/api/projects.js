@@ -17,6 +17,7 @@ const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\{{body}}');
 //   search: String,
 //   tags: [ String ],
 // }
+// Queries are case insensitive and allow partial matching
 const buildSearchFilter = ({ tags, search }) => {
   let filter = {};
   if (tags) {
