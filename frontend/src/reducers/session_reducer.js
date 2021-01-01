@@ -46,6 +46,10 @@ export default (state = initialState, action) => {
       };
 
     case RECEIVE_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.user.notifications,
+      };
 
     default:
       return state;

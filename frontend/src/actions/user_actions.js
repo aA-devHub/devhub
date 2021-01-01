@@ -55,6 +55,12 @@ export const updateUser = (user) => (dispatch) => {
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };
 
+export const fetchNotifications = () => (dispatch) => {
+  return UserAPI.fetchNotifications()
+    .then((user) => dispatch(receiveNotifications(user)))
+    .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
+};
+
 // DEPRECATED, lol
 export const userAddFavorite = (user, projectId) => (dispatch) => {
   if (!user.favorites.includes(projectId)) {
@@ -77,10 +83,4 @@ export const userRemoveFavorite = (user, projectId) => (dispatch) => {
       oldFavorite: projectId,
     })
   );
-};
-
-export const fetchNotifications = () => (dispatch) => {
-  return UserAPI.fetchNotifications()
-    .then((user) => dispatch(receiveNotifications(user)))
-    .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };
