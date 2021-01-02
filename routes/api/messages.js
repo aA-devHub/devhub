@@ -31,10 +31,11 @@ router.post(
     try {
       // Find or create conversation b/w users
       let conversation = await Conversation.findOne({
-        $and: [{ participants: userFrom, participants: userTo }],
+        $and: [{ participants: userFrom }, { participants: userTo }],
       });
 
       if (!conversation) {
+        // console.log('Creating conversation...');
         conversation = await Conversation.create({
           participants: [userFrom, userTo],
         });

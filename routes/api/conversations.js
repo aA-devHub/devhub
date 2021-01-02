@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const Conversation = require('../../models/Conversation');
-const validateConversation = require('../../validation/conversations');
+// const validateConversation = require('../../validation/conversations');
 
 router.get(
   '/',
@@ -32,7 +32,13 @@ router.get(
     const { conversationId } = req.params;
 
     Conversation.findById(conversationId)
-      .populate('messages')
+      .populate({
+        path: 'messages',
+        populate: {
+          path: 'from',
+          select: 'name',
+        },
+      })
       .then((conversation) => {
         const messages = conversation.messages.slice();
         conversation.messages = messages.map((e) => e._id);

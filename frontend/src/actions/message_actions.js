@@ -60,6 +60,7 @@ export const updateMessage = (message) => (dispatch) => {
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };
 
+// XXX: remove toggles, toggle conversation instead?
 export const toggleMessageRead = (messageId) => (dispatch) => {
   return dispatch(
     updateMessage({
