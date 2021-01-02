@@ -17,6 +17,7 @@ class NewProject extends Component {
       },
       ui: {
         color: 'light',
+        overviewLayout: 1,
       },
     };
 
