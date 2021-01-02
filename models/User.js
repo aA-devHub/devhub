@@ -32,6 +32,7 @@ const UserSchema = new Schema(
     skills: {
       type: Map,
       of: Number,
+      default: { devhub: 10 },
     },
     experience: [
       {
