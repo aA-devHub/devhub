@@ -58,13 +58,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function SignupForm({ errors, currentUser, signup }) {
+  const history = useHistory();
   useEffect(() => {
     if (currentUser) {
       history.push('/');
     }
-  }, []);
+  }, [currentUser, history]);
   const classes = useStyles();
-  const history = useHistory();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
