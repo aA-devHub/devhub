@@ -59,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SigninForm({ currentUser, login, demoLogin, errors }) {
+  const history = useHistory();
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
   useEffect(() => {
     if (currentUser) history.push('/');
-  }, [currentUser]);
+  }, [currentUser, history]);
   const loginUser = (e) => {
     e.preventDefault();
     const user = {

@@ -61,6 +61,7 @@ const UserSchema = new Schema(
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     favorites: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+    conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation' }],
   },
 
   {

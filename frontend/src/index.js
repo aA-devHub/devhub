@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import App from './components/app';
 import ScrollHelper from './scroll_helper';
@@ -19,6 +21,7 @@ import * as messageActions from './actions/message_actions';
 import * as tagActions from './actions/tag_actions';
 import * as searchActions from './actions/search_actions';
 import * as notificationActions from './actions/notification_actions';
+import * as conversationActions from './actions/conversation_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,11 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <ScrollHelper>
-          <App />
-        </ScrollHelper>
-      </Router>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Router>
+          <ScrollHelper>
+            <App />
+          </ScrollHelper>
+        </Router>
+      </MuiPickersUtilsProvider>
     </Provider>,
     root
   );
@@ -84,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.tagActions = tagActions;
   window.searchActions = searchActions;
   window.notificationActions = notificationActions;
+  window.conversationActions = conversationActions;
 
   window.store = store;
 

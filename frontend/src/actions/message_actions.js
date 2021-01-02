@@ -15,19 +15,19 @@ export const receiveMessageErrors = (errors) => ({
   errors,
 });
 
-export const removeMessage = (messageId) => ({
-  type: REMOVE_MESSAGE,
-  messageId,
-});
+// export const removeMessage = (messageId) => ({
+//   type: REMOVE_MESSAGE,
+//   messageId,
+// });
 
 export const receiveMessages = (messages) => ({
   type: RECEIVE_MESSAGES,
   messages,
 });
 
-export const receiveMessage = (message) => ({
+export const receiveMessage = (payload) => ({
   type: RECEIVE_MESSAGE,
-  message,
+  payload,
 });
 
 // Fetches all messages (sent and received) for current user
@@ -48,11 +48,11 @@ export const sendMessage = (data) => (dispatch) => {
     .catch((errors) => receiveMessageErrors(errors.response.data));
 };
 
-export const deleteMessage = (messageId) => (dispatch) => {
-  return MessageAPI.deleteMessage(messageId).then((message) =>
-    dispatch(removeMessage(message.data))
-  );
-};
+// export const deleteMessage = (messageId) => (dispatch) => {
+//   return MessageAPI.deleteMessage(messageId).then((message) =>
+//     dispatch(removeMessage(message.data))
+//   );
+// };
 
 export const updateMessage = (message) => (dispatch) => {
   return MessageAPI.updateMessage(message)
@@ -60,6 +60,7 @@ export const updateMessage = (message) => (dispatch) => {
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };
 
+// XXX: remove toggles, toggle conversation instead?
 export const toggleMessageRead = (messageId) => (dispatch) => {
   return dispatch(
     updateMessage({

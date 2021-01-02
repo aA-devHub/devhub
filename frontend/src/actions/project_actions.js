@@ -39,7 +39,6 @@ export const receiveProjectErrors = (errors) => ({
 // TODO accept payload
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
-
   return ApiUtil.fetchProjects(filter)
     .then((payload) => dispatch(receiveProjects(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response));
