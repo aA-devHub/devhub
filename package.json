@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node scripts/seed.js",
-    "seed:messages": "node scripts/messages.js --count=5 --ids=5fee2ded7a55be3258ad129c,5fee049e53f874d4f7bf02f3,5ff01d67cfa3416858ea72fa && node scripts/seed.js",
+    "seed:messages": "node scripts/messages.js --count=10 --ids=5fee2ded7a55be3258ad129c,5fee049e53f874d4f7bf02f3,5ff01d67cfa3416858ea72fa && node scripts/seed.js",
     "format": "prettier --write \"**/*.+(js|json|css)\"",
     "start": "node app.js",
     "server": "nodemon app.js",

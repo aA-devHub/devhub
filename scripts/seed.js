@@ -7,6 +7,8 @@ const path = require('path');
 
 const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
+const User = require('../models/User');
+
 const {
   findOrCreateConversation,
   addMessageToConversation,
@@ -24,11 +26,20 @@ mongoose
 
       // Cleanup any bad data
       let res = await Message.deleteMany({
-        $or: [{ createdAt: null }, { conversation: null }],
+        $or: [{ createdAt: null }, { conversation: null }, { from: null }],
       });
       if (res.ok === 1) {
         console.log('Removed bad messages');
       }
+
+      // Uncomment to reset conversations + messages
+      await Message.deleteMany({});
+      await Conversation.deleteMany({});
+      await User.updateMany(
+        {},
+        { $set: { conversations: [] } },
+        { upsert: true }
+      );
 
       for (let msg of messages) {
         let conversation = await findOrCreateConversation(msg.to, msg.from);

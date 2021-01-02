@@ -41,7 +41,13 @@ const findOrCreateConversation = async (user1, user2) => {
 
 const addMessageToConversation = async (from, message, conversation) => {
   conversation.messages.push(message._id);
-  conversation.unreadBy = conversation.participants.filter((x) => x !== from);
+  if (conversation.unreadBy.includes(from)) {
+    conversation.unreadBy = conversation.participants.slice();
+  } else {
+    conversation.unreadBy = conversation.participants.filter(
+      (x) => !x.equals(from)
+    );
+  }
   return conversation.save();
 };
 
