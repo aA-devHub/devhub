@@ -10,12 +10,10 @@ import {
   Clear,
 } from '@material-ui/icons';
 import {
-  FormHelperText,
   FormControl,
   Select,
   MenuItem,
   InputLabel,
-  IconButton,
   Slider,
   Divider,
   List,
@@ -170,11 +168,11 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [github, setGithub] = useState('');
   const [skills, setSkills] = useState({});
   const [newSkill, setNewSkill] = useState({ skill: '', level: 1 });
-  const [experience, setExperience] = useState({});
+  const [experience, setExperience] = useState([]);
   const [newSkillError, setNewSkillError] = useState('');
   const [newExperience, setNewExperience] = useState({
-    start: new Date(),
-    end: new Date(),
+    start: new Date().toISOString(),
+    end: new Date().toISOString(),
     company: '',
     position: '',
   });
@@ -199,6 +197,8 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       setSkills(user.skills);
       console.log('skills', skills);
       setExperience(user.experience);
+      console.log('experience here', experience);
+      console.log('showAddExp', showAddExp);
     });
   }, []);
 
@@ -274,6 +274,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
 
   const renderExperience = () => {
     const exp = [];
+    console.log('experience[0]', experience[0]);
     for (const key in experience) {
       exp.push(
         <div style={{ display: 'flex', alignItems: 'center' }} key={key}>
@@ -285,7 +286,10 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
             onChange={(val) =>
               setExperience({
                 ...experience,
-                [key]: { ...experience[key], start: val },
+                [key]: {
+                  ...experience[key],
+                  start: val.toISOString(),
+                },
               })
             }
           />
@@ -299,7 +303,10 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
             onChange={(val) =>
               setExperience({
                 ...experience,
-                [key]: { ...experience[key], end: val },
+                [key]: {
+                  ...experience[key],
+                  end: val.toISOString(),
+                },
               })
             }
           />
@@ -339,6 +346,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
               let newExper = { ...experience };
               delete newExper[key];
               setExperience({ ...newExper });
+              console.log('experience', experience);
             }}
           />
         </div>
@@ -384,7 +392,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
             onChange={(val) =>
               setNewExperience({
                 ...newExperience,
-                start: val.toString(),
+                start: val.toISOString(),
               })
             }
           />
@@ -398,7 +406,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
             onChange={(val) =>
               setNewExperience({
                 ...newExperience,
-                end: val.toString(),
               })
             }
           />
@@ -713,6 +720,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
 
   const handleSubmit = () => {
     const userinfo = {
+      id: userId,
       _id: userId,
       name,
       location,
@@ -721,7 +729,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       bio,
       socials: { facebook, twitter, instagram, github, linkedin },
       skills: skills,
-      experience,
+      experience: Object.values(experience),
     };
     console.log('userinfo', userinfo);
     updateUser(userinfo);
