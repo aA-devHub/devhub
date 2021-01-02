@@ -5,14 +5,17 @@ const yargs = require('yargs');
 const fs = require('fs');
 const faker = require('faker');
 
-const createMessage = (from, to) => ({
-  from,
-  to,
-  read: false,
-  body: faker.hacker.phrase(),
-  createdAt: new Date(),
-  updatedAt: new Date(),
-});
+const createMessage = (from, to) => {
+  const date = faker.date.recent();
+  return {
+    from,
+    to,
+    read: false,
+    body: faker.hacker.phrase(),
+    createdAt: date,
+    updatedAt: date,
+  };
+};
 
 // shuffle array
 const shuffle = ([...arr]) => {

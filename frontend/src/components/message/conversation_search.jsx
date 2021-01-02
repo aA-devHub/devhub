@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles, fade } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
+import { InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { fetchConversations } from '../../actions/conversation_actions';

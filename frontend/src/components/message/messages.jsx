@@ -1,23 +1,42 @@
 import React from 'react';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import ConversationPanel from './conversation_panel';
+import ConversationDrawer from './conversation_drawer';
+
+export const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    margin: '10px',
+    padding: '0 10px 0 10px',
+    minHeight: '500px',
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+}));
 
 const Messages = ({ history }) => {
+  const classes = useStyles();
+
   return (
-    <>
-      <div className="user-header">
-        <div className="icon-overlay">
-          <div className="back-icon pointer" onClick={() => history.goBack()}>
-            <ArrowBackIosIcon />
-          </div>
+    <div>
+      <div className={classes.root}>
+        <ConversationDrawer />
 
-          <h1>Messages</h1>
-        </div>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+
+          <Typography paragraph>Chattings</Typography>
+        </main>
       </div>
-
-      <ConversationPanel />
-    </>
+    </div>
   );
 };
 

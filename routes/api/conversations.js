@@ -27,9 +27,9 @@ router.get(
     const filter = buildSearchFilter(req.query);
 
     let conversations = await Conversation.find({ participants: user._id })
-      .populate('participants', 'name')
+      .populate('participants', 'name imageUrl')
       .populate('unreadBy', 'name')
-      .sort({ updatedAt: -1 })
+      .sort({ createdAt: -1 })
       .then((conversations) => res.json(conversations))
       .catch((errors) => res.status(404).json(errors));
 
@@ -49,9 +49,12 @@ router.get(
     Conversation.findById(conversationId)
       .populate({
         path: 'messages',
+        options: {
+          sort: { createdAt: 1 },
+        },
         populate: {
           path: 'from',
-          select: 'name',
+          select: 'name imageUrl',
         },
       })
       .populate('participants', 'name')
