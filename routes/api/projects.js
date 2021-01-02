@@ -9,6 +9,39 @@ const User = require('../../models/User');
 const validateProject = require('../../validation/projects');
 const validateProjectUpdate = require('../../validation/projects');
 
+const escapeRegExp = (str) => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+// Build filter from request query object, default return all
+// Incoming query looks like:
+// {
+//   search: String,
+//   tags: [ String ],
+// }
+// Queries are case insensitive and allow partial matching
+const buildSearchFilter = ({ tags, search }) => {
+  let filter = {};
+  if (tags) {
+    filter = {
+      ...filter,
+      technologies: new RegExp(tags.map((e) => escapeRegExp(e)).join('|'), 'i'),
+    };
+  }
+
+  if (search) {
+    const re = new RegExp(escapeRegExp(search), 'i');
+    filter = {
+      ...filter,
+      $or: [
+        // Add any other fields that should be considered, eg. users?
+        { title: re },
+        { description: re },
+      ],
+    };
+  }
+
+  return filter;
+};
+
 // Get featured projects
 // TODO: implement after implementing numFavorites
 // router.get('/featured', (req, res) => {
@@ -24,10 +57,16 @@ const validateProjectUpdate = require('../../validation/projects');
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find(
-    {},
-    { title: 1, images: 1, user: 1, comments: 1, technologies: 1 }
-  )
+  const filter = buildSearchFilter(req.query);
+  console.log('Filtering projects by: ', filter);
+
+  Project.find(filter, {
+    title: 1,
+    images: 1,
+    user: 1,
+    comments: 1,
+    technologies: 1,
+  })
     .populate('user')
     .populate('comments')
     .then((projects) => {
@@ -38,7 +77,7 @@ router.get('/', (req, res) => {
           users.push(proj.user);
         }
         comments = comments.concat(proj.comments);
-        proj.user = proj.user._id;
+        if (proj.user) proj.user = proj.user._id;
         delete proj.comments;
       });
       return res.json({ projects, users, comments });
@@ -60,7 +99,7 @@ router.get('/user/:userId', (req, res) => {
       const user = projects[0].user;
       let comments = [];
       projects.forEach((proj) => {
-        proj.user = proj.user._id;
+        if (proj.user) proj.user = proj.user._id;
         comments = comments.concat(proj.comments);
         delete proj.comments;
       });
@@ -79,9 +118,9 @@ router.get('/:projectId', (req, res) => {
     .populate('user')
     .populate('comments')
     .then((project) => {
-      const user = project.user;
+      let user = project.user ? project.user : 'ignore';
       const comments = project.comments;
-      project.user = project.user._id;
+      if (project.user) project.user = project.user._id;
       project.comments = project.comments.map((comment) => comment._id);
       return res.json({ project, user, comments });
     })
@@ -95,67 +134,28 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateProject(req.body);
-
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-
-    const newProject = new Project({
-      title: req.body.title,
-      githubLink: req.body.githubLink,
-      liveLink: req.body.liveLink,
-      description: req.body.description,
-      images: req.body.images,
-      ui: req.body.ui,
-      features: req.body.features,
-      mobile: req.body.mobile,
-      browsers: req.body.browsers,
-      futureFeatures: req.body.futureFeatures,
-      user: req.body.user,
-      languages: req.body.languages,
-    });
+    req.body.user = req.user._id;
+    const newProject = new Project(req.body);
 
     newProject.save().then((project) => {
-      User.findById(project.user).then((user) =>
-        res.json({ project, user, comments: [] })
-      );
+      User.findById(project.user).then((user) => {
+        res.json({ project, user, comments: [] });
+      });
     });
   }
 );
 
-// Updates an existing project
-// TODO: May need updating
-router.patch('/:projectId', (req, res) => {
-  // Add validation to see if req has proper parameters (_id, user, etc)
-  // const { errors, isValid } = validateProjectUpdate(req.body);
-
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
-
-  const projectId = req.params.projectId;
-
-  Project.findOne({ _id: projectId }).then((project) => {
-    if (!project) {
-      return res.status(404).send();
-    }
-
-    project.title = req.body.title;
-    project.githubLink = req.body.githubLink;
-    project.liveLink = req.body.liveLink;
-    project.description = req.body.description;
-    project.images = req.body.images;
-    project.ui = req.body.ui;
-    project.features = req.body.features;
-    project.mobile = req.body.mobile;
-    project.browsers = req.body.browsers;
-    project.futureFeatures = req.body.futureFeatures;
-    project.user = req.body.user;
-    project.languages = req.body.languages;
-
-    project.save().then(() => {
-      Project.findById(projectId)
+// Update a project
+router.patch(
+  '/:projectId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Project.findByIdAndUpdate(req.params.projectId, req.body, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ _id: 'Invalid update' });
+      }
+      Project.findById(req.params.projectId)
         .populate('comments')
         .then((updatedProject) => {
           const comments = updatedProject.comments;
@@ -166,9 +166,10 @@ router.patch('/:projectId', (req, res) => {
             res.json({ project: updatedProject, user, comments })
           );
         });
+      return null;
     });
-  });
-});
+  }
+);
 
 // Favorite a project
 router.post(

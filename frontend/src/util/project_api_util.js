@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const fetchProjects = (filter) => {
-  return axios.get('/api/projects', filter);
+  return axios.get('/api/projects', { params: { ...filter } });
 };
 
 export const fetchUserProjects = (userId) => {
