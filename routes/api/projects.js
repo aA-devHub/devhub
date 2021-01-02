@@ -134,10 +134,7 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    if (typeof req.body.user === 'object' && req.body.user !== null) {
-      req.body.user = Object.values(req.body.user)[0];
-    }
-
+    req.body.user = req.user._id;
     const newProject = new Project(req.body);
 
     newProject.save().then((project) => {
@@ -157,9 +154,6 @@ router.patch(
       if (err) {
         console.log(err);
         return res.status(400).json({ _id: 'Invalid update' });
-      }
-      if (typeof req.body.user === 'object' && req.body.user !== null) {
-        req.body.user = Object.values(req.body.user)[0];
       }
       Project.findById(req.params.projectId)
         .populate('comments')

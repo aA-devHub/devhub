@@ -196,17 +196,4 @@ router.get('/:userId/comments', (req, res) => {
     .catch((errors) => res.status(400).json(errors));
 });
 
-// FIX: not being hit, actually hitting /api/users/:userId
-router.get(
-  '/notifications',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    User.findById(req.body.user._id)
-      .then((user) => {
-        return res.json(user);
-      })
-      .catch((errors) => res.status(400).json(errors));
-  }
-);
-
 module.exports = router;
