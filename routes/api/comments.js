@@ -24,19 +24,21 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    // debugger;
+
     const projectId = req.body.project;
     User.findById(req.body.user).then((user) => {
       Project.findById(projectId).then((project) => {
         // debugger;
         let newNotification = {
-          type: 'comment',
-          user: user.name,
+          source: 'comment',
+          userName: user.name,
           projectId: project._id,
           projectName: project.title,
         };
+        // debugger;
         user.notifications.other.push(newNotification);
         user.save();
+        // debugger;
       });
     });
 

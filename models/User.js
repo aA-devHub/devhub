@@ -45,7 +45,7 @@ const UserSchema = new Schema(
       messages: { type: Number, default: 0 },
       other: [
         {
-          type: String,
+          source: String,
           userName: String,
           projectId: Schema.Types.ObjectId,
           projectName: String,
