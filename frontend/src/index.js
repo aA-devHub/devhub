@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import App from './components/app';
 import ScrollHelper from './scroll_helper';
@@ -50,11 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <ScrollHelper>
-          <App />
-        </ScrollHelper>
-      </Router>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Router>
+          <ScrollHelper>
+            <App />
+          </ScrollHelper>
+        </Router>
+      </MuiPickersUtilsProvider>
     </Provider>,
     root
   );
