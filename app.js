@@ -11,6 +11,7 @@ const projects = require('./routes/api/projects');
 const comments = require('./routes/api/comments');
 const messages = require('./routes/api/messages').router;
 const notifications = require('./routes/api/notifications');
+const conversations = require('./routes/api/conversations');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -31,11 +32,11 @@ app.use('/api/projects', projects);
 app.use('/api/comments', comments);
 app.use('/api/messages', messages);
 app.use('/api/notifications', notifications);
+app.use('/api/conversations', conversations);
 
 mongoose
   .connect(db, {
     useNewUrlParser: true,
-    returnOriginal: false,
     useUnifiedTopology: true,
   })
   .then(() => console.log('Connected to MongoDB successfully'))

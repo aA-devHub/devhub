@@ -8,9 +8,14 @@ const MessageSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    to: {
+    // to: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'User',
+    //   required: true,
+    // },
+    conversation: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Conversation',
       required: true,
     },
     read: { type: Boolean, default: false },

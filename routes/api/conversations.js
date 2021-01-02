@@ -22,15 +22,41 @@ router.get(
   }
 );
 
+// Return the messages associated with conversation
+// Marks the conversation as read by the current user
 router.get(
   '/:conversationId',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const user = req.user;
+    const userId = req.user._id;
     const { conversationId } = req.params;
 
     Conversation.findById(conversationId)
-      .populate('participants', 'name')
-      .populate('messages');
+      .populate('messages')
+      .then((conversation) => {
+        const messages = conversation.messages.slice();
+        conversation.messages = messages.map((e) => e._id);
+
+        // Mark conversation as read by current user if not already
+        const idx = conversation.unreadBy.indexOf(userId);
+        if (idx !== -1) {
+          conversation.unreadBy.splice(idx, 1);
+          conversation.save();
+        }
+
+        res.json({ conversation, messages });
+        // XXX: remove this after notifications are updated
+        //   Message.updateMany({
+        //     _id: conversation.messages,
+        //     to: userId
+        //   }, { read: true }, { new: true })
+        //     .then(_ => Message.find({ _id: conversation.messages }))
+        //     .catch(errors => res.status(404).json(errors));
+        // })
+        // .catch(errors => res.status(404).json(errors));
+      })
+      .catch((errors) => res.status(404).json(errors));
   }
 );
+
+module.exports = router;

@@ -15,19 +15,19 @@ export const receiveMessageErrors = (errors) => ({
   errors,
 });
 
-export const removeMessage = (messageId) => ({
-  type: REMOVE_MESSAGE,
-  messageId,
-});
+// export const removeMessage = (messageId) => ({
+//   type: REMOVE_MESSAGE,
+//   messageId,
+// });
 
 export const receiveMessages = (messages) => ({
   type: RECEIVE_MESSAGES,
   messages,
 });
 
-export const receiveMessage = (message) => ({
+export const receiveMessage = (payload) => ({
   type: RECEIVE_MESSAGE,
-  message,
+  payload,
 });
 
 // Fetches all messages (sent and received) for current user
@@ -48,11 +48,11 @@ export const sendMessage = (data) => (dispatch) => {
     .catch((errors) => receiveMessageErrors(errors.response.data));
 };
 
-export const deleteMessage = (messageId) => (dispatch) => {
-  return MessageAPI.deleteMessage(messageId).then((message) =>
-    dispatch(removeMessage(message.data))
-  );
-};
+// export const deleteMessage = (messageId) => (dispatch) => {
+//   return MessageAPI.deleteMessage(messageId).then((message) =>
+//     dispatch(removeMessage(message.data))
+//   );
+// };
 
 export const updateMessage = (message) => (dispatch) => {
   return MessageAPI.updateMessage(message)
@@ -75,9 +75,4 @@ export const toggleThreadRead = (messageId, read = true) => (dispatch) => {
   return MessageAPI.toggleThread(messageId, { read })
     .then((res) => dispatch(receiveMessages(res.data)))
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
-};
-
-// Populate the users slice with users that the current user is engaged with
-export const fetchConversations = () => (dispatch) => {
-  return;
 };

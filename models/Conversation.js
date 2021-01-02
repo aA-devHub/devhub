@@ -14,12 +14,14 @@ const ConversationSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'Message',
+        default: [],
       },
     ],
     unreadBy: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        default: [],
       },
     ],
   },
