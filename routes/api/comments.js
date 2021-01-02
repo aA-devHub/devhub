@@ -24,10 +24,11 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    // debugger;
     User.findById(req.body.user).then((user) => {
-      user.notifications.comments.push(req.body.project);
-      user.save();
+      if (!user.notifications.comments.includes(req.body.project)) {
+        user.notifications.comments.push(req.body.project);
+        user.save();
+      }
     });
 
     return new Comment(req.body)

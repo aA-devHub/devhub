@@ -13,6 +13,7 @@ export const receiveNotificationErrors = (errors) => ({
   errors,
 });
 
+// refactor to receive notifications slice, not whole user
 export const receiveNotifications = (user) => ({
   type: RECEIVE_NOTIFICATIONS,
   user,
@@ -24,4 +25,10 @@ export const fetchNotifications = () => (dispatch) => {
     .catch((errors) =>
       dispatch(receiveNotificationErrors(errors.response.data))
     );
+};
+
+export const removeProjectNotification = (projectId) => (dispatch) => {
+  return NotificationAPI.removeProjectNotification(projectId).then((user) =>
+    dispatch(receiveNotifications(user.data))
+  );
 };

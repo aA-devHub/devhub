@@ -14,11 +14,28 @@ router.get(
         Message.countDocuments({ to: user._id, read: false }).then(
           (numUnread) => {
             user.notifications.messages = numUnread;
+            user.save();
             return res.json(user);
           }
         );
       })
       .catch((errors) => res.status(400).json(errors));
+  }
+);
+
+router.delete(
+  '/projects/:projectId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user._id).then((user) => {
+      const projectId = req.params.projectId;
+      const idx = user.notifications.comments.indexOf(projectId);
+      if (idx > -1) {
+        user.notifications.comments.splice(idx, 1);
+        user.save();
+      }
+      return res.json(user);
+    });
   }
 );
 
