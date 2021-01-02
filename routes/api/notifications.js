@@ -23,20 +23,20 @@ router.get(
   }
 );
 
-router.delete(
-  '/projects/:projectId',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    User.findById(req.user._id).then((user) => {
-      const projectId = req.params.projectId;
-      const idx = user.notifications.projects.indexOf(projectId);
-      if (idx > -1) {
-        user.notifications.projects.splice(idx, 1);
-        user.save();
-      }
-      return res.json(user);
-    });
-  }
-);
+// router.delete(
+//   '/projects/:projectId',
+//   passport.authenticate('jwt', { session: false }),
+//   (req, res) => {
+//     User.findById(req.user._id).then((user) => {
+//       const projectId = req.params.projectId;
+//       const idx = user.notifications.projects.indexOf(projectId);
+//       if (idx > -1) {
+//         user.notifications.projects.splice(idx, 1);
+//         user.save();
+//       }
+//       return res.json(user);
+//     });
+//   }
+// );
 
 module.exports = router;
