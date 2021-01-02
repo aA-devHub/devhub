@@ -29,9 +29,9 @@ router.delete(
   (req, res) => {
     User.findById(req.user._id).then((user) => {
       const projectId = req.params.projectId;
-      const idx = user.notifications.comments.indexOf(projectId);
+      const idx = user.notifications.projects.indexOf(projectId);
       if (idx > -1) {
-        user.notifications.comments.splice(idx, 1);
+        user.notifications.projects.splice(idx, 1);
         user.save();
       }
       return res.json(user);

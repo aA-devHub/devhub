@@ -25,8 +25,8 @@ router.post(
     }
 
     User.findById(req.body.user).then((user) => {
-      if (!user.notifications.comments.includes(req.body.project)) {
-        user.notifications.comments.push(req.body.project);
+      if (!user.notifications.projects.includes(req.body.project)) {
+        user.notifications.projects.push(req.body.project);
         user.save();
       }
     });

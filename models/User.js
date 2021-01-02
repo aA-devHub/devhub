@@ -43,7 +43,7 @@ const UserSchema = new Schema(
     ],
     notifications: {
       messages: { type: Number, default: 0 },
-      comments: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+      projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     },
     yearsOfExperience: Number,
     location: String,
