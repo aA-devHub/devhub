@@ -18,6 +18,7 @@ import * as commentActions from './actions/comment_actions';
 import * as messageActions from './actions/message_actions';
 import * as tagActions from './actions/tag_actions';
 import * as searchActions from './actions/search_actions';
+import * as notificationActions from './actions/notification_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.messageActions = messageActions;
   window.tagActions = tagActions;
   window.searchActions = searchActions;
+  window.notificationActions = notificationActions;
 
   window.store = store;
 

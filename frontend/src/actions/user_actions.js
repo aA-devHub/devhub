@@ -4,7 +4,6 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 export const CLEAR_USER_ERRORS = 'CLEAR_USER_ERRORS';
 export const RECEIVE_USER = 'RECEIVE_USER';
-export const RECEIVE_NOTIFICATIONS = 'RECEIVE_NOTIFICATIONS';
 
 export const receiveUser = (payload) => ({
   type: RECEIVE_USER,
@@ -23,11 +22,6 @@ export const receiveUserErrors = (errors) => ({
 export const receiveUsers = (users) => ({
   type: RECEIVE_USERS,
   users,
-});
-
-export const receiveNotifications = (user) => ({
-  type: RECEIVE_NOTIFICATIONS,
-  user,
 });
 
 export const fetchUsers = () => (dispatch) => {
@@ -52,12 +46,6 @@ export const fetchUser = (userId) => (dispatch) => {
 export const updateUser = (user) => (dispatch) => {
   return UserAPI.updateUser(user)
     .then((res) => dispatch(receiveUser(res.data)))
-    .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
-};
-
-export const fetchNotifications = () => (dispatch) => {
-  return UserAPI.fetchNotifications()
-    .then((user) => dispatch(receiveNotifications(user)))
     .catch((errors) => dispatch(receiveUserErrors(errors.response.data)));
 };
 
