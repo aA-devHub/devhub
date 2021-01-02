@@ -1,3 +1,0 @@
-# Can remove yarn.lock in git pre-commit hook
-# --install.enable-pnp true
-# --install.no-lockfiles true
