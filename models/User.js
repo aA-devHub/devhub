@@ -41,6 +41,10 @@ const UserSchema = new Schema(
         position: String,
       },
     ],
+    notifications: {
+      messages: Number,
+      comments: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+    },
     yearsOfExperience: Number,
     location: String,
     socials: {

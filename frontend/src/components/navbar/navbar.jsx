@@ -15,6 +15,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
+import SearchInput from './search_input';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -295,7 +296,7 @@ function Navbar(props) {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
+              <SearchInput
                 placeholder="Search…"
                 classes={{
                   root: classes.inputRoot,

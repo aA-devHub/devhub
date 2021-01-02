@@ -15,3 +15,7 @@ export const fetchUser = (userId) => {
 export const updateUser = (userData) => {
   return axios.patch(`/api/users/${userData.id}`, userData);
 };
+
+export const fetchNotifications = () => {
+  return axios.get(`/api/users/notifications`);
+};

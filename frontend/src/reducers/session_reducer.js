@@ -3,7 +3,7 @@ import {
   RECEIVE_CURRENT_USER,
   RECEIVE_USER_SIGN_IN,
 } from '../actions/session_actions';
-import { RECEIVE_USER } from '../actions/user_actions';
+import { RECEIVE_USER, RECEIVE_NOTIFICATIONS } from '../actions/user_actions';
 import { currentUserDetails } from '../util/user_api_util';
 
 const initialState = {
@@ -43,6 +43,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isSignedIn: true,
+      };
+
+    case RECEIVE_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.user.notifications,
       };
 
     default:
