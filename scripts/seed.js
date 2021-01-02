@@ -6,27 +6,43 @@ const db = require('../config/keys').mongoURI;
 const path = require('path');
 
 const Message = require('../models/Message');
+const Conversation = require('../models/Conversation');
+const {
+  findOrCreateConversation,
+  addMessageToConversation,
+} = require('../routes/api/messages');
 
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(async () => {
     console.log('Connected to MongoDB successfully');
 
-    // Messages
+    // Messages/Conversations
     try {
       const messages = require('../data/messagedata.json');
       console.dir(messages);
 
       // Cleanup any bad data
-      let res = await Message.deleteMany({ createdAt: null });
+      let res = await Message.deleteMany({
+        $or: [{ createdAt: null }, { conversation: null }],
+      });
       if (res.ok === 1) {
-        console.log('Removed messages with no timestamp');
+        console.log('Removed bad messages');
       }
 
-      const msgs = messages.map((msg) => new Message(msg));
-      res = await Message.collection.insertMany(msgs);
+      for (let msg of messages) {
+        let conversation = await findOrCreateConversation(msg.to, msg.from);
+        console.log('Conversation: ', conversation);
+
+        const message = await Message.create({
+          ...msg,
+          conversation: conversation._id,
+        });
+
+        await addMessageToConversation(msg.from, message, conversation);
+      }
     } catch (err) {
-      // console.error(err.message);
+      console.error(err.message);
       console.log('No message data... skipping seeding messages');
     }
 

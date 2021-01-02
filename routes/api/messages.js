@@ -14,6 +14,37 @@ const userMessages = (userId) => ({
   $or: [{ to: userId }, { from: userId }],
 });
 
+// Find or create conversation b/w users
+// If there isn't already a conversation, a new one is created and
+// each user's conversation array is updated
+// the order of users isn't important
+const findOrCreateConversation = async (user1, user2) => {
+  let conversation = await Conversation.findOne({
+    $and: [{ participants: user1 }, { participants: user2 }],
+  });
+
+  if (!conversation) {
+    // console.log('Creating conversation...');
+    conversation = await Conversation.create({
+      participants: [user1, user2],
+    });
+
+    await User.updateMany(
+      { _id: { $in: conversation.participants } },
+      { $push: { conversations: conversation._id } },
+      { new: true }
+    );
+  }
+
+  return conversation;
+};
+
+const addMessageToConversation = async (from, message, conversation) => {
+  conversation.messages.push(message._id);
+  conversation.unreadBy = conversation.participants.filter((x) => x !== from);
+  return conversation.save();
+};
+
 // Returns both the newly created message and new/updated conversation
 router.post(
   '/',
@@ -29,23 +60,7 @@ router.post(
     const userTo = req.body.to;
 
     try {
-      // Find or create conversation b/w users
-      let conversation = await Conversation.findOne({
-        $and: [{ participants: userFrom }, { participants: userTo }],
-      });
-
-      if (!conversation) {
-        // console.log('Creating conversation...');
-        conversation = await Conversation.create({
-          participants: [userFrom, userTo],
-        });
-
-        await User.updateMany(
-          { _id: { $in: conversation.participants } },
-          { $push: { conversations: conversation._id } },
-          { new: true }
-        );
-      }
+      let conversation = findOrCreateConversation(userFrom, userTo);
 
       let message = await Message.create({
         ...req.body,
@@ -53,11 +68,7 @@ router.post(
         conversation: conversation._id,
       });
 
-      conversation.messages.push(message._id);
-      if (!conversation.unreadBy.includes(userTo)) {
-        conversation.unreadBy.push(userTo);
-      }
-      conversation.save();
+      addMessageToConversation(userFrom, message, conversation);
       return res.json({ conversation, message });
     } catch (err) {
       return res.status(404).json(err);
@@ -171,4 +182,6 @@ router.post(
 module.exports = {
   router,
   userMessages,
+  findOrCreateConversation,
+  addMessageToConversation,
 };
