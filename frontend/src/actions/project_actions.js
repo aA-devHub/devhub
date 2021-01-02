@@ -30,13 +30,18 @@ export const receiveProjectErrors = (errors) => ({
   errors,
 });
 
+// Fetch projects with optional FILTER
+// FILTER is object taking following optional keys
+// {
+//   search: String,
+//   tags: [ String ]
+// }
 // TODO accept payload
 export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
-  return ApiUtil.fetchProjects({ filter })
-    .then((payload) => {
-      return dispatch(receiveProjects(payload.data));
-    })
+
+  return ApiUtil.fetchProjects(filter)
+    .then((payload) => dispatch(receiveProjects(payload.data)))
     .catch((errors) => receiveProjectErrors(errors.response));
 };
 

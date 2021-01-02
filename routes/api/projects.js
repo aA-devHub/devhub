@@ -9,6 +9,39 @@ const User = require('../../models/User');
 const validateProject = require('../../validation/projects');
 const validateProjectUpdate = require('../../validation/projects');
 
+const escapeRegExp = (str) => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+// Build filter from request query object, default return all
+// Incoming query looks like:
+// {
+//   search: String,
+//   tags: [ String ],
+// }
+// Queries are case insensitive and allow partial matching
+const buildSearchFilter = ({ tags, search }) => {
+  let filter = {};
+  if (tags) {
+    filter = {
+      ...filter,
+      technologies: new RegExp(tags.map((e) => escapeRegExp(e)).join('|'), 'i'),
+    };
+  }
+
+  if (search) {
+    const re = new RegExp(escapeRegExp(search), 'i');
+    filter = {
+      ...filter,
+      $or: [
+        // Add any other fields that should be considered, eg. users?
+        { title: re },
+        { description: re },
+      ],
+    };
+  }
+
+  return filter;
+};
+
 // Get featured projects
 // TODO: implement after implementing numFavorites
 // router.get('/featured', (req, res) => {
@@ -24,10 +57,16 @@ const validateProjectUpdate = require('../../validation/projects');
 // Get all projects
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
-  Project.find(
-    {},
-    { title: 1, images: 1, user: 1, comments: 1, technologies: 1 }
-  )
+  const filter = buildSearchFilter(req.query);
+  console.log('Filtering projects by: ', filter);
+
+  Project.find(filter, {
+    title: 1,
+    images: 1,
+    user: 1,
+    comments: 1,
+    technologies: 1,
+  })
     .populate('user')
     .populate('comments')
     .then((projects) => {
