@@ -38,7 +38,7 @@ const App = () => {
             component={UploadProject}
           />
 
-          <ProtectedRoute exact path="/messages" component={Messages} />
+          <ProtectedRoute path="/messages" component={Messages} />
 
           {/* added route to card and cards */}
           <Route path="/card" component={Card} />

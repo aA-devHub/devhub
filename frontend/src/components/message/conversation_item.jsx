@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import {
   Avatar,
@@ -29,7 +30,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ConversationItem = ({ user, conversation, fetchConversation }) => {
+const ConversationItem = ({
+  history,
+  user,
+  conversation,
+  fetchConversation,
+}) => {
   const classes = useStyles();
 
   const { participants, unreadBy } = conversation;
@@ -37,7 +43,14 @@ const ConversationItem = ({ user, conversation, fetchConversation }) => {
   const unread = any(unreadBy, (x) => x.name === user.name);
 
   return (
-    <ListItem button key={name} onClick={() => fetchConversation()}>
+    <ListItem
+      button
+      key={name}
+      onClick={() => {
+        history.push(`/messages/${conversation._id}`);
+        fetchConversation();
+      }}
+    >
       <ListItemIcon>
         <Avatar src={user.imageUrl} className={classes.avatar} />
       </ListItemIcon>
@@ -51,4 +64,6 @@ const ConversationItem = ({ user, conversation, fetchConversation }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationItem);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ConversationItem)
+);

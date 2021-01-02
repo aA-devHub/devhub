@@ -6,7 +6,7 @@ import { Drawer, List, ListSubheader, Divider } from '@material-ui/core';
 
 import ConversationItem from './conversation_item';
 import ConversationSearch from './conversation_search';
-import { drawerWidth } from './messages';
+import { drawerWidth, navOffset } from './messages';
 import { fetchConversations } from '../../actions/conversation_actions';
 
 const mapStateToProps = (state, _ownProps) => ({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     minHeight: '500px',
     height: 'fit-content',
-    top: '64px',
+    top: navOffset,
     margin: '20px',
   },
   // necessary for content to be below app bar
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ConversationDrawer = ({ conversations, fetchConversations }) => {
+const ConversationDrawer = ({ history, conversations, fetchConversations }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const ConversationDrawer = ({ conversations, fetchConversations }) => {
         <Divider />
 
         {Object.values(conversations).map((conversation, idx) => (
-          <ConversationItem conversation={conversation} key={idx} />
+          <ConversationItem key={idx} conversation={conversation} />
         ))}
       </List>
     </Drawer>
