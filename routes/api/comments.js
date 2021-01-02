@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const Comment = require('../../models/Comment');
+const User = require('../../models/User');
 const validateComment = require('../../validation/comments');
 
 // Note: GET routes populate user field with user's namte
@@ -22,6 +23,12 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
+    // debugger;
+    User.findById(req.body.user).then((user) => {
+      user.notifications.comments.push(req.body.project);
+      user.save();
+    });
 
     return new Comment(req.body)
       .save()

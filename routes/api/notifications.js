@@ -3,15 +3,20 @@ const router = express.Router();
 const passport = require('passport');
 
 const User = require('../../models/User');
+const Message = require('../../models/Message');
 
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // debugger;
     User.findById(req.user._id)
       .then((user) => {
-        return res.json(user);
+        Message.countDocuments({ to: user._id, read: false }).then(
+          (numUnread) => {
+            user.notifications.messages = numUnread;
+            return res.json(user);
+          }
+        );
       })
       .catch((errors) => res.status(400).json(errors));
   }
