@@ -16,6 +16,7 @@ import Cards from './project/FilterCards';
 import Card from './project/TinderCard';
 import Footer from './main/Footer';
 import Project from './project/ProjectShow';
+import Messages from './message/messages';
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
             path="/projects/upload"
             component={UploadProject}
           />
+
+          <ProtectedRoute path="/messages" component={Messages} />
 
           {/* added route to card and cards */}
           <Route path="/card" component={Card} />
