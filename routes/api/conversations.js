@@ -5,20 +5,34 @@ const passport = require('passport');
 const Conversation = require('../../models/Conversation');
 // const validateConversation = require('../../validation/conversations');
 
+const buildSearchFilter = ({ search }) => {
+  return search
+    ? {
+        participants: {
+          name: new RegExp(search, 'i'),
+        },
+      }
+    : null;
+};
+
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const user = req.user;
 
-    Conversation.find({
-      participants: user._id,
-    })
+    // TODO: add filtered search
+    // https://stackoverflow.com/questions/11303294/querying-after-populate-in-mongoose
+    const filter = buildSearchFilter(req.query);
+
+    let conversations = await Conversation.find({ participants: user._id })
       .populate('participants', 'name')
       .populate('unreadBy', 'name')
       .sort({ updatedAt: -1 })
       .then((conversations) => res.json(conversations))
       .catch((errors) => res.status(404).json(errors));
+
+    return conversations;
   }
 );
 

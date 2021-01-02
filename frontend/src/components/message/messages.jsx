@@ -1,9 +1,9 @@
 import React from 'react';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-const Messages = ({ history }) => {
-  console.log('messgaes');
+import ConversationPanel from './conversation_panel';
 
+const Messages = ({ history }) => {
   return (
     <>
       <div className="user-header">
@@ -15,6 +15,8 @@ const Messages = ({ history }) => {
           <h1>Messages</h1>
         </div>
       </div>
+
+      <ConversationPanel />
     </>
   );
 };
