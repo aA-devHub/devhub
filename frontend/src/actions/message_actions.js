@@ -77,7 +77,7 @@ export const toggleThreadRead = (messageId, read = true) => (dispatch) => {
     .catch((errors) => dispatch(receiveMessageErrors(errors.response.data)));
 };
 
-// Populate the users slice with users that the current user has threads with
+// Populate the users slice with users that the current user is engaged with
 export const fetchConversations = () => (dispatch) => {
   return;
 };

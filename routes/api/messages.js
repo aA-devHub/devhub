@@ -34,6 +34,20 @@ router.get(
   }
 );
 
+// Get list of users that current user has conversations threads with
+// router.get(
+//   '/threads',
+//   passport.authenticate('jwt', { session: false }),
+//   async (req, res) => {
+//     const user = req.user;
+//     const filter = {
+//       ...userMessages(user._id)
+//     };
+
+//     const messages = await Message.find(filter).populate();
+//   }
+// );
+
 // Toggle entire thread with other user containing `messageId` as un/read
 // if `read` is not passed in request body, then by default thread is marked as read
 router.post(
