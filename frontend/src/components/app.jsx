@@ -15,6 +15,7 @@ import EditProfile from './user/EditProfile';
 import Cards from './project/FilterCards';
 import Card from './project/TinderCard';
 import Footer from './main/Footer';
+import Project from './project/ProjectShow';
 import Messages from './message/messages';
 
 const App = () => {
@@ -43,6 +44,8 @@ const App = () => {
           {/* added route to card and cards */}
           <Route path="/card" component={Card} />
           <Route path="/cards" component={Cards} />
+          <Route path="/comment" component={Comment} />
+          <Route path="/projects/:id" component={Project} />
         </Switch>
       </div>
       <Footer />

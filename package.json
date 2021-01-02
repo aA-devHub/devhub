@@ -29,6 +29,8 @@
   },
   "homepage": "https://github.com/aA-devHub/devhub#readme",
   "dependencies": {
+    "@date-io/date-fns": "^2.10.6",
+    "@material-ui/pickers": "^3.2.10",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
@@ -38,6 +40,7 @@
     "node-sass": "^4.14.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "react-timeago": "^5.2.0",
     "validator": "^13.5.2"
   },
   "devDependencies": {
