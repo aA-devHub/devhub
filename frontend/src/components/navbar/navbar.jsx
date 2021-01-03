@@ -15,7 +15,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
-import { fetchNotifications } from '../../actions/notification_actions';
+import {
+  fetchNotifications,
+  removeNotification,
+} from '../../actions/notification_actions';
 import SearchInput from './search_input';
 import { useLocation } from 'react-router-dom';
 
@@ -169,23 +172,31 @@ function Navbar(props) {
     </Menu>
   );
 
+  const handleNotificationMenuClick = (notificationData) => {
+    setNotificationsAnchorEl(null);
+    setTimeout(() => {
+      props.removeNotification(notificationData._id);
+    }, 300);
+    props.history.push(`/projects/${notificationData.projectId}`);
+  };
+
   // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
   const notifications =
     props.notifications.other && props.notifications.other.length > 0 ? (
       props.notifications.other.map((data, idx) => {
+        const type = data.source;
+        const projectId = data.projectId;
         const user = data.userName;
         const action = data.source === 'comment' ? 'commented on' : 'favorited';
         const project = data.projectName;
         return (
-          <MenuItem onClick={() => handleMenuClick('home')}>
+          <MenuItem onClick={() => handleNotificationMenuClick(data)}>
             {user} {action} {project}
           </MenuItem>
         );
       })
     ) : (
-      <MenuItem onClick={() => handleMenuClick('home')}>
-        No notifications!
-      </MenuItem>
+      <MenuItem>No notifications!</MenuItem>
     );
 
   const notificationMenuId = 'primary-notifications-menu';
@@ -194,16 +205,14 @@ function Navbar(props) {
     renderNotificationsMenu = (
       <Menu
         anchorEl={notificationsAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         id={notificationMenuId}
         keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         open={isNotificationsMenuOpen}
-        onClose={handleMenuClick}
+        onClose={() => setNotificationsAnchorEl(null)}
       >
         {notifications}
-        {/* <MenuItem onClick={() => handleMenuClick('home')}>Menu Item 1</MenuItem> */}
-        {/* <MenuItem onClick={() => handleMenuClick('home')}>Menu Item 2</MenuItem> */}
       </Menu>
     );
   }
@@ -399,6 +408,8 @@ const mapSTP = ({ session }) => {
 const mapDTP = (dispatch) => ({
   signout: () => dispatch(logout()),
   fetchNotifications: () => dispatch(fetchNotifications()),
+  removeNotification: (notificationId) =>
+    dispatch(removeNotification(notificationId)),
 });
 
 export default withRouter(connect(mapSTP, mapDTP)(Navbar));
