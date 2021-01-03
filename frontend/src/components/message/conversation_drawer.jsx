@@ -21,15 +21,18 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    position: 'relative',
   },
   drawerPaper: {
     width: drawerWidth,
-    minHeight: '500px',
-    top: navOffset,
-    margin: '20px',
+    height: '100%',
+    margin: '0px',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
+    position: 'absolute',
+    zIndex: 1,
+    border: '1px solid rgba(0,0,0, 0.12)',
   },
   sticky: {
     backgroundColor: theme.backgroundColor,
@@ -75,7 +78,7 @@ const ConversationDrawer = ({ history, conversations, fetchConversations }) => {
           <ConversationSearch />
         </ListSubheader>
 
-        <div className={classes.toolbar} />
+        {/* <div className={classes.toolbar} /> */}
         <Divider />
 
         {Object.values(conversations).map((conversation, idx) => (

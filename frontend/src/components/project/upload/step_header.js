@@ -33,7 +33,7 @@ const StepHeader = ({ step, title, changeStep }) => {
           color: 'white',
         }}
       >
-        <Typography>Next</Typography>
+        <Typography>{step === 5 ? 'Submit' : 'Next'}</Typography>
       </Button>
     </div>
   );

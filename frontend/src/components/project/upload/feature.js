@@ -37,23 +37,23 @@ class Feature extends Component {
     return (
       <div className="step-inner">
         <div className="step-inner-third">
-          <label className="step-input-label">
+          <label className="step-input-label med upper">
             <Typography>{`Feature ${this.props.idx + 1}`}</Typography>
-            <label className="step-input-label">
-              <Typography>Feature Title</Typography>
-              <InputBase
-                className="step-input"
-                value={this.state.title || ''}
-                onChange={this.handleInput('title')}
-              />
-            </label>
+          </label>
+          <label className="step-input-label">
+            <Typography>Feature Title</Typography>
+            <InputBase
+              className="step-input"
+              value={this.state.title || ''}
+              onChange={this.handleInput('title')}
+            />
           </label>
           <label className="step-input-label">
             <Typography>Feature Description</Typography>
             <InputBase
               multiline={true}
-              rows={5}
-              style={{ padding: '0' }}
+              rows={7}
+              style={{ padding: '0', marginBottom: '0' }}
               className="step-input"
               value={this.state.description || ''}
               onChange={this.handleInput('description')}
