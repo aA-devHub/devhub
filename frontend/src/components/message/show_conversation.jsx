@@ -1,10 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
-import ConversationAppBar from './conversation_app_bar';
+// import ConversationAppBar from './conversation_app_bar';
 import { otherParticipant, drawerWidth, navOffset } from './messages';
+
+const useStyles = makeStyles((theme) => ({
+  conversation: {
+    position: 'relative',
+    height: '100%',
+  },
+  messageList: {
+    height: 'calc(100% - 3rem)',
+    overflowY: 'scroll',
+  },
+}));
 
 const mapStateToProps = (state, ownProps) => {
   const { conversationId } = ownProps.match.params;
@@ -22,18 +33,19 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({});
 
 const ShowConversation = ({ user, otherUser, conversation, messages }) => {
+  const classes = useStyles();
   if (!conversation) return null;
-  // console.log('Conversation: ', conversation);
 
   return (
     <>
-      <ConversationAppBar name={otherUser.name} />
-
-      {Object.values(messages).map((msg, idx) => (
-        <Typography paragraph key={idx}>
-          {msg.body}
-        </Typography>
-      ))}
+      {/* <ConversationAppBar name={otherUser.name} /> */}
+      <div className="conversation">
+        {Object.values(messages).map((msg, idx) => (
+          <Typography paragraph key={idx}>
+            {msg.body}
+          </Typography>
+        ))}
+      </div>
     </>
   );
 };

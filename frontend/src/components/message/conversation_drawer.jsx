@@ -25,14 +25,26 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     minHeight: '500px',
-    height: 'fit-content',
     top: navOffset,
     margin: '20px',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+  sticky: {
+    backgroundColor: theme.backgroundColor,
   },
   // necessary for content to be below app bar
   toolbar: {
     // ...theme.mixins.toolbar,
     minHeight: '10px',
+  },
+  subheaderRoot: {
+    backgroundColor: 'white',
+  },
+  subheaderSticky: {
+    boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.05)',
+    border: 'solid 1px white',
   },
 }));
 
@@ -53,9 +65,15 @@ const ConversationDrawer = ({ history, conversations, fetchConversations }) => {
       anchor="left"
     >
       <List>
-        <ListSubheader>Conversations</ListSubheader>
-
-        <ConversationSearch />
+        <ListSubheader
+          classes={{
+            root: classes.subheaderRoot,
+            sticky: classes.subheaderSticky,
+          }}
+        >
+          Conversations
+          <ConversationSearch />
+        </ListSubheader>
 
         <div className={classes.toolbar} />
         <Divider />

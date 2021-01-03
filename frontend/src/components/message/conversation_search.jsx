@@ -5,18 +5,20 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 import { InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
+import * as COLORS from '../../colors';
 import { fetchConversations } from '../../actions/conversation_actions';
 
 const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: '15px',
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(COLORS.NAVBARBLACK, 0.05),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(COLORS.NAVBARBLACK, 0.03),
     },
-    width: 'auto',
+    width: '100%',
     marginRight: theme.spacing(2),
+    marginBottom: 5,
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
