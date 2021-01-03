@@ -67,9 +67,12 @@ function Project({ project, fetchProject, user }) {
       setFeaturesLayout(project.ui.featuresLayout);
       setGithubLink(project.githubLink);
       setTechnologies(project.technologies);
-      fetchUser(project.user).then((user) => setUsr(user));
+      setUsr(user);
     });
   }, []);
+  useEffect(() => {
+    setUsr(user);
+  }, [user]);
   const renderImageWall = (theme) => {
     switch (theme) {
       case 1:
@@ -134,5 +137,6 @@ export default connect(
   }),
   (dispatch) => ({
     fetchProject: (id) => dispatch(fetchProject(id)),
+    fetchUser: (id) => dispatch(fetchUser(id)),
   })
 )(Project);

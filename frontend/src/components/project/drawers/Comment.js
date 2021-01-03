@@ -169,7 +169,6 @@ function Feedback({ userId }) {
 
 export default connect(
   (state, ownProps) => ({
-    userId: state.session.user.id,
     toggleDrawer: ownProps.toggleDrawer,
     comments: ownProps.comments,
   }),

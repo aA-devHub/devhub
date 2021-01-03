@@ -7,14 +7,19 @@ import CommentDrawer from './Comment';
 import UserDrawer from './UserDrawer';
 
 export default function Drawers({ project, comments, developer }) {
+  const [dev, setDev] = useState({});
   const useStyles = makeStyles((theme) => ({
     root: {},
   }));
   useEffect(() => {
-    setImage(developer?.imageUrl);
+    if (developer?.imageUrl) {
+      setImage(developer.imageUrl);
+      setDev(developer);
+    }
+    console.log('developer', developer);
   }, [developer]);
   const [cmt, setCmt] = useState({ right: false });
-  const [image, setImage] = useState(developer?.imageUrl);
+  const [image, setImage] = useState('');
   const [showUser, setShowUser] = useState({ right: false });
   const classes = useStyles();
   const toggleCommentDrawer = (bool) => (event) => {
@@ -48,10 +53,7 @@ export default function Drawers({ project, comments, developer }) {
             border: `1px solid ${COLORS.DEVBLUE}`,
             cursor: 'pointer',
           }}
-          src={
-            image ||
-            'https://res.cloudinary.com/willwang/image/upload/v1608279563/23_npj6fd.webp'
-          }
+          src={image}
         />
         <div
           style={{ backgroundColor: COLORS.DEVBLUE, height: 20, width: 1 }}
@@ -90,7 +92,7 @@ export default function Drawers({ project, comments, developer }) {
         open={showUser.right}
         onClose={toggleUserDrawer(false)}
       >
-        <UserDrawer developer={developer} toggleDrawer={toggleUserDrawer} />
+        <UserDrawer developer={dev} toggleDrawer={toggleUserDrawer} />
       </Drawer>
     </React.Fragment>
   );
