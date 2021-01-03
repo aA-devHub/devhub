@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,9 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
+import { fetchNotifications } from '../../actions/notification_actions';
 import SearchInput from './search_input';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -93,6 +95,11 @@ function Navbar(props) {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  let location = useLocation();
+  useEffect(() => {
+    props.fetchNotifications();
+  }, [location]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -334,6 +341,7 @@ const mapSTP = ({ session }) => {
 
 const mapDTP = (dispatch) => ({
   signout: () => dispatch(logout()),
+  fetchNotifications: () => dispatch(fetchNotifications()),
 });
 
 export default withRouter(connect(mapSTP, mapDTP)(Navbar));
