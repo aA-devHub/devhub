@@ -1,13 +1,52 @@
+.master-features-container {
+    margin-top: 80px;
+}
+
 .feature-container {
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-rows: 400px;
+    align-items: center;
+    justify-content: center;
+    // height: 390px;
+}
+
+.features-container:nth-child(even) .feature-container {
+
+
+    .feature-images {
+        margin-top: 18px;
+        margin-left: -20px;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .feature-description {
+        margin-top: 30px;
+        margin-left: 25px;
+        grid-column: 2;
+        grid-row: 1;
+    }
 }
 
 .feature-description {
+    * {
+        padding-bottom: 16px;
+    }
     width: 90%;
     // font-size: 18px;
 }
 
 .feature-images > img {
     width: 100%;
+}
+
+.feature-image-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    
+}
+
+.CarouselItem {
+    max-width: 600px;
 }
