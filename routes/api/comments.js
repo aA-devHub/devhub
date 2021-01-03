@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+var mongoose = require('mongoose');
 
 const Comment = require('../../models/Comment');
 const User = require('../../models/User');
@@ -28,17 +29,15 @@ router.post(
     const projectId = req.body.project;
     User.findById(req.body.user).then((user) => {
       Project.findById(projectId).then((project) => {
-        // debugger;
         let newNotification = {
           source: 'comment',
           userName: user.name,
           projectId: project._id,
           projectName: project.title,
+          _id: mongoose.Types.ObjectId(),
         };
-        // debugger;
         user.notifications.other.push(newNotification);
         user.save();
-        // debugger;
       });
     });
 

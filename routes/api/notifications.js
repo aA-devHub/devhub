@@ -26,16 +26,28 @@ router.get(
 );
 
 router.delete(
-  '/projects/:projectId',
+  '/all',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id).then((user) => {
-      const projectId = req.params.projectId;
-      const idx = user.notifications.projects.indexOf(projectId);
-      if (idx > -1) {
-        user.notifications.projects.splice(idx, 1);
-        user.save();
-      }
+      user.notifications.other = [];
+      user.save();
+      return res.json(user);
+    });
+  }
+);
+
+router.delete(
+  '/other/:notificationId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const notificationId = req.params.notificationId;
+    User.findById(req.user._id).then((user) => {
+      const newNotifications = user.notifications.other.filter(
+        (notification) => notification._id.toString() !== notificationId
+      );
+      user.notifications.other = newNotifications;
+      user.save();
       return res.json(user);
     });
   }

@@ -4,6 +4,10 @@ export const fetchNotifications = () => {
   return axios.get(`/api/notifications`);
 };
 
-export const removeProjectNotification = (projectId) => {
-  return axios.delete(`/api/notifications/projects/${projectId}`);
+export const removeNotification = (notificationId) => {
+  return axios.delete(`/api/notifications/other/${notificationId}`);
+};
+
+export const clearNotifications = () => {
+  return axios.delete(`/api/notifications/all`);
 };
