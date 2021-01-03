@@ -61,7 +61,7 @@ function SignupForm({ errors, currentUser, signup }) {
   const history = useHistory();
   useEffect(() => {
     if (currentUser) {
-      history.push('/');
+      history.push('/signin');
     }
   }, [currentUser, history]);
   const classes = useStyles();
