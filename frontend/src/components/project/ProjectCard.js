@@ -7,23 +7,17 @@ import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { Star, KeyboardArrowUp } from '@material-ui/icons';
 
 // import { project as dummy } from './__tests__/dummy_data';
+import FavoriteButton from './FavoriteButton';
 import * as COLORS from '../../colors';
 import { getImageArray } from '../../selectors/projects';
-import { addFavorite, deleteFavorite } from '../../actions/project_actions';
 
 const mapStateToProps = (state, { project }) => {
   const author = state.entities.users[project.user];
   author.avatarUrl = author.avatarUrl || author.imageUrl;
   return {
     author,
-    currentUser: state.session.user,
   };
 };
-
-const mapDispatchToProps = (dispatch, { project: { _id: projectId } }) => ({
-  addFavorite: () => dispatch(addFavorite(projectId)),
-  deleteFavorite: () => dispatch(deleteFavorite(projectId)),
-});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,22 +67,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProjectCard({
-  project,
-  author,
-  currentUser,
-  addFavorite,
-  deleteFavorite,
-}) {
+function ProjectCard({ project, author }) {
   const history = useHistory();
 
   const [autoplay, setAutoplay] = useState(false);
   const classes = useStyles();
-
-  const toggleFavorite = () => {
-    if (currentUser.favorites.includes(project._id)) deleteFavorite();
-    else addFavorite();
-  };
 
   return (
     <div className={classes.root}>
@@ -141,10 +124,11 @@ function ProjectCard({
           </div>
         </div>
         <div className={classes.rightPanel}>
-          <Star
-            style={{ color: COLORS.GOLDSTAR, cursor: 'pointer' }}
-            onClick={toggleFavorite}
-          />
+          <FavoriteButton project={project} />
+          {/* <Star */}
+          {/*   style={{ color: COLORS.GOLDSTAR, cursor: 'pointer' }} */}
+          {/*   onClick={toggleFavorite} */}
+          {/* /> */}
           <KeyboardArrowUp style={{ color: 'red' }} />
         </div>
       </div>
@@ -152,4 +136,4 @@ function ProjectCard({
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectCard);
+export default connect(mapStateToProps)(ProjectCard);
