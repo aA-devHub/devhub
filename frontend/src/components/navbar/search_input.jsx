@@ -54,7 +54,7 @@ const SearchInput = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchProjects({ search, tags });
-    setSearch('');
+    // setSearch('');
   };
 
   return (

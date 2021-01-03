@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 // name of other person(s) in conversation
 export const otherParticipant = (user, participants) => {
-  console.log('participants: ', participants);
+  // console.log('participants: ', participants);
   return participants && participants.filter((x) => x.name !== user.name)[0];
 };
 

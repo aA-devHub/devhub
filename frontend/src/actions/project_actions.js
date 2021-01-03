@@ -5,6 +5,12 @@ export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const REMOVE_PROJECT = 'REMOVE_PROJECT';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
 export const CLEAR_PROJECT_ERRORS = 'CLEAR_PROJECT_ERRORS';
+export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
+
+export const receiveFavorites = (favorites) => ({
+  type: RECEIVE_FAVORITES,
+  favorites,
+});
 
 export const receiveProjects = (payload) => ({
   type: RECEIVE_PROJECTS,
@@ -80,13 +86,15 @@ export const deleteProject = (projectId) => (dispatch) => {
 };
 
 export const addFavorite = (projectId) => (dispatch) => {
-  return ApiUtil.addProjectFavorite(projectId).then((payload) =>
-    dispatch(receiveProject(payload.data))
-  );
+  return ApiUtil.addProjectFavorite(projectId).then((payload) => {
+    dispatch(receiveProject(payload.data));
+    dispatch(receiveFavorites(payload.data.favorites));
+  });
 };
 
 export const deleteFavorite = (projectId) => (dispatch) => {
-  return ApiUtil.deleteProjectFavorite(projectId).then((payload) =>
-    dispatch(receiveProject(payload.data))
-  );
+  return ApiUtil.deleteProjectFavorite(projectId).then((payload) => {
+    dispatch(receiveProject(payload.data));
+    dispatch(receiveFavorites(payload.data.favorites));
+  });
 };

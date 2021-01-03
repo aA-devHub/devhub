@@ -6,6 +6,7 @@ import {
 import { RECEIVE_USER } from '../actions/user_actions';
 import { RECEIVE_NOTIFICATIONS } from '../actions/notification_actions';
 import { currentUserDetails } from '../util/user_api_util';
+import { RECEIVE_FAVORITES } from '../actions/project_actions';
 
 const initialState = {
   isAuthenticated: false,
@@ -17,6 +18,10 @@ export default (state = initialState, action) => {
   Object.freeze(state);
 
   switch (action.type) {
+    case RECEIVE_FAVORITES:
+      const { favorites } = action;
+      return { ...state, user: { ...state.user, favorites: favorites } };
+
     case RECEIVE_USER:
       const { user } = action.payload;
       if (state.user && state.user.id === user._id) {
