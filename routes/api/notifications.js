@@ -13,7 +13,8 @@ router.get(
       .populate('conversations')
       .then((user) => {
         const numUnread = user.conversations.reduce(
-          (count, convo) => (convo.unreadBy.length > 0 ? count + 1 : count),
+          (count, convo) =>
+            convo.unreadBy.includes(user._id) ? count + 1 : count,
           0
         );
 

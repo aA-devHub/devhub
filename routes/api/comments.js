@@ -27,7 +27,6 @@ router.post(
     }
 
     const projectId = req.body.project;
-    // debugger;
     User.findById(req.body.user).then((commenter) => {
       Project.findById(projectId).then((project) => {
         User.findById(project.user).then((recipient) => {
