@@ -31,31 +31,41 @@ const SearchInput = ({
   // clear tags when route changes
   let location = useLocation();
   useEffect(() => {
-    clearTags();
-    setSearch('');
+    if (tags.length > 0) clearTags();
+    if (search !== '') setSearch('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  // debouncing .3 seconds
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    // Uncomment to add debouncing .3 seconds
+    // const timeout = setTimeout(() => {
+    if (tags.length > 0) {
       fetchProjects({
         search,
         tags,
       });
-    }, 300);
+    }
+    // }, 300);
 
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, tags]);
+  }, [tags]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchProjects({ search, tags });
+    // setSearch('');
+  };
 
   return (
     <>
-      <InputBase
-        value={search}
-        onChange={(e) => setSearch(e.currentTarget.value)}
-        {...props}
-      />
+      <form onSubmit={handleSubmit}>
+        <InputBase
+          value={search}
+          onChange={(e) => setSearch(e.currentTarget.value)}
+          {...props}
+        />
+      </form>
     </>
   );
 };

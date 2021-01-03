@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
-import * as COLORS from '../../colors';
+import { connect } from 'react-redux';
 import { makeStyles, Button } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+import * as COLORS from '../../colors';
+import { addTag, removeTag, clearTags } from '../../actions/tag_actions';
+
+const mapStateToProps = (state) => ({
+  tags: state.ui.tags,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  removeTag: (tag) => dispatch(removeTag(tag)),
+  addTag: (tag) => dispatch(addTag(tag)),
+  clearTags: () => dispatch(clearTags()),
+});
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '2rem',
@@ -24,10 +38,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FilterCards() {
+const defaultTags = [
+  'Javascript',
+  'Ruby',
+  'Cpp',
+  'Python',
+  'Golang',
+  'Swift',
+  'Java',
+];
+
+function FilterCards({ addTag, removeTag, clearTags, tags }) {
   const [filter, setFilter] = useState('popularity');
   const handleFilter = (e) => setFilter(e.target.value);
   const classes = useStyles();
+
+  const toggleTag = (tag) => {
+    // Uncomment to allow multiple tags in filtered query
+    // if (tags.includes(tag)) removeTag(tag);
+    // else addTag(tag);
+    clearTags();
+    addTag(tag);
+  };
+
   return (
     <div className={classes.root}>
       <FormControl variant="outlined" className={classes.formControl}>
@@ -45,17 +78,22 @@ function FilterCards() {
           <MenuItem value={'recency'}>Recency</MenuItem>
         </Select>
       </FormControl>
+      {/* TODO: */}
+      {/* There should be a button here to clear all the tags, or some way */}
+      {/* to show which one is active */}
       <div>
-        <Button className={classes.button}>Javascript</Button>
-        <Button className={classes.button}>Ruby</Button>
-        <Button className={classes.button}>Cpp</Button>
-        <Button className={classes.button}>Python</Button>
-        <Button className={classes.button}>Golang</Button>
-        <Button className={classes.button}>Swift</Button>
-        <Button className={classes.button}>Java</Button>
+        {defaultTags.map((tag, idx) => (
+          <Button
+            key={idx}
+            className={classes.button}
+            onClick={() => toggleTag(tag)}
+          >
+            {tag}
+          </Button>
+        ))}
       </div>
     </div>
   );
 }
 
-export default FilterCards;
+export default connect(mapStateToProps, mapDispatchToProps)(FilterCards);
