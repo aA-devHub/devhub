@@ -15,6 +15,7 @@ class Step1 extends Component {
         color: this.props.masterState.ui.color,
         overviewLayout: this.props.masterState.ui.overviewLayout,
         featuresLayout: this.props.masterState.ui.featuresLayout,
+        languageChart: this.props.masterState.ui.languageChart,
       },
     };
 

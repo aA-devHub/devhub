@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import StepHeader from './step_header';
 import { Typography, RadioGroup, Radio } from '@material-ui/core';
 import { FormControlLabel, FormControl } from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
 
 class Step4 extends Component {
   constructor(props) {
@@ -21,16 +22,37 @@ class Step4 extends Component {
   }
 
   renderBrowsers() {
-    var browsers = [
-      'Chrome',
-      'Safari',
-      'FireFox',
-      'Internet Explorer',
-      'Edge',
-      'Opera',
-    ];
+    var browsers = ['Chrome', 'Safari', 'FireFox', 'Edge', 'Opera'];
 
     browsers = browsers.map((browser, idx) => {
+      let browserIcon;
+
+      switch (browser) {
+        case 'Chrome':
+          browserIcon =
+            'https://github.com/alrra/browser-logos/blob/main/src/chrome/chrome_64x64.png?raw=true';
+          break;
+        case 'Safari':
+          browserIcon =
+            'https://github.com/alrra/browser-logos/blob/main/src/safari/safari_64x64.png?raw=true';
+          break;
+        case 'FireFox':
+          browserIcon =
+            'https://github.com/alrra/browser-logos/blob/main/src/firefox/firefox_64x64.png?raw=true';
+          break;
+        case 'Edge':
+          browserIcon =
+            'https://github.com/alrra/browser-logos/blob/main/src/edge/edge_64x64.png?raw=true';
+          break;
+        case 'Opera':
+          browserIcon =
+            'https://github.com/alrra/browser-logos/blob/main/src/opera/opera_64x64.png?raw=true';
+          break;
+
+        default:
+          break;
+      }
+
       var classes = 'browser-icon pointer';
 
       if (this.state.browsers.includes(browser)) {
@@ -39,7 +61,7 @@ class Step4 extends Component {
 
       return (
         <img
-          src="https://res.cloudinary.com/willwang/image/upload/v1609184704/logoround_tgdkrs.png"
+          src={browserIcon}
           alt={browser}
           className={classes}
           key={idx}
@@ -49,6 +71,45 @@ class Step4 extends Component {
     });
 
     return <React.Fragment>{browsers}</React.Fragment>;
+  }
+
+  renderLayout(layoutNum) {
+    let layoutImageUrl;
+
+    switch (layoutNum) {
+      case 1:
+        layoutImageUrl =
+          'https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/21069-cherry-apple-pie-600x600.jpg?ext=.jpg';
+        break;
+      case 2:
+        layoutImageUrl =
+          'https://t4.ftcdn.net/jpg/01/67/90/25/360_F_167902506_CBRRubORGPVJ1RopHMf2Rie6tJte74C9.jpg';
+        break;
+      default:
+        break;
+    }
+
+    var classes = 'step-layout pointer';
+    let checkmark;
+
+    if (this.state.ui.languageChart === layoutNum) {
+      classes += ' selected';
+      checkmark = <CheckIcon />;
+    }
+
+    return (
+      <div
+        className={classes}
+        onClick={() =>
+          this.setState((prevState) => ({
+            ui: { ...prevState.ui, languageChart: layoutNum },
+          }))
+        }
+      >
+        <img src={layoutImageUrl} alt={`Layout ${layoutNum}`} />
+        {checkmark}
+      </div>
+    );
   }
 
   handleInput(field) {
@@ -85,31 +146,46 @@ class Step4 extends Component {
           title={'Tech Specs'}
           changeStep={this.handleStepChange}
         />
-        <FormControl component="fieldset">
-          <label className="step-input-label">
-            <Typography>Mobile Compatible</Typography>
-          </label>
-          <RadioGroup
-            row
-            value={this.state.mobile}
-            onChange={this.handleInput('mobile')}
-          >
-            <FormControlLabel
-              value="true"
-              control={<Radio color="default" />}
-              label="Yes"
-            />
-            <FormControlLabel
-              value="false"
-              control={<Radio color="default" />}
-              label="No"
-            />
-          </RadioGroup>
-        </FormControl>
-        <label className="step-input-label">
-          <Typography>Browser Compatibility</Typography>
-          {this.renderBrowsers()}
-        </label>
+        <div className="step-inner">
+          <div className="step-inner-left">
+            <FormControl component="fieldset" style={{ marginBottom: '20px' }}>
+              <label className="step-input-label">
+                <Typography>Mobile Compatible</Typography>
+              </label>
+              <RadioGroup
+                row
+                value={this.state.mobile}
+                onChange={this.handleInput('mobile')}
+              >
+                <FormControlLabel
+                  value="true"
+                  control={<Radio color="default" />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio color="default" />}
+                  label="No"
+                />
+              </RadioGroup>
+            </FormControl>
+            <label className="step-input-label">
+              <Typography>Browser Compatibility</Typography>
+              {this.renderBrowsers()}
+            </label>
+          </div>
+          <div className="step-inner-right">
+            <div className="step-inner layouts">
+              <label className="step-input-label">
+                <Typography>Language Display</Typography>
+              </label>
+              <div className="step-layouts two">
+                {this.renderLayout(1)}
+                {this.renderLayout(2)}
+              </div>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Step1 from './step1';
 import Step2 from './step2';
 import Step3 from './step3';
 import Step4 from './step4';
+import Step5 from './step5';
+import { createProject } from '../../../actions/project_actions';
 
 class NewProject extends Component {
   constructor(props) {
@@ -26,6 +29,7 @@ class NewProject extends Component {
       },
       mobile: false,
       browsers: [],
+      futureFeatures: [],
     };
 
     this.changeStep = this.changeStep.bind(this);
@@ -33,7 +37,7 @@ class NewProject extends Component {
   }
 
   renderStep() {
-    var StepComponents = { 1: Step1, 2: Step2, 3: Step3, 4: Step4 };
+    var StepComponents = { 1: Step1, 2: Step2, 3: Step3, 4: Step4, 5: Step5 };
     var StepComponent = StepComponents[this.state.step];
 
     return (
@@ -41,13 +45,17 @@ class NewProject extends Component {
         masterState={this.state}
         updateMasterState={this.updateMasterState}
         changeStep={this.changeStep}
-        submit={this.handleSubmit}
+        handleSubmit={this.handleSubmit}
       />
     );
   }
 
-  updateMasterState(stepState) {
-    this.setState(stepState);
+  updateMasterState(stepState, last) {
+    this.setState(stepState, () => {
+      if (last) {
+        this.handleSubmit();
+      }
+    });
   }
 
   changeStep(dir) {
@@ -57,7 +65,8 @@ class NewProject extends Component {
   }
 
   handleSubmit() {
-    console.log('Insert post w/ master state info!');
+    console.log(this.state);
+    this.props.createProject(this.state);
   }
 
   render() {
@@ -69,4 +78,8 @@ class NewProject extends Component {
   }
 }
 
-export default NewProject;
+const mapDTP = (dispatch) => ({
+  createProject: (project) => dispatch(createProject(project)),
+});
+
+export default connect(null, mapDTP)(NewProject);

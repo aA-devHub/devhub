@@ -507,7 +507,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 .step-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .step-header .hidden {
@@ -521,6 +521,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 
 .step-inner {
   display: flex;
+  flex-flow: row wrap;
 }
 
 .step-inner.layouts {
@@ -535,8 +536,12 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   flex: 0 0 calc(33% - 13.33px);
 }
 
-.step-inner-third:not(:last-child) {
+.step-inner-third:not(:nth-child(3n + 0)) {
   margin-right: 20px;
+}
+
+.step-inner-third.future {
+  margin-bottom: 40px;
 }
 
 .step-inner-left,
@@ -630,6 +635,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 
 .step-layout {
   flex: 0 0 calc(33.333% - 26.666px);
+  height: 250px;
   position: relative;
   padding: 40px;
   border: 5px solid rgba(0, 0, 0, 0.05);
@@ -646,7 +652,10 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 }
 
 .step-layout img {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 50%;
 }
 
 .step-layout.selected svg {
@@ -661,8 +670,17 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   border: 5px solid rgba(0, 0, 0, 0.2);
 }
 
+.step-layouts.two {
+  justify-content: space-between;
+}
+
+.step-layouts.two > .step-layout {
+  flex: 0 0 calc(50% - 20px);
+}
+
 .browser-icon {
   filter: grayscale(1);
+  margin-right: 20px;
   transition: all 0.5s;
 }
 
