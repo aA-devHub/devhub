@@ -173,6 +173,7 @@ function Navbar(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClick}
+      style={{ marginTop: 40 }}
     >
       <MenuItem onClick={() => handleMenuClick('profile')}>Profile</MenuItem>
       <MenuItem onClick={() => handleMenuClick('editprofile')}>
@@ -221,6 +222,7 @@ function Navbar(props) {
         transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         open={isNotificationsMenuOpen}
         onClose={() => setNotificationsAnchorEl(null)}
+        style={{ marginTop: 40 }}
       >
         {notifications}
       </Menu>
