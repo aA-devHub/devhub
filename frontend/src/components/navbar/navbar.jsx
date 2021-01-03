@@ -185,16 +185,19 @@ function Navbar(props) {
         <p>Profile</p>
       </MenuItem>
       <MenuItem onClick={() => handleMenuClick('messages')}>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
+        <IconButton aria-label="show new mails" color="inherit">
+          <Badge badgeContent={props.notifications.messages} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
       <MenuItem onClick={() => handleMenuClick('notifications')}>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+        <IconButton aria-label="show new notifications" color="inherit">
+          <Badge
+            badgeContent={props.notifications.other.length}
+            color="secondary"
+          >
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -230,17 +233,20 @@ function Navbar(props) {
           <Typography>Upload Project</Typography>
         </Button>
         <IconButton
-          aria-label="show 11 new notifications"
+          aria-label="show new notifications"
           color="inherit"
           onClick={() => handleMenuClick('notifications')}
         >
-          <Badge badgeContent={11} color="secondary">
+          <Badge
+            badgeContent={props.notifications.other.length}
+            color="secondary"
+          >
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <IconButton aria-label="show 4 new mails" color="inherit">
+        <IconButton aria-label="show new mails" color="inherit">
           <Badge
-            badgeContent={4}
+            badgeContent={props.notifications.messages}
             color="secondary"
             onClick={() => handleMenuClick('messages')}
           >
@@ -336,6 +342,7 @@ function Navbar(props) {
 const mapSTP = ({ session }) => {
   return {
     currentUser: session.user,
+    notifications: session.notifications,
   };
 };
 

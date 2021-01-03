@@ -3,6 +3,7 @@ import axios from 'axios';
 export const currentUserDetails = (user) => ({
   id: user._id,
   imageUrl: user.imageUrl,
+  notifications: user.notifications,
 });
 
 export const fetchUsers = () => axios.get('/api/users');

@@ -46,10 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Decode the token to obtain the user's info
     const decodedUser = jwt_decode(localStorage.jwtToken);
+    const notifications = { messages: 0, other: [] };
 
     preloadedState = {
       ...preloadedState,
-      session: { isAuthenticated: true, user: decodedUser },
+      session: { isAuthenticated: true, user: decodedUser, notifications },
     };
 
     store = configureStore(preloadedState);
