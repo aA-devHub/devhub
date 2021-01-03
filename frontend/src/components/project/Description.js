@@ -7,9 +7,9 @@ function Description({ description }) {
       style={{
         margin: '2rem',
         lineHeight: '1.8em',
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: 100,
-        maxWidth: '70%',
+        maxWidth: '50%',
       }}
     >
       {description}

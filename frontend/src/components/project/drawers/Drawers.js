@@ -73,7 +73,10 @@ export default function Drawers({ project, comments, developer }) {
         open={cmt.right}
         onClose={toggleCommentDrawer(false)}
       >
-        <CommentDrawer toggleCommentDrawer={toggleCommentDrawer} />
+        <CommentDrawer
+          comments={comments}
+          toggleCommentDrawer={toggleCommentDrawer}
+        />
       </Drawer>
       <Drawer
         className={classes.drawer}
@@ -81,7 +84,7 @@ export default function Drawers({ project, comments, developer }) {
         open={showUser.right}
         onClose={toggleUserDrawer(false)}
       >
-        <UserDrawer toggleDrawer={toggleUserDrawer} />
+        <UserDrawer developer={developer} toggleDrawer={toggleUserDrawer} />
       </Drawer>
     </React.Fragment>
   );

@@ -12,7 +12,7 @@ import FutureFeatures from './FutureFeatures';
 import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
 
-function Project({ project, fetchProject, users }) {
+function Project({ project, fetchProject, user }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: '2%',
@@ -37,7 +37,7 @@ function Project({ project, fetchProject, users }) {
   }));
   const classes = useStyles();
   const { id } = useParams();
-  const [user, setUser] = useState({});
+  const [usr, setUsr] = useState({});
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState({});
@@ -55,8 +55,8 @@ function Project({ project, fetchProject, users }) {
     fetchProject(id).then((data) => {
       const { project } = data;
       setComments(data.comments);
-      setUser(users[project.user]);
       setTitle(project.title);
+      setUsr(user);
       setDescription(project.description);
       setImages(project.images);
       setFeatures(project.features);
@@ -106,7 +106,7 @@ function Project({ project, fetchProject, users }) {
 
   return (
     <div>
-      <Drawer />
+      <Drawer developer={usr} comments={comments} />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>
@@ -124,7 +124,10 @@ function Project({ project, fetchProject, users }) {
 }
 export default connect(
   (state, ownProps) => ({
-    users: state.entities.users,
+    user:
+      state.entities.users[
+        state.entities.projects[ownProps.match.params.id]?.user
+      ],
     currentUser: state.entities.users,
     project: state.entities.projects[ownProps.match.params.id],
   }),
