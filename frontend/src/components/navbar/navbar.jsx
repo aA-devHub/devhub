@@ -92,8 +92,12 @@ function Navbar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(
+    null
+  );
 
   const isMenuOpen = Boolean(anchorEl);
+  const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   let location = useLocation();
@@ -103,6 +107,10 @@ function Navbar(props) {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationsMenuOpen = (event) => {
+    setNotificationsAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -161,8 +169,46 @@ function Navbar(props) {
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
+  const notifications =
+    props.notifications.other && props.notifications.other.length > 0 ? (
+      props.notifications.other.map((data, idx) => {
+        const user = data.userName;
+        const action = data.source === 'comment' ? 'commented on' : 'favorited';
+        const project = data.projectName;
+        return (
+          <MenuItem onClick={() => handleMenuClick('home')}>
+            {user} {action} {project}
+          </MenuItem>
+        );
+      })
+    ) : (
+      <MenuItem onClick={() => handleMenuClick('home')}>
+        No notifications!
+      </MenuItem>
+    );
 
+  const notificationMenuId = 'primary-notifications-menu';
+  let renderNotificationsMenu;
+  if (props.currentUser) {
+    renderNotificationsMenu = (
+      <Menu
+        anchorEl={notificationsAnchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={notificationMenuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isNotificationsMenuOpen}
+        onClose={handleMenuClick}
+      >
+        {notifications}
+        {/* <MenuItem onClick={() => handleMenuClick('home')}>Menu Item 1</MenuItem> */}
+        {/* <MenuItem onClick={() => handleMenuClick('home')}>Menu Item 2</MenuItem> */}
+      </Menu>
+    );
+  }
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -186,7 +232,8 @@ function Navbar(props) {
       </MenuItem>
       <MenuItem onClick={() => handleMenuClick('messages')}>
         <IconButton aria-label="show new mails" color="inherit">
-          <Badge badgeContent={props.notifications.messages} color="secondary">
+          {/* <Badge badgeContent={props.notifications.messages} color="secondary"> */}
+          <Badge badgeContent={0} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -195,7 +242,9 @@ function Navbar(props) {
       <MenuItem onClick={() => handleMenuClick('notifications')}>
         <IconButton aria-label="show new notifications" color="inherit">
           <Badge
-            badgeContent={props.notifications.other.length}
+            // this breaks because mobile menu doesn't check if props.currentUser
+            // badgeContent={props.notifications.other.length}
+            badgeContent={0}
             color="secondary"
           >
             <NotificationsIcon />
@@ -235,7 +284,7 @@ function Navbar(props) {
         <IconButton
           aria-label="show new notifications"
           color="inherit"
-          onClick={() => handleMenuClick('notifications')}
+          onClick={handleNotificationsMenuOpen}
         >
           <Badge
             badgeContent={props.notifications.other.length}
@@ -335,6 +384,7 @@ function Navbar(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {renderNotificationsMenu}
     </div>
   );
 }

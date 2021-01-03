@@ -27,17 +27,20 @@ router.post(
     }
 
     const projectId = req.body.project;
-    User.findById(req.body.user).then((user) => {
+    // debugger;
+    User.findById(req.body.user).then((commenter) => {
       Project.findById(projectId).then((project) => {
-        let newNotification = {
-          source: 'comment',
-          userName: user.name,
-          projectId: project._id,
-          projectName: project.title,
-          _id: mongoose.Types.ObjectId(),
-        };
-        user.notifications.other.push(newNotification);
-        user.save();
+        User.findById(project.user).then((recipient) => {
+          let newNotification = {
+            source: 'comment',
+            userName: commenter.name,
+            projectId: project._id,
+            projectName: project.title,
+            _id: mongoose.Types.ObjectId(),
+          };
+          recipient.notifications.other.push(newNotification);
+          recipient.save();
+        });
       });
     });
 
