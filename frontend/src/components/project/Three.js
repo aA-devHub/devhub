@@ -11,13 +11,16 @@ const Carousel = ({ images }) => {
 
   const items = imgs.map((item, index) => {
     return (
-      <img
-        className="item"
-        src={item}
-        onDragStart={handleDrag}
-        alt="project images"
-        style={{ height: 200, width: 300 }}
-      />
+      <div className="item" style={{ width: 150 + index * 100 }}>
+        {index}
+      </div>
+      // <img
+      //   className="item"
+      //   src={item}
+      //   onDragStart={handleDrag}
+      //   alt="project images"
+      //   style={{ width: 150 + index * 100 }}
+      // />
     );
   });
   return <AliceCarousel infinite mouseTracking items={items} />;
