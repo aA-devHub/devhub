@@ -15,11 +15,11 @@ const userMessages = require('./messages').userMessages;
 
 // Extract fields to store under state.session.user
 const sessionUserPayload = (user) => ({
+  ...user,
   id: user.id,
   name: user.name,
   imageUrl: user.imageUrl,
-  // FIXME: how to handle notifications
-  // notifications are counts of unread messages + comments
+  favorites: user.favorites,
   notifications: user.notifications || 0,
 });
 
@@ -136,6 +136,7 @@ router.post('/register', (req, res) => {
                 { expiresIn: 3600 },
                 (_err, token) => {
                   res.json({
+                    payload,
                     success: true,
                     token: 'Bearer ' + token,
                   });

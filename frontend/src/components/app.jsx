@@ -1,5 +1,7 @@
 import React from 'react';
 import '../app.scss';
+import '../kb.scss';
+
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch, Route } from 'react-router-dom';
 

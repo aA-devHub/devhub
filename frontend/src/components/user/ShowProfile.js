@@ -17,6 +17,7 @@ function ShowProfile({
 }) {
   useEffect(() => {
     fetchUser(match.params.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (profileUser === undefined) return null;

@@ -15,6 +15,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {
   fetchNotifications,
   removeNotification,
@@ -137,6 +138,9 @@ function Navbar(props) {
       case 'messages':
         props.history.push('/messages');
         return;
+      case 'editprofile':
+        props.history.push(`/users/edit`);
+        return;
       case 'notifications':
         props.history.push('/notifications');
         return;
@@ -169,8 +173,12 @@ function Navbar(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClick}
+      style={{ marginTop: 40 }}
     >
       <MenuItem onClick={() => handleMenuClick('profile')}>Profile</MenuItem>
+      <MenuItem onClick={() => handleMenuClick('editprofile')}>
+        Edit Profile
+      </MenuItem>
       <MenuItem onClick={() => handleMenuClick('signout')}>Sign Out</MenuItem>
     </Menu>
   );
@@ -185,7 +193,9 @@ function Navbar(props) {
 
   // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
   const notifications =
-    props.notifications.other && props.notifications.other.length > 0 ? (
+    props.notifications &&
+    props.notifications.other &&
+    props.notifications.other.length > 0 ? (
       props.notifications.other.map((data, idx) => {
         const type = data.source;
         const projectId = data.projectId;
@@ -214,6 +224,7 @@ function Navbar(props) {
         transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         open={isNotificationsMenuOpen}
         onClose={() => setNotificationsAnchorEl(null)}
+        style={{ marginTop: 40 }}
       >
         {notifications}
       </Menu>
@@ -283,7 +294,7 @@ function Navbar(props) {
   if (props.currentUser) {
     navIcons = (
       <React.Fragment>
-        <Button
+        {/* <Button
           onClick={() => handleMenuClick('uploadproject')}
           variant="contained"
           style={{
@@ -292,14 +303,16 @@ function Navbar(props) {
           }}
         >
           <Typography>Upload Project</Typography>
-        </Button>
+        </Button> */}
         <IconButton
           aria-label="show new notifications"
           color="inherit"
           onClick={handleNotificationsMenuOpen}
         >
           <Badge
-            badgeContent={props.notifications.other.length}
+            badgeContent={
+              props.notifications ? props.notifications.other.length : 0
+            }
             color="secondary"
           >
             <NotificationsIcon />
@@ -307,7 +320,7 @@ function Navbar(props) {
         </IconButton>
         <IconButton aria-label="show new mails" color="inherit">
           <Badge
-            badgeContent={props.notifications.messages}
+            badgeContent={props.messages ? props.notifications.messages : 0}
             color="secondary"
             onClick={() => handleMenuClick('messages')}
           >
@@ -326,6 +339,17 @@ function Navbar(props) {
             src={props.currentUser.imageUrl}
             className={classes.user}
             alt="user avatar"
+          />
+        </IconButton>
+
+        <IconButton onClick={() => handleMenuClick('uploadproject')}>
+          <CloudUploadIcon
+            style={{
+              color: COLORS.DEVBLUE,
+              marginLeft: 20,
+              width: 30,
+              height: 40,
+            }}
           />
         </IconButton>
       </React.Fragment>

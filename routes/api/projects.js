@@ -190,10 +190,16 @@ router.post(
           recipient.save();
         });
         user.favorites.push(req.params.projectId);
+        user.save();
 
         project.numFavorites += 1;
         project.save();
-        res.json({ project, user: 'ignore', comments: 'ignore' });
+        res.json({
+          project,
+          favorites: user.favorites,
+          user: 'ignore',
+          comments: 'ignore',
+        });
       });
     });
   }
@@ -205,16 +211,22 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id).then((user) => {
-      const idx = user.favorites.indexOf(req.params.projectId);
-      if (idx > -1) {
-        user.favorites.splice(idx, 1);
+      const { projectId } = req.params;
+
+      if (user.favorites.indexOf(projectId) !== -1) {
+        user.favorites = user.favorites.filter((x) => !x.equals(projectId));
         user.save();
       }
 
       Project.findById(req.params.projectId).then((project) => {
         project.numFavorites -= 1;
         project.save();
-        res.json({ project, user: 'ignore', comments: 'ignore' });
+        res.json({
+          project,
+          favorites: user.favorites,
+          user: 'ignore',
+          comments: 'ignore',
+        });
       });
     });
   }

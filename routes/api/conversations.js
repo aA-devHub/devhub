@@ -57,7 +57,7 @@ router.get(
           select: 'name imageUrl',
         },
       })
-      .populate('participants', 'name')
+      .populate('participants', 'name imageUrl')
       .populate('unreadBy', 'name')
       .then((conversation) => {
         const messages = conversation.messages.slice();
