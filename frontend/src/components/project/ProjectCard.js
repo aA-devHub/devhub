@@ -26,11 +26,12 @@ const useStyles = makeStyles((theme) => ({
     padding: '1rem',
   },
   image: {
-    width: '100%',
-    height: '100%',
+    maxWidth: 300,
+    height: 170,
     borderRadius: 10,
-    marginBottom: '.3rem',
+    marginBottom: '.7rem',
     cursor: 'pointer',
+    boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
     '& > img': {
       width: '100%',
       height: '100%',
@@ -49,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   avatar: {
-    width: '3rem',
-    height: '3rem',
+    width: '2rem',
+    height: '2rem',
     marginRight: 10,
   },
   userInfo: {
@@ -65,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
     alignText: 'center',
     borderRadius: 7,
   },
+  rightPanel: {
+    display: 'flex',
+  },
 }));
 
 function ProjectCard({ project, author }) {
@@ -78,7 +82,6 @@ function ProjectCard({ project, author }) {
       <Carousel
         animation="fade"
         autoPlay={autoplay}
-        style={{ height: 500 }}
         interval={1500}
         indicators={false}
         timeout={500}
@@ -90,9 +93,12 @@ function ProjectCard({ project, author }) {
             onMouseOver={() => setAutoplay(true)}
             onMouseOut={() => setAutoplay(false)}
             onClick={() => history.push(`/projects/${project._id}`)}
-          >
-            <img src={item} alt={item.title} />
-          </div>
+            style={{
+              backgroundImage: `url(${item})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+            }}
+          ></div>
         ))}
       </Carousel>
 
@@ -104,21 +110,28 @@ function ProjectCard({ project, author }) {
               <Typography
                 style={{
                   color: COLORS.DEVDARKBLUE,
-                  fontSize: 15,
+                  fontSize: 13,
                   fontWeight: 800,
                 }}
               >
-                {author.name}
+                {author.name.split(' ')[0].toUpperCase().slice(0, 4)}
               </Typography>
               <div className={classes.title}>
-                <Typography style={{ fontSize: 13 }}>{author.title}</Typography>
+                <Typography style={{ fontSize: 10 }}>
+                  {author.title
+                    .split(' ')
+                    .map((name) => name[0])
+                    .join('')
+                    .toUpperCase()}
+                </Typography>
               </div>
             </div>
             <div>
               <Typography
-                style={{ color: 'red', fontSize: 15, fontWeight: 500 }}
+                style={{ color: 'red', fontSize: 10, fontWeight: 500 }}
               >
-                {author.yearsOfExperience} years of experience
+                {author.yearsOfExperience || parseInt(Math.random() * 10)} years
+                of experience
               </Typography>
             </div>
           </div>
