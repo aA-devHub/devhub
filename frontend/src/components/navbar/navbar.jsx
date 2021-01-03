@@ -341,8 +341,8 @@ function Navbar(props) {
             style={{
               color: COLORS.DEVBLUE,
               marginLeft: 20,
-              width: 35,
-              height: 35,
+              width: 30,
+              height: 40,
             }}
           />
         </IconButton>
