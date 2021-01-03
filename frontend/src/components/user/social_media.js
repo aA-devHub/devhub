@@ -3,6 +3,8 @@ const SocialMedia = ({ socials, userName }) => {
   var socialIcons = [];
 
   Object.entries(socials).forEach(([socialName, socialLink]) => {
+    if (!socialLink) return;
+
     let socialIcon;
     switch (socialName) {
       case 'facebook':

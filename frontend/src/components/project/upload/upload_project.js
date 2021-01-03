@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Step1 from './step1';
 import Step2 from './step2';
+import Step3 from './step3';
 
 class NewProject extends Component {
   constructor(props) {
@@ -15,9 +16,11 @@ class NewProject extends Component {
         hero: '',
         secondaries: [],
       },
+      features: [],
       ui: {
         color: 'light',
         overviewLayout: 1,
+        featuresLayout: 1,
       },
     };
 
@@ -26,7 +29,7 @@ class NewProject extends Component {
   }
 
   renderStep() {
-    var StepComponents = { 1: Step1, 2: Step2 };
+    var StepComponents = { 1: Step1, 2: Step2, 3: Step3 };
     var StepComponent = StepComponents[this.state.step];
 
     return (

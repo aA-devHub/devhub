@@ -1,18 +1,18 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import CloudUploadTwoToneIcon from '@material-ui/icons/CloudUploadTwoTone';
+import * as COLORS from '../../../colors';
 
 const baseStyle = {
   padding: '2rem 0',
-  borderWidth: 10,
+  borderWidth: 5,
   borderRadius: 10,
-  borderColor: 'pink',
+  borderColor: COLORS.DEVBLUE,
   borderStyle: 'dashed',
   backgroundColor: '#fafafa',
-  color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out',
   cursor: 'pointer',
@@ -30,59 +30,10 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    minWidth: 500,
-    minHeight: 600,
-    transform: 'scale(.9)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  form: {
-    padding: '5%',
-  },
-  tags: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  tag: {
-    margin: 'auto 0.3rem',
-    lineHeight: 1.3,
-    cursor: 'pointer',
-  },
-  root: {
-    display: 'flex',
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTop: '.3px solid #eaeaea',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  createButton: {
-    padding: '10px 30px',
-    backgroundColor: 'red',
-    borderRadius: 10,
-    color: 'white',
-  },
-  uploadedImage: {
-    margin: 'auto 0',
-    width: '100%',
-    cursor: 'pointer',
-  },
-}));
-
-function ImageUploader({ errors }) {
-  const [imageUrl, setImageUrl] = useState(null);
+function ImageUploader({ errors, incomingImage, type, handleImageChange }) {
+  const [imageUrl, setImageUrl] = useState(incomingImage);
   const [del, setDel] = useState('none');
   const [opa, setOpa] = useState('1.0');
-  const classes = useStyles();
 
   const postShot = (image) => {
     const data = new FormData();
@@ -96,13 +47,12 @@ function ImageUploader({ errors }) {
       .then((res) => res.json())
       .then((data) => {
         setImageUrl(data.url);
-        console.log('data', data.url);
+        handleImageChange(type, data.url);
       })
       .catch((err) => console.log('error', err));
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles[0]);
     postShot(acceptedFiles[0]);
   }, []);
 
@@ -112,7 +62,7 @@ function ImageUploader({ errors }) {
     isDragActive,
     isDragAccept,
     isDragReject,
-  } = useDropzone({ onDrop, accept: 'image/*' });
+  } = useDropzone({ onDrop, accept: 'image/*', multiple: true });
 
   const style = useMemo(
     () => ({
@@ -129,42 +79,29 @@ function ImageUploader({ errors }) {
       <div className="image-uploader-errors">{errors}</div>
       {imageUrl ? (
         <div
-          style={{
-            height: '100%',
-            postion: 'relative',
-            backgroundColor: 'pink',
-            padding: '1rem',
-            borderRadius: '1rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          className="image-uploader-success"
           onMouseOver={() => {
-            setDel('block');
+            setDel(' visible');
           }}
           onMouseOut={() => {
-            setDel('none');
+            setDel('');
           }}
         >
           <img
-            className={classes.uploadedImage}
             src={imageUrl}
+            className="pointer"
             style={{ opacity: opa }}
           ></img>
           <div
-            className={del}
+            className={`delete-button pointer` + del}
             onMouseOver={() => setOpa('0.4')}
             onMouseOut={() => setOpa('1.0')}
-            style={{
-              display: del,
-              position: 'absolute',
-              right: 30,
-              top: 30,
-              cursor: 'pointer',
-            }}
           >
             <Button
-              onClick={() => setImageUrl(null)}
+              onClick={() => {
+                setImageUrl('');
+                handleImageChange(type, '');
+              }}
               variant="contained"
               color="secondary"
               style={{ borderRadius: 999, margin: 15 }}
@@ -180,15 +117,7 @@ function ImageUploader({ errors }) {
             <input {...getInputProps()} />
             <div className="image-uploader-content">
               <CloudUploadTwoToneIcon className="image-uploader-cloud-icon" />
-              <div className="image-uploader-instructions">
-                <Typography variant="h4">Drag and drop an image</Typography>
-                <Typography variant="h5">
-                  or <span>browse</span> to choose a file
-                </Typography>
-                <Typography variant="body2" style={{ lineHeight: '2rem' }}>
-                  (1600x1200 or larger recommended, up to 10MB each)
-                </Typography>
-              </div>
+              <Typography>{`Click or drag to upload image.`}</Typography>
             </div>
           </div>
         </div>
