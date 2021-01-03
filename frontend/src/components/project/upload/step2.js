@@ -16,6 +16,7 @@ class Step2 extends Component {
         color: this.props.masterState.ui.color,
         overviewLayout: this.props.masterState.ui.overviewLayout,
         featuresLayout: this.props.masterState.ui.featuresLayout,
+        languageChart: this.props.masterState.ui.languageChart,
       },
     };
 
@@ -114,7 +115,7 @@ class Step2 extends Component {
           </div>
         </div>
         <div className="step-inner layouts">
-          <label className="step-input-label">
+          <label className="step-input-label big center">
             <Typography>Select Layout</Typography>
           </label>
           <div className="step-layouts">

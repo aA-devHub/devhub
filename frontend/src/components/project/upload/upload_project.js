@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Step1 from './step1';
 import Step2 from './step2';
 import Step3 from './step3';
+import Step4 from './step4';
 
 class NewProject extends Component {
   constructor(props) {
@@ -21,7 +22,10 @@ class NewProject extends Component {
         color: 'light',
         overviewLayout: 1,
         featuresLayout: 1,
+        languageChart: 1,
       },
+      mobile: false,
+      browsers: [],
     };
 
     this.changeStep = this.changeStep.bind(this);
@@ -29,7 +33,7 @@ class NewProject extends Component {
   }
 
   renderStep() {
-    var StepComponents = { 1: Step1, 2: Step2, 3: Step3 };
+    var StepComponents = { 1: Step1, 2: Step2, 3: Step3, 4: Step4 };
     var StepComponent = StepComponents[this.state.step];
 
     return (

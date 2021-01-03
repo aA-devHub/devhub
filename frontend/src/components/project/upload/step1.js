@@ -95,8 +95,6 @@ class Step1 extends Component {
               </label>
               <RadioGroup
                 row
-                aria-label="gender"
-                name="gender1"
                 value={this.state.ui.color}
                 onChange={this.handleInput('color')}
               >

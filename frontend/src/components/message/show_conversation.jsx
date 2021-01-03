@@ -12,7 +12,12 @@ import './messages.css';
 const useStyles = makeStyles((theme) => ({
   conversation: {
     position: 'relative',
-    height: '100%',
+    height: 'calc(100% - 44px)',
+    overflowY: 'scroll',
+    padding: '0 24px',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   messageList: {
     height: 'calc(100% - 3rem)',
@@ -103,7 +108,7 @@ const ShowConversation = ({ user, otherUser, conversation, messages }) => {
   return (
     <>
       {/* <ConversationAppBar name={otherUser.name} /> */}
-      <div className="conversation">
+      <div className={classes.conversation}>
         {messages.map((msg, idx) => {
           // only show date if previous message from different user
           const showDate =
@@ -122,9 +127,7 @@ const ShowConversation = ({ user, otherUser, conversation, messages }) => {
           );
         })}
       </div>
-      <div>
-        <MessageInput receiver={otherUser} />
-      </div>
+      <MessageInput receiver={otherUser} />
     </>
   );
 };
