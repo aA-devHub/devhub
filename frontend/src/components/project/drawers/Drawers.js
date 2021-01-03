@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../../colors';
 import { IconButton, Drawer, Avatar } from '@material-ui/core';
 import { Sms } from '@material-ui/icons';
@@ -7,8 +7,14 @@ import CommentDrawer from './Comment';
 import UserDrawer from './UserDrawer';
 
 export default function Drawers({ project, comments, developer }) {
-  const useStyles = makeStyles((theme) => ({}));
+  const useStyles = makeStyles((theme) => ({
+    root: {},
+  }));
+  useEffect(() => {
+    setImage(developer?.imageUrl);
+  }, [developer]);
   const [cmt, setCmt] = useState({ right: false });
+  const [image, setImage] = useState(developer?.imageUrl);
   const [showUser, setShowUser] = useState({ right: false });
   const classes = useStyles();
   const toggleCommentDrawer = (bool) => (event) => {
@@ -43,7 +49,7 @@ export default function Drawers({ project, comments, developer }) {
             cursor: 'pointer',
           }}
           src={
-            developer?.imageUrl ||
+            image ||
             'https://res.cloudinary.com/willwang/image/upload/v1608279563/23_npj6fd.webp'
           }
         />

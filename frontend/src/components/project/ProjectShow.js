@@ -11,6 +11,7 @@ import * as Feature from './Feature';
 import FutureFeatures from './FutureFeatures';
 import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
+import { fetchUser } from '../../actions/user_actions';
 
 function Project({ project, fetchProject, user }) {
   const useStyles = makeStyles((theme) => ({
@@ -56,7 +57,6 @@ function Project({ project, fetchProject, user }) {
       const { project } = data;
       setComments(data.comments);
       setTitle(project.title);
-      setUsr(user);
       setDescription(project.description);
       setImages(project.images);
       setFeatures(project.features);
@@ -67,6 +67,7 @@ function Project({ project, fetchProject, user }) {
       setFeaturesLayout(project.ui.featuresLayout);
       setGithubLink(project.githubLink);
       setTechnologies(project.technologies);
+      fetchUser(project.user).then((user) => setUsr(user));
     });
   }, []);
   const renderImageWall = (theme) => {
