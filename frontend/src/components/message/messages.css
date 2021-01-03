@@ -1,0 +1,24 @@
+.message-bubble {
+  border-radius: 5px;
+  /* box-shadow: 0 0 6px #B2B2B2; */
+  display: block;
+  padding: 10px 18px;
+  position: relative;
+  vertical-align: top;
+  /* color: white; */
+  word-wrap: break-word;
+}
+
+.message-bubble::before {
+  content: '\00a0';
+  display: block;
+  height: 16px;
+  position: absolute;
+  top: 11px;
+  transform: rotate(29deg) skew(-35deg);
+  -moz-transform: rotate(29deg) skew(-35deg);
+  -ms-transform: rotate(29deg) skew(-35deg);
+  -o-transform: rotate(29deg) skew(-35deg);
+  -webkit-transform: rotate(29deg) skew(-35deg);
+  width: 20px;
+}

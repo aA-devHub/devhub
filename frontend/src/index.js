@@ -22,6 +22,7 @@ import * as tagActions from './actions/tag_actions';
 import * as searchActions from './actions/search_actions';
 import * as notificationActions from './actions/notification_actions';
 import * as conversationActions from './actions/conversation_actions';
+import moment from 'moment';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.notificationActions = notificationActions;
   window.conversationActions = conversationActions;
 
+  window.moment = moment;
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary

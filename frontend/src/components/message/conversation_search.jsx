@@ -58,7 +58,7 @@ const ConversationSearch = ({ fetchConversations }) => {
   // debouncing .3 seconds
   useEffect(() => {
     const timeout = setTimeout(() => {
-      console.log('bouncing');
+      // console.log('bouncing');
       fetchConversations({ search });
     }, 300);
 
