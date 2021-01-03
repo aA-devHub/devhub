@@ -13,12 +13,16 @@ import * as COLORS from '../../colors';
 
 const useStyles = makeStyles((theme) => ({
   inputContainer: {
+    position: 'absolute',
+    bottom: '0',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    verticalAlign: 'center',
+    backgroundColor: '#fff',
   },
   baseInput: {
     width: '100%',
+    margin: '0 2px',
     verticalAlign: 'center',
     fontSize: 16,
     'label + &': {
@@ -32,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 100,
       height: '2rempx',
       padding: '10px 12px',
-      marginTop: 20,
       transition: theme.transitions.create(['border-color', 'box-shadow']),
       '&:focus': {
         boxShadow: `${fade(COLORS.DEVBLUE, 0.25)} 0 0 0 0.2rem`,
@@ -77,9 +80,7 @@ const MessageInput = ({ receiver, sendMessage }) => {
         variant="contained"
         type="submit"
         style={{
-          /* marginTop: '', */
-          padding: '10px',
-          marginTop: '15px',
+          padding: '8px',
           backgroundColor: COLORS.DEVBLUE,
           color: 'white',
         }}
