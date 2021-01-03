@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,12 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import * as COLORS from '../../colors';
 import { logout } from '../../actions/session_actions';
+import {
+  fetchNotifications,
+  removeNotification,
+} from '../../actions/notification_actions';
 import SearchInput from './search_input';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -90,12 +95,25 @@ function Navbar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(
+    null
+  );
 
   const isMenuOpen = Boolean(anchorEl);
+  const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  let location = useLocation();
+  useEffect(() => {
+    props.fetchNotifications();
+  }, [location]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationsMenuOpen = (event) => {
+    setNotificationsAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -154,8 +172,52 @@ function Navbar(props) {
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const handleNotificationMenuClick = (notificationData) => {
+    setNotificationsAnchorEl(null);
+    setTimeout(() => {
+      props.removeNotification(notificationData._id);
+    }, 300);
+    props.history.push(`/projects/${notificationData.projectId}`);
+  };
 
+  // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
+  const notifications =
+    props.notifications.other && props.notifications.other.length > 0 ? (
+      props.notifications.other.map((data, idx) => {
+        const type = data.source;
+        const projectId = data.projectId;
+        const user = data.userName;
+        const action = data.source === 'comment' ? 'commented on' : 'favorited';
+        const project = data.projectName;
+        return (
+          <MenuItem onClick={() => handleNotificationMenuClick(data)}>
+            {user} {action} {project}
+          </MenuItem>
+        );
+      })
+    ) : (
+      <MenuItem>No notifications!</MenuItem>
+    );
+
+  const notificationMenuId = 'primary-notifications-menu';
+  let renderNotificationsMenu;
+  if (props.currentUser) {
+    renderNotificationsMenu = (
+      <Menu
+        anchorEl={notificationsAnchorEl}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        id={notificationMenuId}
+        keepMounted
+        transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={isNotificationsMenuOpen}
+        onClose={() => setNotificationsAnchorEl(null)}
+      >
+        {notifications}
+      </Menu>
+    );
+  }
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -178,16 +240,22 @@ function Navbar(props) {
         <p>Profile</p>
       </MenuItem>
       <MenuItem onClick={() => handleMenuClick('messages')}>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
+        <IconButton aria-label="show new mails" color="inherit">
+          {/* <Badge badgeContent={props.notifications.messages} color="secondary"> */}
+          <Badge badgeContent={0} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
       <MenuItem onClick={() => handleMenuClick('notifications')}>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+        <IconButton aria-label="show new notifications" color="inherit">
+          <Badge
+            // this breaks because mobile menu doesn't check if props.currentUser
+            // badgeContent={props.notifications.other.length}
+            badgeContent={0}
+            color="secondary"
+          >
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -223,17 +291,20 @@ function Navbar(props) {
           <Typography>Upload Project</Typography>
         </Button>
         <IconButton
-          aria-label="show 11 new notifications"
+          aria-label="show new notifications"
           color="inherit"
-          onClick={() => handleMenuClick('notifications')}
+          onClick={handleNotificationsMenuOpen}
         >
-          <Badge badgeContent={11} color="secondary">
+          <Badge
+            badgeContent={props.notifications.other.length}
+            color="secondary"
+          >
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <IconButton aria-label="show 4 new mails" color="inherit">
+        <IconButton aria-label="show new mails" color="inherit">
           <Badge
-            badgeContent={4}
+            badgeContent={props.notifications.messages}
             color="secondary"
             onClick={() => handleMenuClick('messages')}
           >
@@ -322,6 +393,7 @@ function Navbar(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {renderNotificationsMenu}
     </div>
   );
 }
@@ -329,11 +401,15 @@ function Navbar(props) {
 const mapSTP = ({ session }) => {
   return {
     currentUser: session.user,
+    notifications: session.notifications,
   };
 };
 
 const mapDTP = (dispatch) => ({
   signout: () => dispatch(logout()),
+  fetchNotifications: () => dispatch(fetchNotifications()),
+  removeNotification: (notificationId) =>
+    dispatch(removeNotification(notificationId)),
 });
 
 export default withRouter(connect(mapSTP, mapDTP)(Navbar));

@@ -1,4 +1,5 @@
 import * as ConversationAPI from '../util/conversation_api_util';
+import { fetchNotifications } from '../util/notification_api_util';
 
 export const RECEIVE_CONVERSATION = 'RECEIVE_CONVERSATION';
 export const RECEIVE_CONVERSATIONS = 'RECEIVE_CONVERSATIONS';
@@ -35,7 +36,10 @@ export const fetchConversations = (filter) => (dispatch) => {
 
 export const fetchConversation = (conversationId) => (dispatch) => {
   return ConversationAPI.fetchConversation(conversationId)
-    .then((payload) => dispatch(receiveConversation(payload.data)))
+    .then((payload) => {
+      dispatch(receiveConversation(payload.data));
+      fetchNotifications();
+    })
     .catch((errors) =>
       dispatch(receiveConversationErrors(errors.response.data))
     );

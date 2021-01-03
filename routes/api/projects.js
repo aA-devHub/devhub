@@ -178,16 +178,18 @@ router.post(
   (req, res) => {
     User.findById(req.user._id).then((user) => {
       Project.findById(req.params.projectId).then((project) => {
-        let newNotification = {
-          source: 'favorite',
-          userName: user.name,
-          projectId: project._id,
-          projectName: project.title,
-          _id: mongoose.Types.ObjectId(),
-        };
-        user.notifications.other.push(newNotification);
+        User.findById(project.user).then((recipient) => {
+          let newNotification = {
+            source: 'favorite',
+            userName: user.name,
+            projectId: project._id,
+            projectName: project.title,
+            _id: mongoose.Types.ObjectId(),
+          };
+          recipient.notifications.other.push(newNotification);
+          recipient.save();
+        });
         user.favorites.push(req.params.projectId);
-        user.save();
 
         project.numFavorites += 1;
         project.save();

@@ -10,6 +10,7 @@ import { currentUserDetails } from '../util/user_api_util';
 const initialState = {
   isAuthenticated: false,
   user: undefined,
+  notifications: {},
 };
 
 export default (state = initialState, action) => {
@@ -32,12 +33,14 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: !!action.currentUser,
         user: action.currentUser,
+        notifications: action.currentUser.notifications,
       };
 
     case RECEIVE_USER_LOGOUT:
       return {
         isAuthenticated: false,
         user: undefined,
+        notifications: {},
       };
 
     case RECEIVE_USER_SIGN_IN:
