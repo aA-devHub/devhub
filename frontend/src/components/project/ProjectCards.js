@@ -40,33 +40,6 @@ function ProjectCards({ projects, fetchProjects, search, tags }) {
           <Card project={project} />
         </Grid>
       ))}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
-      {/*   <Grid item md={4} sm={6}> */}
-      {/*     <Card /> */}
-      {/*   </Grid> */}
     </Grid>
   );
 }

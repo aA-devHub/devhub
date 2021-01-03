@@ -125,10 +125,6 @@ function ProjectCard({ project, author }) {
         </div>
         <div className={classes.rightPanel}>
           <FavoriteButton project={project} />
-          {/* <Star */}
-          {/*   style={{ color: COLORS.GOLDSTAR, cursor: 'pointer' }} */}
-          {/*   onClick={toggleFavorite} */}
-          {/* /> */}
           <KeyboardArrowUp style={{ color: 'red' }} />
         </div>
       </div>
