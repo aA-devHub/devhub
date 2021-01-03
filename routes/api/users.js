@@ -136,6 +136,7 @@ router.post('/register', (req, res) => {
                 { expiresIn: 3600 },
                 (_err, token) => {
                   res.json({
+                    payload,
                     success: true,
                     token: 'Bearer ' + token,
                   });
