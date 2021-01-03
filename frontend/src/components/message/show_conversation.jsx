@@ -6,7 +6,7 @@ import { makeStyles, fade, Typography, Avatar } from '@material-ui/core';
 // import ConversationAppBar from './conversation_app_bar';
 import MessageInput from './message_input';
 import { otherParticipant, drawerWidth, navOffset } from './messages';
-import { getMessages } from './selectors';
+import { getMessages } from '../../selectors/messages';
 import './messages.css';
 
 const useStyles = makeStyles((theme) => ({
