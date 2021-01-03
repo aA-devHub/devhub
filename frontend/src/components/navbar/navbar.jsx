@@ -105,7 +105,10 @@ function Navbar(props) {
 
   let location = useLocation();
   useEffect(() => {
-    props.fetchNotifications();
+    // props.fetchNotifications();
+    setTimeout(() => {
+      props.fetchNotifications();
+    }, 150);
   }, [location]);
 
   const handleProfileMenuOpen = (event) => {
