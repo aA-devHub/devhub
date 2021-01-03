@@ -4,23 +4,21 @@ const passport = require('passport');
 
 const User = require('../../models/User');
 const Message = require('../../models/Message');
+const Conversation = require('../../models/Conversation');
 
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id)
-      .populate('conversations')
+      // .populate('conversations')
       .then((user) => {
-        const numUnread = user.conversations.reduce(
-          (count, convo) =>
-            convo.unreadBy.includes(user._id) ? count + 1 : count,
-          0
-        );
-
-        user.notifications.messages = numUnread;
-        user.save();
-        return res.json(user);
+        Conversation.find({ unreadBy: user._id }).then((convos) => {
+          const numUnread = convos.length;
+          user.notifications.messages = numUnread;
+          user.save();
+          return res.json(user);
+        });
       })
       .catch((errors) => res.status(400).json(errors));
   }
