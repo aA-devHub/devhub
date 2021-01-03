@@ -27,8 +27,14 @@ export const fetchNotifications = () => (dispatch) => {
     );
 };
 
-export const removeProjectNotification = (projectId) => (dispatch) => {
-  return NotificationAPI.removeProjectNotification(projectId).then((user) =>
+export const clearNotifications = () => (dispatch) => {
+  return NotificationAPI.clearNotifications().then((user) =>
+    dispatch(receiveNotifications(user.data))
+  );
+};
+
+export const removeNotification = (notificationId) => (dispatch) => {
+  return NotificationAPI.removeNotification(notificationId).then((user) =>
     dispatch(receiveNotifications(user.data))
   );
 };

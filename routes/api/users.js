@@ -72,7 +72,6 @@ router.patch(
       });
     }
 
-    // debugger;
     User.findByIdAndUpdate(req.params.userId, req.body, (err, docs) => {
       if (err) {
         console.log(err);

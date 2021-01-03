@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+var mongoose = require('mongoose');
 
 const Comment = require('../../models/Comment');
 const User = require('../../models/User');
+const Project = require('../../models/Project');
 const validateComment = require('../../validation/comments');
 
 // Note: GET routes populate user field with user's namte
@@ -24,11 +26,19 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    const projectId = req.body.project;
     User.findById(req.body.user).then((user) => {
-      if (!user.notifications.projects.includes(req.body.project)) {
-        user.notifications.projects.push(req.body.project);
+      Project.findById(projectId).then((project) => {
+        let newNotification = {
+          source: 'comment',
+          userName: user.name,
+          projectId: project._id,
+          projectName: project.title,
+          _id: mongoose.Types.ObjectId(),
+        };
+        user.notifications.other.push(newNotification);
         user.save();
-      }
+      });
     });
 
     return new Comment(req.body)

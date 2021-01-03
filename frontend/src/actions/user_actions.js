@@ -50,25 +50,26 @@ export const updateUser = (user) => (dispatch) => {
 };
 
 // DEPRECATED, lol
-export const userAddFavorite = (user, projectId) => (dispatch) => {
-  if (!user.favorites.includes(projectId)) {
-    return dispatch(
-      updateUser({
-        id: user._id,
-        favorites: user.favorites.concat([projectId]),
-        newFavorite: projectId,
-      })
-    );
-  }
-  return null;
-};
+// export const userAddFavorite = (user, projectId) => (dispatch) => {
+//   if (!user.favorites.includes(projectId)) {
+//     return dispatch(
+//       updateUser({
+//         id: user._id,
+//         favorites: user.favorites.concat([projectId]),
+//         newFavorite: projectId,
+//       })
+//     );
+//   }
+//   return null;
+// };
 
-export const userRemoveFavorite = (user, projectId) => (dispatch) => {
-  return dispatch(
-    updateUser({
-      id: user._id,
-      favorites: user.favorites.filter((x) => x !== projectId),
-      oldFavorite: projectId,
-    })
-  );
-};
+// Also depracated
+// export const userRemoveFavorite = (user, projectId) => (dispatch) => {
+//   return dispatch(
+//     updateUser({
+//       id: user._id,
+//       favorites: user.favorites.filter((x) => x !== projectId),
+//       oldFavorite: projectId,
+//     })
+//   );
+// };
