@@ -9,22 +9,23 @@ export const Vertical = (features) => {
     return features.map((ftr, idx) => {
       const featureImages = [
         ftr.image,
-        'https://res.cloudinary.com/practicaldev/image/fetch/s--1AE0BLOa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/i1sxwhy2qap4amz4hxpo.png',
+        'https://github.com/kaycbas/rocket/blob/main/app/assets/images/readme/save_3.gif?raw=true',
+        'https://ph-files.imgix.net/0668248b-fcc0-4402-a1a2-3a01f1c62425.png?auto=format&fit=crop&frame=1&h=512&w=1024',
       ];
       return (
-        <div>
-          <Typography
-            style={{
-              lineHeight: '1.8em',
-              fontSize: 30,
-              fontWeight: 100,
-              maxWidth: '70%',
-            }}
-          >
-            {ftr.title}
-          </Typography>
+        <div className="features-container">
           <div className="feature-container">
             <p className="feature-description">
+              <Typography
+                style={{
+                  lineHeight: '1.8em',
+                  fontSize: 30,
+                  fontWeight: 100,
+                  maxWidth: '70%',
+                }}
+              >
+                {ftr.title}
+              </Typography>
               <Typography style={{ fontSize: 18 }}>
                 {ftr.description}
               </Typography>
@@ -37,15 +38,16 @@ export const Vertical = (features) => {
                 indicators={true}
                 timeout={500}
                 style={{
-                  height: 100,
+                  width: 300,
                 }}
               >
                 {featureImages.map((img, i) => (
                   <div
                     // className={classes.image}
+                    className="feature-image-container"
                     style={{
-                      width: 600,
-                      height: 700,
+                      height: 310,
+                      //   width: 400
                     }}
                     key={i}
                     onMouseOver={() => setAutoplay(true)}
@@ -54,11 +56,11 @@ export const Vertical = (features) => {
                     <img
                       src={img}
                       style={{
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
-                        width: 600,
-                        // maxWidth: 400,
-                        // maxHeight: 200,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        height: 300,
                       }}
                     />
                   </div>
@@ -71,7 +73,7 @@ export const Vertical = (features) => {
     });
   };
 
-  return <div>{renderFeatures()}</div>;
+  return <div className="master-features-container">{renderFeatures()}</div>;
 };
 
 export const Horiz = (features) => {
