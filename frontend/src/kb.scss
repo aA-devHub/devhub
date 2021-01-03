@@ -50,3 +50,37 @@
 .CarouselItem {
     max-width: 600px;
 }
+
+// ------- FUTURE FEATURES ------------
+
+.future-features-grid {
+    display: grid;
+    grid-template-columns: 600px 600px;
+    grid-template-rows: 400px;
+    align-items: center;
+    justify-content: center;
+
+    .MuiTypography-root {
+        padding-bottom: 6px;
+    }
+}
+
+.future-features-desc {
+    grid-column: 2;
+}
+
+.future-features-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.future-feature-bucket {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 400px;
+    padding-bottom: 16px;
+    // padding-left: 20px;
+    // padding-right: 20px;
+}
