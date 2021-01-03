@@ -65,6 +65,7 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
   const [password, setPassword] = useState('');
   useEffect(() => {
     if (currentUser) history.push('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, history]);
   const loginUser = (e) => {
     e.preventDefault();

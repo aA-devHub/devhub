@@ -9,16 +9,21 @@ import { Star, KeyboardArrowUp } from '@material-ui/icons';
 // import { project as dummy } from './__tests__/dummy_data';
 import * as COLORS from '../../colors';
 import { getImageArray } from '../../selectors/projects';
+import { addFavorite, deleteFavorite } from '../../actions/project_actions';
 
 const mapStateToProps = (state, { project }) => {
-  const user = state.entities.users[project.user];
-  // XXX: is this supposed to be different than imageUrl?
-  user.avatarUrl = user.imageUrl;
-
+  const author = state.entities.users[project.user];
+  author.avatarUrl = author.avatarUrl || author.imageUrl;
   return {
-    user,
+    author,
+    currentUser: state.session.user,
   };
 };
+
+const mapDispatchToProps = (dispatch, { project: { _id: projectId } }) => ({
+  addFavorite: () => dispatch(addFavorite(projectId)),
+  deleteFavorite: () => dispatch(deleteFavorite(projectId)),
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,14 +73,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProjectCard({ project, user }) {
+function ProjectCard({
+  project,
+  author,
+  currentUser,
+  addFavorite,
+  deleteFavorite,
+}) {
   const history = useHistory();
 
   const [autoplay, setAutoplay] = useState(false);
   const classes = useStyles();
 
-  const favoriteProject = () => {
-    // favorite();
+  const toggleFavorite = () => {
+    if (currentUser.favorites.includes(project._id)) deleteFavorite();
+    else addFavorite();
   };
 
   return (
@@ -103,7 +115,7 @@ function ProjectCard({ project, user }) {
 
       <div className={classes.userDisplay}>
         <div className={classes.leftPanel}>
-          <Avatar className={classes.avatar} src={user.avatarUrl} />
+          <Avatar className={classes.avatar} src={author.avatarUrl} />
           <div>
             <div className={classes.userInfo}>
               <Typography
@@ -113,17 +125,17 @@ function ProjectCard({ project, user }) {
                   fontWeight: 800,
                 }}
               >
-                {user.name}
+                {author.name}
               </Typography>
               <div className={classes.title}>
-                <Typography style={{ fontSize: 13 }}>{user.title}</Typography>
+                <Typography style={{ fontSize: 13 }}>{author.title}</Typography>
               </div>
             </div>
             <div>
               <Typography
                 style={{ color: 'red', fontSize: 15, fontWeight: 500 }}
               >
-                {user.yearsOfExperience} years of experience
+                {author.yearsOfExperience} years of experience
               </Typography>
             </div>
           </div>
@@ -131,7 +143,7 @@ function ProjectCard({ project, user }) {
         <div className={classes.rightPanel}>
           <Star
             style={{ color: COLORS.GOLDSTAR, cursor: 'pointer' }}
-            onClick={favoriteProject}
+            onClick={toggleFavorite}
           />
           <KeyboardArrowUp style={{ color: 'red' }} />
         </div>
@@ -140,4 +152,4 @@ function ProjectCard({ project, user }) {
   );
 }
 
-export default connect(mapStateToProps)(ProjectCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectCard);

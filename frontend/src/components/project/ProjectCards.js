@@ -30,6 +30,7 @@ function ProjectCards({ projects, fetchProjects, search, tags }) {
 
   useEffect(() => {
     fetchProjects({ search, tags });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
