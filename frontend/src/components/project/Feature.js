@@ -7,7 +7,10 @@ export const Vertical = (features) => {
   const [autoplay, setAutoplay] = useState(false);
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
-      const featureImages = [ftr.image];
+      const featureImages = [
+        ftr.image,
+        'https://res.cloudinary.com/practicaldev/image/fetch/s--1AE0BLOa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/i1sxwhy2qap4amz4hxpo.png',
+      ];
       return (
         <div>
           <Typography
@@ -22,11 +25,7 @@ export const Vertical = (features) => {
           </Typography>
           <div className="feature-container">
             <p className="feature-description">
-              <Typography
-                style={{
-                  fontSize: 18,
-                }}
-              >
+              <Typography style={{ fontSize: 18 }}>
                 {ftr.description}
               </Typography>
             </p>
@@ -41,12 +40,12 @@ export const Vertical = (features) => {
                   height: 100,
                 }}
               >
-                {featureImages.map((img, i) => {
+                {featureImages.map((img, i) => (
                   <div
                     // className={classes.image}
                     style={{
-                      width: 400,
-                      // height: 550,
+                      width: 600,
+                      height: 700,
                     }}
                     key={i}
                     onMouseOver={() => setAutoplay(true)}
@@ -57,13 +56,13 @@ export const Vertical = (features) => {
                       style={{
                         borderTopLeftRadius: 20,
                         borderTopRightRadius: 20,
-                        maxWidth: 400,
+                        width: 600,
+                        // maxWidth: 400,
                         // maxHeight: 200,
                       }}
                     />
-                  </div>;
-                })}
-                <img src={ftr.image}></img>
+                  </div>
+                ))}
               </Carousel>
             </div>
           </div>
