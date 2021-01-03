@@ -116,7 +116,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
         border: '1px solid #ced4da',
         fontSize: 16,
         fontWeight: 100,
-        height: '2rempx',
+        height: '2rem',
         padding: '10px 12px',
         marginTop: 20,
         transition: theme.transitions.create(['border-color', 'box-shadow']),

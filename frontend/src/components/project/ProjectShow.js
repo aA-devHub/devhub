@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
@@ -9,8 +10,32 @@ import * as TechChart from './TechChart';
 import * as Feature from './Feature';
 import FutureFeatures from './FutureFeatures';
 import Description from './Description';
+import { makeStyles, Typography } from '@material-ui/core';
 
 function Project({ project, fetchProject, users }) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      marginTop: '2%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontSize: 40,
+      fontWeight: 800,
+      color: COLORS.DEVBLUE,
+    },
+    imageWall: {
+      margin: '2rem auto',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      maxHeight: 700,
+    },
+  }));
+  const classes = useStyles();
   const { id } = useParams();
   const [user, setUser] = useState({});
   const [title, setTitle] = useState('');
@@ -47,13 +72,13 @@ function Project({ project, fetchProject, users }) {
   const renderImageWall = (theme) => {
     switch (theme) {
       case 1:
-        return ImageWall.Carousel(images);
+        return ImageWall.CarouselWall(images);
       case 2:
         return ImageWall.Mason(images);
       case 3:
         return ImageWall.Three(images);
       default:
-        return ImageWall.Carousel(images);
+        return ImageWall.CarouselWall(images);
     }
   };
   const renderTechChart = (theme) => {
@@ -82,11 +107,16 @@ function Project({ project, fetchProject, users }) {
   return (
     <div>
       <Drawer />
-      {renderImageWall(overviewLayout)}
-      <Description description={description} />
-      {renderTechChart(languageChart)}
-      {renderFeatures(featuresLayout)}
-      <FutureFeatures features={futureFeatures} />
+      <div className={classes.root}>
+        <Typography className={classes.title}>{title}</Typography>
+        <div className={classes.imageWall}>
+          {renderImageWall(overviewLayout)}
+        </div>
+        <Description description={description} />
+        {renderTechChart(languageChart)}
+        {renderFeatures(featuresLayout)}
+        <FutureFeatures features={futureFeatures} />
+      </div>
     </div>
   );
 }

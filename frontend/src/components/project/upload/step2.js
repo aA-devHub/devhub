@@ -9,15 +9,26 @@ class Step2 extends Component {
     super(props);
     this.state = {
       images: {
-        hero: this.props.masterState.images.hero || '',
-        secondaries: this.props.masterState.images.secondaries || [],
+        hero: this.props.masterState.images.hero,
+        secondaries: this.props.masterState.images.secondaries,
       },
       ui: {
-        overviewLayout: this.props.masterState.ui.overviewLayout || 1,
+        color: this.props.masterState.ui.color,
+        overviewLayout: this.props.masterState.ui.overviewLayout,
+        featuresLayout: this.props.masterState.ui.featuresLayout,
       },
     };
 
     this.handleStepChange = this.handleStepChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+  }
+
+  handleImageChange(type, imageUrl) {
+    if (type === 'hero') {
+      this.setState((prevProps) => ({
+        images: { ...prevProps.images, hero: imageUrl },
+      }));
+    }
   }
 
   renderLayout(layoutNum) {
@@ -51,31 +62,21 @@ class Step2 extends Component {
     return (
       <div
         className={classes}
-        style={{ backgroundImage: `url('${layoutImageUrl}')` }}
-        onClick={() => this.setState({ ui: { overviewLayout: layoutNum } })}
+        onClick={() =>
+          this.setState((prevState) => ({
+            ui: { ...prevState.ui, overviewLayout: layoutNum },
+          }))
+        }
       >
+        <img src={layoutImageUrl} alt={`Layout ${layoutNum}`} />
         {checkmark}
       </div>
     );
   }
 
   handleStepChange(dir) {
-    this.props.changeStep(dir);
     this.props.updateMasterState(this.state);
-  }
-
-  handleInput(field) {
-    return (e) => {
-      if (field === 'color') {
-        this.setState({
-          ui: { color: e.target.value },
-        });
-      } else {
-        this.setState({
-          [field]: e.currentTarget.value,
-        });
-      }
-    };
+    this.props.changeStep(dir);
   }
 
   render() {
@@ -93,7 +94,11 @@ class Step2 extends Component {
                 Hero Image <span style={{ color: 'red' }}>*</span>
               </Typography>
             </label>
-            <ImageUploader />
+            <ImageUploader
+              incomingImage={this.state.images.hero}
+              handleImageChange={this.handleImageChange}
+              type={'hero'}
+            />
           </div>
           <div className="step-inner-right">
             <label className="step-input-label">
@@ -101,14 +106,16 @@ class Step2 extends Component {
                 Secondary Images <span style={{ color: 'red' }}>*</span>
               </Typography>
             </label>
-            <ImageUploader />
+            <ImageUploader
+              incomingImage={this.state.images.hero}
+              handleImageChange={this.handleImageChange}
+              type={'hero image'}
+            />
           </div>
         </div>
-        <div className="step-inner">
+        <div className="step-inner layouts">
           <label className="step-input-label">
-            <Typography>
-              Select Layout <span style={{ color: 'red' }}>*</span>
-            </Typography>
+            <Typography>Select Layout</Typography>
           </label>
           <div className="step-layouts">
             {this.renderLayout(1)}

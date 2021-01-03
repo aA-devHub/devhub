@@ -40,17 +40,30 @@ function ShowProfile({
     }
   };
 
-  const jobs = profileUser.experience.reverse().map((job, idx) => (
-    <div className="job" key={idx}>
-      <span className="job-dates">
-        {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
-      </span>
-      <span className="job-company">{job.company}</span>
-      <span className="job-position">{job.position}</span>
-    </div>
-  ));
+  const renderJobs = () => {
+    if (!profileUser.experience.length) return;
+
+    const jobs = profileUser.experience.reverse().map((job, idx) => (
+      <div className="job" key={idx}>
+        <span className="job-dates">
+          {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
+        </span>
+        <span className="job-company">{job.company}</span>
+        <span className="job-position">{job.position}</span>
+      </div>
+    ));
+
+    return (
+      <div className="work-info">
+        <h3 className="info-title">Work</h3>
+        {jobs}
+      </div>
+    );
+  };
 
   const renderSkills = () => {
+    if (!profileUser.skills.length) return;
+
     var skills = [];
 
     Object.entries(profileUser.skills).forEach(([skill, value], idx) => {
@@ -111,10 +124,7 @@ function ShowProfile({
       {renderProjects()}
       <div className="user-details">
         {renderNoProjects()}
-        <div className="work-info">
-          <h3 className="info-title">Work</h3>
-          {jobs}
-        </div>
+        {renderJobs()}
         {renderSkills()}
         <div className="extra-info">
           <h3 className="info-title">Info</h3>
