@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const fetchProjects = (filter) => {
-  console.log('Filter: ', filter);
   return axios.get('/api/projects', { params: { ...filter } });
 };
 
