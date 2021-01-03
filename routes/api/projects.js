@@ -177,10 +177,18 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.user._id).then((user) => {
-      user.favorites.push(req.params.projectId);
-      user.save();
-
       Project.findById(req.params.projectId).then((project) => {
+        let newNotification = {
+          source: 'favorite',
+          userName: user.name,
+          projectId: project._id,
+          projectName: project.title,
+          _id: mongoose.Types.ObjectId(),
+        };
+        user.notifications.other.push(newNotification);
+        user.favorites.push(req.params.projectId);
+        user.save();
+
         project.numFavorites += 1;
         project.save();
         res.json({ project, user: 'ignore', comments: 'ignore' });
