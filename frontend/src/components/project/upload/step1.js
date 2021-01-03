@@ -7,12 +7,14 @@ class Step1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.masterState.title || '',
-      githubLink: this.props.masterState.githubLink || '',
-      liveLink: this.props.masterState.liveLink || '',
-      description: this.props.masterState.description || '',
+      title: this.props.masterState.title,
+      githubLink: this.props.masterState.githubLink,
+      liveLink: this.props.masterState.liveLink,
+      description: this.props.masterState.description,
       ui: {
-        color: this.props.masterState.ui.color || 'light',
+        color: this.props.masterState.ui.color,
+        overviewLayout: this.props.masterState.ui.overviewLayout,
+        featuresLayout: this.props.masterState.ui.featuresLayout,
       },
     };
 
@@ -20,16 +22,16 @@ class Step1 extends Component {
   }
 
   handleStepChange(dir) {
-    this.props.changeStep(dir);
     this.props.updateMasterState(this.state);
+    this.props.changeStep(dir);
   }
 
   handleInput(field) {
     return (e) => {
       if (field === 'color') {
-        this.setState({
-          ui: { color: e.target.value },
-        });
+        this.setState((prevState) => ({
+          ui: { ...prevState.ui, color: e.target.value },
+        }));
       } else {
         this.setState({
           [field]: e.currentTarget.value,

@@ -94,7 +94,7 @@ function ProjectCard({ project }) {
             key={i}
             onMouseOver={() => setAutoplay(true)}
             onMouseOut={() => setAutoplay(false)}
-            onClick={() => history.push('/projects/1')}
+            onClick={() => history.push('/projects/5fea1ae674646d29c7ddb2ee')}
           >
             <img src={item} alt={item.title} />
           </div>
