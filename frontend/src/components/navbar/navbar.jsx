@@ -108,7 +108,7 @@ function Navbar(props) {
     // props.fetchNotifications();
     setTimeout(() => {
       props.fetchNotifications();
-    }, 300);
+    }, 150);
   }, [location]);
 
   const handleProfileMenuOpen = (event) => {
