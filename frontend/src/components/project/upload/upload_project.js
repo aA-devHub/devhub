@@ -65,8 +65,12 @@ class NewProject extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
-    this.props.createProject(this.state);
+    // console.log(this.state);
+    this.props
+      .createProject(this.state)
+      .then((res) =>
+        this.props.history.push(`/projects/${res.payload.project._id}`)
+      );
   }
 
   render() {
