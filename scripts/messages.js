@@ -30,7 +30,7 @@ const shuffle = ([...arr]) => {
 const randomPair = (ids) => shuffle(ids).slice(0, 2);
 
 const generateMessages = (count, ids) => {
-  const userIds = ids.split(',');
+  const userIds = ids instanceof Array ? ids : ids.split(',');
   let res = [];
   for (let i = 0; i < count; i++) {
     const [id1, id2] = randomPair(userIds);

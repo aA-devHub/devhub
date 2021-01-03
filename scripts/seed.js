@@ -4,59 +4,83 @@
 const mongoose = require('mongoose');
 const db = require('../config/keys').mongoURI;
 const path = require('path');
+const yargs = require('yargs');
 
 const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
 const User = require('../models/User');
 
+const { generateMessages } = require('../scripts/messages');
 const {
   findOrCreateConversation,
   addMessageToConversation,
 } = require('../routes/api/messages');
 
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(async () => {
-    console.log('Connected to MongoDB successfully');
+const seed = (numMsg, userIds = 10) => {
+  mongoose
+    .connect(db, { useNewUrlParser: true })
+    .then(async () => {
+      console.log('Connected to MongoDB successfully');
 
-    // Messages/Conversations
-    try {
-      const messages = require('../data/messagedata.json');
-      console.dir(messages);
+      // Messages/Conversations
+      try {
+        // const messages = require('../data/messagedata.json');
+        // console.dir(messages);
 
-      // Cleanup any bad data
-      let res = await Message.deleteMany({
-        $or: [{ createdAt: null }, { conversation: null }, { from: null }],
-      });
-      if (res.ok === 1) {
-        console.log('Removed bad messages');
-      }
-
-      // Uncomment to reset conversations + messages
-      await Message.deleteMany({});
-      await Conversation.deleteMany({});
-      await User.updateMany(
-        {},
-        { $set: { conversations: [] } },
-        { upsert: true }
-      );
-
-      for (let msg of messages) {
-        let conversation = await findOrCreateConversation(msg.to, msg.from);
-        console.log('Conversation: ', conversation);
-
-        const message = await Message.create({
-          ...msg,
-          conversation: conversation._id,
+        // Cleanup any bad data
+        let res = await Message.deleteMany({
+          $or: [{ createdAt: null }, { conversation: null }, { from: null }],
         });
+        if (res.ok === 1) {
+          console.log('Removed bad messages');
+        }
 
-        await addMessageToConversation(msg.from, message, conversation);
+        // Uncomment to reset conversations + messages
+        // await Message.deleteMany({});
+        // await Conversation.deleteMany({});
+        // await User.updateMany(
+        //   {},
+        //   { $set: { conversations: [] } },
+        //   { upsert: true }
+        // );
+
+        let userIds = await User.find({}, { _id: 1 }).then((ids) =>
+          ids.map((id) => id._id)
+        );
+        console.log(userIds);
+
+        const messages = generateMessages(numMsg, userIds);
+
+        for (let msg of messages) {
+          let conversation = await findOrCreateConversation(msg.to, msg.from);
+          console.log('Conversation: ', conversation);
+
+          const message = await Message.create({
+            ...msg,
+            conversation: conversation._id,
+          });
+
+          await addMessageToConversation(msg.from, message, conversation);
+        }
+      } catch (err) {
+        console.error(err.message);
+        console.log('No message data... skipping seeding messages');
       }
-    } catch (err) {
-      console.error(err.message);
-      console.log('No message data... skipping seeding messages');
-    }
 
-    mongoose.connection.close();
+      mongoose.connection.close();
+    })
+    .catch((err) => console.log(err));
+};
+
+const argv = yargs
+  .command('num_msg', 'Number of messages', {
+    num_msg: {
+      description: 'Number of messages to generate',
+      alias: 'm',
+      type: 'number',
+    },
   })
-  .catch((err) => console.log(err));
+  .help()
+  .alias('help', 'h').argv;
+
+seed(argv.num_msg);

@@ -21,7 +21,19 @@ const userMessages = (userId) => ({
 const findOrCreateConversation = async (user1, user2) => {
   let conversation = await Conversation.findOne({
     $and: [{ participants: user1 }, { participants: user2 }],
-  });
+  })
+    .populate({
+      path: 'messages',
+      options: {
+        sort: { createdAt: 1 },
+      },
+      populate: {
+        path: 'from',
+        select: 'name imageUrl',
+      },
+    })
+    .populate('participants', 'name')
+    .populate('unreadBy', 'name');
 
   if (!conversation) {
     // console.log('Creating conversation...');
@@ -56,27 +68,34 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const { errors, isValid } = validateMessage(req.body);
+    // const { errors, isValid } = validateMessage(req.body);
 
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
+    // if (!isValid) {
+    //   return res.status(400).json(errors);
+    // }
 
     const userFrom = req.user._id;
     const userTo = req.body.to;
 
     try {
-      let conversation = findOrCreateConversation(userFrom, userTo);
-
+      let conversation = await findOrCreateConversation(userFrom, userTo);
+      // console.log('conversation: ', conversation);
       let message = await Message.create({
         ...req.body,
         from: userFrom,
         conversation: conversation._id,
       });
 
+      // Need from field populated for chat
+      message = await Message.findById(message._id).populate(
+        'from',
+        'name imageUrl'
+      );
+
       addMessageToConversation(userFrom, message, conversation);
       return res.json({ conversation, message });
     } catch (err) {
+      console.log('ERRORR: ', err);
       return res.status(404).json(err);
     }
   }

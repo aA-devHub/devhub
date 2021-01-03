@@ -55,7 +55,7 @@ const Messages = ({ history }) => {
               path="/messages/:conversationId"
               component={ShowConversation}
             />
-            <Route path="/messages" component={ConversationAppBar} />
+            {/* <Route path="/messages" component={ConversationAppBar} /> */}
           </Switch>
         </main>
       </div>

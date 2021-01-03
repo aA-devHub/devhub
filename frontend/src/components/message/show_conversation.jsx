@@ -1,10 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Typography } from '@material-ui/core';
+import { makeStyles, fade, Typography, Avatar } from '@material-ui/core';
 
-import ConversationAppBar from './conversation_app_bar';
+// import ConversationAppBar from './conversation_app_bar';
+import MessageInput from './message_input';
 import { otherParticipant, drawerWidth, navOffset } from './messages';
+import { getMessages } from './selectors';
+import './messages.css';
+
+const useStyles = makeStyles((theme) => ({
+  conversation: {
+    position: 'relative',
+    height: '100%',
+  },
+  messageList: {
+    height: 'calc(100% - 3rem)',
+    overflowY: 'scroll',
+  },
+  reverse: {
+    flexDirection: 'row-reverse',
+  },
+  sentByUser: {
+    backgroundColor: fade(theme.palette.info.main, 0.85),
+    margin: '0 20px 0 80px',
+    color: theme.palette.common.white,
+  },
+  sentToUser: {
+    backgroundColor: fade(theme.palette.primary.light, 0.2),
+    margin: '0 80px 0 20px',
+  },
+  messageBubbleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '8px 0 8px 0',
+  },
+  avatars: {
+    margin: '2rem 1rem 0 1rem',
+  },
+  dateContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: 0,
+    paddingBottom: 2,
+  },
+  dateText: {
+    color: 'grey',
+  },
+}));
 
 const mapStateToProps = (state, ownProps) => {
   const { conversationId } = ownProps.match.params;
@@ -13,7 +56,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user,
     conversation,
-    messages: state.entities.messages,
+    messages: getMessages(state.entities.messages),
     otherUser:
       conversation && otherParticipant(user, conversation.participants),
   };
@@ -21,19 +64,67 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({});
 
+const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
+  const from = user.id === message.from._id;
+
+  return (
+    <div>
+      {showDate && (
+        <div className={classes.dateContainer}>
+          <Typography className={classes.dateText}>
+            {message.createdAt}
+          </Typography>
+        </div>
+      )}
+      <div
+        className={`${classes.messageBubbleContainer} ${
+          from && classes.reverse
+        }`}
+      >
+        <Avatar
+          className={classes.avatar}
+          src={from ? user.imageUrl : otherUser.imageUrl}
+        />
+        <Typography
+          className={`message-bubble \
+			${from ? classes.sentByUser : classes.sentToUser}`}
+        >
+          {message.body}
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
 const ShowConversation = ({ user, otherUser, conversation, messages }) => {
+  const classes = useStyles();
   if (!conversation) return null;
-  // console.log('Conversation: ', conversation);
 
   return (
     <>
-      <ConversationAppBar name={otherUser.name} />
+      {/* <ConversationAppBar name={otherUser.name} /> */}
+      <div className="conversation">
+        {messages.map((msg, idx) => {
+          // only show date if previous message from different user
+          const showDate =
+            idx === 0 ||
+            messages[idx].from.name !== messages[idx - 1].from.name;
 
-      {Object.values(messages).map((msg, idx) => (
-        <Typography paragraph key={idx}>
-          {msg.body}
-        </Typography>
-      ))}
+          return (
+            <MessageBubble
+              key={idx}
+              user={user}
+              showDate={showDate}
+              otherUser={otherUser}
+              message={msg}
+              classes={classes}
+            />
+          );
+        })}
+      </div>
+      <div>
+        <MessageInput receiver={otherUser} />
+      </div>
     </>
   );
 };
