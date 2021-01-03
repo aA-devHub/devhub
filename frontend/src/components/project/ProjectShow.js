@@ -93,14 +93,14 @@ function Project({ project, fetchProject, users }) {
   };
   const renderFeatures = (theme) => {
     switch (theme) {
-      case 1:
-        return Feature.Carousel(features);
+      case 3:
+        return Feature.Whirligig(features);
       case 2:
         return Feature.Horiz(features);
-      case 3:
+      case 1:
         return Feature.Vertical(features);
       default:
-        return Feature.Carousel(features);
+        return Feature.Vertical(features);
     }
   };
 
