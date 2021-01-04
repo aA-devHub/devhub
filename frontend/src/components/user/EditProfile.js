@@ -189,11 +189,11 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       setBio(user.bio);
       setAvatarUrl(user.imageUrl);
       const socials = user.socials;
-      setFacebook(socials.facebook || '');
-      setTwitter(socials.twitter || '');
-      setInstagram(socials.instagram || '');
-      setGithub(socials.github || '');
-      setLinkedin(socials.linkedin || '');
+      setFacebook(socials?.facebook || '');
+      setTwitter(socials?.twitter || '');
+      setInstagram(socials?.instagram || '');
+      setGithub(socials?.github || '');
+      setLinkedin(socials?.linkedin || '');
       setSkills(user.skills);
       console.log('skills', skills);
       setExperience(user.experience);

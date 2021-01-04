@@ -103,7 +103,10 @@ function ProjectCard({ project, author }) {
       </Carousel>
 
       <div className={classes.userDisplay}>
-        <div className={classes.leftPanel}>
+        <div
+          className={classes.leftPanel}
+          onClick={() => history.push(`/users/${project.user}`)}
+        >
           <Avatar className={classes.avatar} src={author.avatarUrl} />
           <div>
             <div className={classes.userInfo}>

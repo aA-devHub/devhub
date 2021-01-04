@@ -1,5 +1,6 @@
 import * as COLORS from '../../../colors';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import BarChart from './BarChart';
 import {
   fade,
@@ -128,10 +129,14 @@ function UserInfo({ developer }) {
       </div>
     );
   };
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+        onClick={() => history.push(`/users/${developer._id}`)}
+      >
         <Avatar
           src={developer.imageUrl}
           style={{
@@ -161,6 +166,16 @@ function UserInfo({ developer }) {
           </Typography>
         </div>
       </div>
+      <Button
+        variant="contained"
+        style={{
+          marginTop: '1rem',
+          backgroundColor: COLORS.DEVBLUE,
+          color: 'white',
+        }}
+      >
+        MESSAGE
+      </Button>
       <div>{renderJobs()}</div>
       <div>{renderSkills()}</div>
       <BarChart skills={developer.skills} />
