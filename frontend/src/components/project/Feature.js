@@ -10,6 +10,7 @@ export const Vertical = ({ features }) => {
       const featureImages = [ftr.image, ftr.code];
       return (
         <div className="features-container">
+          <Divider style={{ marginBottom: 20 }} />
           <div className="feature-container">
             <p className="feature-description">
               <Typography
@@ -65,13 +66,17 @@ export const Vertical = ({ features }) => {
               </Carousel>
             </div>
           </div>
-          <Divider style={{ marginBottom: 20 }} />
         </div>
       );
     });
   };
 
-  return <div className="master-features-container">{renderFeatures()}</div>;
+  return (
+    <React.Fragment>
+      {/* <Divider style={{ marginBottom: 20 }} /> */}
+      <div className="master-features-container">{renderFeatures()}</div>
+    </React.Fragment>
+  );
 };
 
 export const Horiz = ({ features }) => {

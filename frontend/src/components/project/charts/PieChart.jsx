@@ -22,7 +22,7 @@ const renderLabel = ({ x, y, name, fill, midAngle, ...props }) => {
       fill={fill}
       width={100}
       height={100}
-      fontSize={30}
+      fontSize={16}
       textAnchor={anchor}
     >
       {name}
@@ -62,14 +62,14 @@ const TechPieChart = ({ data, ...props }) => {
   // };
   return (
     // <ResponsiveContainer>
-    <div style={{ width: '100%', height: '100%' }}>
+    <div className="tech-pie-chart" style={{ width: '100%', height: '100%' }}>
       <PieChart {...props}>
         <Pie
           data={data}
           /* cx={120} */
           /* cy={200} */
-          innerRadius={120}
-          outerRadius={180}
+          innerRadius={80}
+          outerRadius={120}
           fill="#8884d8"
           paddingAngle={5}
           /* onMouseEnter={onPieEnter} */
