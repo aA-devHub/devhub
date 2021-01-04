@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   user: {
+    backgroundColor: 'white',
     height: '28px',
     width: '28px',
     borderRadius: '50%',

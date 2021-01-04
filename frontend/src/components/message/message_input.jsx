@@ -13,8 +13,9 @@ import * as COLORS from '../../colors';
 
 const useStyles = makeStyles((theme) => ({
   inputContainer: {
+    padding: '0 30px',
     position: 'absolute',
-    bottom: '0',
+    bottom: 20,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -75,6 +76,7 @@ const MessageInput = ({ receiver, sendMessage }) => {
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
       />
+      <div style={{ width: 20 }}></div>
       <Button
         /* onClick={(e) => handleSubmit(e)} */
         variant="contained"

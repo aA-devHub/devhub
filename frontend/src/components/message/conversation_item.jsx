@@ -26,7 +26,8 @@ const any = (arr, fn = Boolean) => arr.some(fn);
 
 const useStyles = makeStyles((theme) => ({
   avatars: {
-    margin: '2rem 1rem 0 1rem',
+    marginTop: '1rem',
+    border: `1px solid ${COLORS.DEVBLUE}`,
   },
 }));
 
@@ -54,7 +55,7 @@ const ConversationItem = ({
       }}
     >
       <ListItemIcon>
-        <Avatar src={imageUrl} className={classes.avatar} />
+        <Avatar src={imageUrl} className={classes.avatars} />
       </ListItemIcon>
       <ListItemText primary={name} />
       {unread && (

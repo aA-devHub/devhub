@@ -15,6 +15,8 @@ export const navOffset = 64;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    borderRadius: 30,
+    marginTop: '2rem',
     display: 'flex',
     // margin: '10px',
     // padding: '0 10px 0 10px',
