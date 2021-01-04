@@ -22,8 +22,8 @@ import * as tagActions from './actions/tag_actions';
 import * as searchActions from './actions/search_actions';
 import * as notificationActions from './actions/notification_actions';
 import * as conversationActions from './actions/conversation_actions';
+import * as gh from './util/github_api';
 import moment from 'moment';
-import github from 'github-api';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.searchActions = searchActions;
   window.notificationActions = notificationActions;
   window.conversationActions = conversationActions;
+  window.gh = gh;
 
   window.moment = moment;
-  window.github = github;
   window.store = store;
 
   // return the current user if logged in, fetching user data if necessary

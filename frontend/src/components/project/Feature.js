@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { Typography } from '@material-ui/core';
 
-export const Vertical = (features) => {
+export const Vertical = ({ features }) => {
   const [autoplay, setAutoplay] = useState(false);
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
@@ -76,8 +76,8 @@ export const Vertical = (features) => {
   return <div className="master-features-container">{renderFeatures()}</div>;
 };
 
-export const Horiz = (features) => {
+export const Horiz = ({ features }) => {
   return <div>Horizontal Feature</div>;
 };
 
-export const Whirligig = (features) => <div>Whirligig Features</div>;
+export const Whirligig = ({ features }) => <div>Whirligig Features</div>;
