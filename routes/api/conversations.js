@@ -51,7 +51,11 @@ router.get(
       .then((conversations) => res.json(conversations))
       .catch((errors) => res.status(404).json(errors));
 
-    return conversations;
+    // if (!conversations.length && users.length) {
+    //   console.log('Search for new user instead?');
+    // }
+
+    return { conversations, users };
   }
 );
 
