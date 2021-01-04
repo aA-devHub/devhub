@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
 import { CarouselWall, Three, Mason } from './ImageWall';
-import { BarChart, PieChart } from './charts/TechChart';
+// import { BarChart, PieChart } from './charts/TechChart';
+import TechChart from './charts/ChartContainer';
 import { Vertical, Whirligig, Horiz } from './Feature';
 import FutureFeatures from './FutureFeatures';
 import Description from './Description';
@@ -59,14 +60,7 @@ function Project({ project, fetchProject, user }) {
   };
 
   const renderTechChart = (theme) => {
-    switch (theme) {
-      case 1:
-        return <BarChart project={project} />;
-      case 2:
-        return <PieChart project={project} />;
-      default:
-        return <PieChart project={project} />;
-    }
+    return <TechChart project={project} theme={theme} />;
   };
 
   const renderFeatures = (theme) => {
