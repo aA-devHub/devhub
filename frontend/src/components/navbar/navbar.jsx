@@ -194,7 +194,9 @@ function Navbar(props) {
 
   // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
   const notifications =
-    props.notifications.other && props.notifications.other.length > 0 ? (
+    props.notifcations &&
+    props.notifications.other &&
+    props.notifications.other.length > 0 ? (
       props.notifications.other.map((data, idx) => {
         const type = data.source;
         const projectId = data.projectId;
@@ -203,7 +205,22 @@ function Navbar(props) {
         const project = data.projectName;
         return (
           <MenuItem onClick={() => handleNotificationMenuClick(data)}>
-            {user} {action} {project}
+            <Typography
+              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
+            >
+              {user}
+            </Typography>{' '}
+            {action}{' '}
+            <Typography
+              style={{
+                marginLeft: 13,
+                fontWeight: 800,
+                color: COLORS.DEVDARKBLUE,
+                textDecoration: 'underline',
+              }}
+            >
+              {project}
+            </Typography>
           </MenuItem>
         );
       })
@@ -309,7 +326,9 @@ function Navbar(props) {
           onClick={handleNotificationsMenuOpen}
         >
           <Badge
-            badgeContent={props.notifications.other.length}
+            badgeContent={
+              props.notifications ? props.notifications.other.length : 0
+            }
             color="secondary"
           >
             <NotificationsIcon />
@@ -317,7 +336,9 @@ function Navbar(props) {
         </IconButton>
         <IconButton aria-label="show new mails" color="inherit">
           <Badge
-            badgeContent={props.notifications.messages}
+            badgeContent={
+              props.notifications ? props.notifications.messages : 0
+            }
             color="secondary"
             onClick={() => handleMenuClick('messages')}
           >

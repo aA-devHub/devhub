@@ -138,7 +138,7 @@ function ShowProfile({
               maxHeight: 300,
               backgroundColor: 'white',
               padding: 20,
-              boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.1)',
               borderRadius: 10,
             }}
           >
