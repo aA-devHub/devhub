@@ -193,9 +193,7 @@ function Navbar(props) {
 
   // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
   const notifications =
-    props.notifications &&
-    props.notifications.other &&
-    props.notifications.other.length > 0 ? (
+    props.notifications.other && props.notifications.other.length > 0 ? (
       props.notifications.other.map((data, idx) => {
         const type = data.source;
         const projectId = data.projectId;
@@ -310,9 +308,7 @@ function Navbar(props) {
           onClick={handleNotificationsMenuOpen}
         >
           <Badge
-            badgeContent={
-              props.notifications ? props.notifications.other.length : 0
-            }
+            badgeContent={props.notifications.other.length}
             color="secondary"
           >
             <NotificationsIcon />
@@ -320,7 +316,7 @@ function Navbar(props) {
         </IconButton>
         <IconButton aria-label="show new mails" color="inherit">
           <Badge
-            badgeContent={props.messages ? props.notifications.messages : 0}
+            badgeContent={props.notifications.messages}
             color="secondary"
             onClick={() => handleMenuClick('messages')}
           >

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Avatar, Typography } from '@material-ui/core';
-import { Star, KeyboardArrowUp } from '@material-ui/icons';
+import { KeyboardArrowUp } from '@material-ui/icons';
 
 // import { project as dummy } from './__tests__/dummy_data';
-import FavoriteButton from './FavoriteButton';
+import FavoriteButton from './FavoriteButton.jsx';
 import * as COLORS from '../../colors';
 import { getImageArray } from '../../selectors/projects';
 
