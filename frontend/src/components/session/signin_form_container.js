@@ -96,6 +96,7 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
             alt="devhub logo"
             className={classes.logo}
             src={logoUrl}
+            style={{ cursor: 'pointer' }}
           ></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign in
