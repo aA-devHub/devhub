@@ -192,42 +192,6 @@ function Navbar(props) {
     props.history.push(`/projects/${notificationData.projectId}`);
   };
 
-  // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
-  const notifications =
-    props.notifcations &&
-    props.notifications.other &&
-    props.notifications.other.length > 0 ? (
-      props.notifications.other.map((data, idx) => {
-        const type = data.source;
-        const projectId = data.projectId;
-        const user = data.userName;
-        const action = data.source === 'comment' ? 'commented on' : 'favorited';
-        const project = data.projectName;
-        return (
-          <MenuItem onClick={() => handleNotificationMenuClick(data)}>
-            <Typography
-              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
-            >
-              {user}
-            </Typography>{' '}
-            {action}{' '}
-            <Typography
-              style={{
-                marginLeft: 13,
-                fontWeight: 800,
-                color: COLORS.DEVDARKBLUE,
-                textDecoration: 'underline',
-              }}
-            >
-              {project}
-            </Typography>
-          </MenuItem>
-        );
-      })
-    ) : (
-      <MenuItem>No notifications!</MenuItem>
-    );
-
   const fetchNotificationsComponent = () => {
     if (
       props.notifications &&
