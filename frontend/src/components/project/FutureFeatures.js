@@ -1,8 +1,8 @@
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 import { disconnect } from 'mongoose';
 import React from 'react';
 
-function FutureFeatures({ features }) {
+function FutureFeatures({ features, project }) {
   const futureFeatures = features.map((ftr, idx) => (
     <div className="future-feature-bucket">
       <Typography
@@ -17,23 +17,32 @@ function FutureFeatures({ features }) {
       <Typography style={{ fontSize: 18 }}>{ftr.description}</Typography>
     </div>
   ));
+
   return (
-    <div className="future-features-grid">
-      <img
-        className="future-features-image"
-        src="https://cdn.tkmkt.com/wp-content/uploads/2019/04/tk-services-01-1024x866.png"
-      ></img>
-      <div className="future-features-desc">
-        <Typography
-          style={{
-            lineHeight: '1.8em',
-            fontSize: 30,
-            fontWeight: 100,
-          }}
-        >
-          Future Features
-        </Typography>
-        <div className="future-features-container">{futureFeatures}</div>
+    <div>
+      <Divider style={{ marginBottom: 20 }} />
+      <div
+        id="future-features"
+        className={`future-features-grid ${
+          project.features.length % 2 == 0 ? 'reverse-features' : ''
+        }`}
+      >
+        <img
+          className="future-features-image"
+          src="https://res.cloudinary.com/willwang/image/upload/v1609721698/FutureFeatures_ig8hzf.png"
+        ></img>
+        <div className="future-features-desc">
+          <Typography
+            style={{
+              lineHeight: '1.8em',
+              fontSize: 30,
+              fontWeight: 100,
+            }}
+          >
+            Future Features
+          </Typography>
+          <div className="future-features-container">{futureFeatures}</div>
+        </div>
       </div>
     </div>
   );

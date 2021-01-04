@@ -96,12 +96,12 @@ function Project({ project, fetchProject, user, currentUser }) {
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className="project-overview-section">
           <Description description={description} />
           {renderTechChart(languageChart)}
         </div>
         {renderFeatures(featuresLayout)}
-        <FutureFeatures features={futureFeatures} />
+        <FutureFeatures project={project} features={futureFeatures} />
       </div>
     </div>
   );
