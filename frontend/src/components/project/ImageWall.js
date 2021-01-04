@@ -9,7 +9,7 @@ export const CarouselWall = ({ images }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: 900,
-      height: '75vh',
+      maxHeight: '75vh',
       marginBottom: theme.spacing(10),
       borderRadius: 20,
       boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.1)',
