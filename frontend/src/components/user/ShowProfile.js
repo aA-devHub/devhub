@@ -70,7 +70,7 @@ function ShowProfile({
   const renderJobs = () => {
     if (!profileUser.experience.length) return;
 
-    const jobs = profileUser.experience.reverse().map((job, idx) => (
+    const jobs = profileUser.experience.map((job, idx) => (
       <div className="job" key={idx}>
         <span className="job-dates">
           {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
