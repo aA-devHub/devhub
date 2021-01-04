@@ -41,7 +41,9 @@ class Feature extends Component {
             <Typography>{`Feature ${this.props.idx + 1}`}</Typography>
           </label>
           <label className="step-input-label">
-            <Typography>Feature Title</Typography>
+            <Typography>
+              Feature Title <span style={{ color: 'red' }}>*</span>
+            </Typography>
             <InputBase
               className="step-input"
               value={this.state.title || ''}
@@ -49,7 +51,9 @@ class Feature extends Component {
             />
           </label>
           <label className="step-input-label">
-            <Typography>Feature Description</Typography>
+            <Typography>
+              Feature Description <span style={{ color: 'red' }}>*</span>
+            </Typography>
             <InputBase
               multiline={true}
               rows={7}
@@ -62,7 +66,9 @@ class Feature extends Component {
         </div>
         <div className="step-inner-third">
           <label className="step-input-label">
-            <Typography>Upload Feature Image</Typography>
+            <Typography>
+              Upload Feature Image <span style={{ color: 'red' }}>*</span>
+            </Typography>
           </label>
           <ImageUploader
             incomingImage={this.state.image}
@@ -72,7 +78,9 @@ class Feature extends Component {
         </div>
         <div className="step-inner-third">
           <label className="step-input-label">
-            <Typography>Upload Code Image</Typography>
+            <Typography>
+              Upload Code Image <span style={{ color: 'red' }}>*</span>
+            </Typography>
           </label>
           <ImageUploader
             incomingImage={this.state.code}

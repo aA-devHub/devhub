@@ -30,7 +30,7 @@ const ProjectSchema = new Schema({
     color: String,
     overviewLayout: Number,
     featuresLayout: Number,
-    languageLayout: Number,
+    languageChart: Number,
   },
   browsers: [String],
   technologies: [String],

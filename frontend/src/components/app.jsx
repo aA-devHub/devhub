@@ -11,6 +11,7 @@ import Navbar from './navbar/navbar';
 import SigninFormContainer from './session/signin_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import UploadProject from './project/upload/upload_project';
+import EditProject from './project/upload/edit_project';
 import ShowProfile from './user/ShowProfile';
 import EditProfile from './user/EditProfile';
 // add card and cards
@@ -39,6 +40,12 @@ const App = () => {
             exact
             path="/projects/upload"
             component={UploadProject}
+          />
+
+          <ProtectedRoute
+            exact
+            path="/projects/:id/edit"
+            component={EditProject}
           />
 
           <ProtectedRoute path="/messages" component={Messages} />

@@ -79,7 +79,7 @@ class Step4 extends Component {
     switch (layoutNum) {
       case 1:
         layoutImageUrl =
-          'https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/21069-cherry-apple-pie-600x600.jpg?ext=.jpg';
+          'https://res.cloudinary.com/willwang/image/upload/v1609703195/barchart_se1ck8.png';
         break;
       case 2:
         layoutImageUrl =

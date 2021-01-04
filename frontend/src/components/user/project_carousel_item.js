@@ -34,6 +34,8 @@ class ProjectCarouselItem extends Component {
   }
 
   render() {
+    if (!this.props.project) return null;
+
     const className =
       'project-carousel-item level' +
       this.props.level +

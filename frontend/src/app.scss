@@ -514,6 +514,10 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   visibility: hidden;
 }
 
+.step-header .Mui-disabled {
+  background-color: gray !important;
+}
+
 .step-title {
   font-weight: 600;
   color: $navbar-black;
