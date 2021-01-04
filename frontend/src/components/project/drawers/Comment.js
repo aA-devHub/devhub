@@ -112,7 +112,6 @@ function Feedback({ comments, userId, project, createComment }) {
       project: project._id,
     };
     setNewComment('');
-
     createComment(commentData);
   };
 

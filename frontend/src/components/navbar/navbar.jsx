@@ -192,12 +192,13 @@ function Navbar(props) {
     props.history.push(`/projects/${notificationData.projectId}`);
   };
 
-  // const notifications = (<MenuItem onClick={() => handleMenuClick('home')}>No Notifications!</MenuItem>)
-  const notifications =
-    props.notifcations &&
-    props.notifications.other &&
-    props.notifications.other.length > 0 ? (
-      props.notifications.other.map((data, idx) => {
+  const fetchNotificationsComponent = () => {
+    if (
+      props.notifications &&
+      props.notifications.other &&
+      props.notifications.other.length > 0
+    ) {
+      return props.notifications.other.map((data, idx) => {
         const type = data.source;
         const projectId = data.projectId;
         const user = data.userName;
@@ -223,10 +224,11 @@ function Navbar(props) {
             </Typography>
           </MenuItem>
         );
-      })
-    ) : (
-      <MenuItem>No notifications!</MenuItem>
-    );
+      });
+    } else {
+      return <MenuItem>No notifications!</MenuItem>;
+    }
+  };
 
   const notificationMenuId = 'primary-notifications-menu';
   let renderNotificationsMenu;
@@ -242,7 +244,7 @@ function Navbar(props) {
         onClose={() => setNotificationsAnchorEl(null)}
         style={{ marginTop: 40 }}
       >
-        {notifications}
+        {fetchNotificationsComponent()}
       </Menu>
     );
   }
