@@ -8,6 +8,8 @@ import ThreeWall from './Three';
 export const CarouselWall = ({ images }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
+      width: 900,
+      height: '75vh',
       marginBottom: theme.spacing(10),
       borderRadius: 20,
       boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.1)',
@@ -22,9 +24,6 @@ export const CarouselWall = ({ images }) => {
       <Carousel
         animation="slide"
         autoPlay={autoplay}
-        style={{
-          height: 500,
-        }}
         interval={1500}
         indicators={true}
         timeout={500}
@@ -33,23 +32,18 @@ export const CarouselWall = ({ images }) => {
           <div
             className={classes.image}
             style={{
-              width: 800,
+              width: 900,
               height: 550,
+              backgroundImage: `url(${item})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
             }}
             key={i}
             onMouseOver={() => setAutoplay(true)}
             onMouseOut={() => setAutoplay(false)}
-          >
-            <img
-              src={item}
-              style={{
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                maxWidth: 800,
-                maxHeight: 600,
-              }}
-            />
-          </div>
+          ></div>
         ))}
       </Carousel>
     </div>

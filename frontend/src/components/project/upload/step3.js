@@ -142,6 +142,7 @@ class Step3 extends Component {
           step={3}
           title={'Key Features'}
           changeStep={this.handleStepChange}
+          nextDisabled={!this.state.features.length}
         />
         {this.renderFeatures()}
         <div className="step-inner layouts">

@@ -90,6 +90,11 @@ class Step2 extends Component {
           step={2}
           title={'Project Images'}
           changeStep={this.handleStepChange}
+          nextDisabled={
+            !Boolean(
+              this.state.images.hero && this.state.images.secondaries.length
+            )
+          }
         />
         <div className="step-inner">
           <div className="step-inner-left">
