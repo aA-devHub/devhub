@@ -39,7 +39,9 @@ const ConversationItem = ({
   const classes = useStyles();
 
   const { participants, unreadBy } = conversation;
-  const name = participants.filter((x) => x.name !== user.name)[0].name;
+  const { name, imageUrl } = participants.filter(
+    (x) => x.name !== user.name
+  )[0];
   const unread = any(unreadBy, (x) => x.name === user.name);
   // console.log('unread, name, username: ', unread, name, user.name);
   return (
@@ -52,7 +54,7 @@ const ConversationItem = ({
       }}
     >
       <ListItemIcon>
-        <Avatar src={user.imageUrl} className={classes.avatar} />
+        <Avatar src={imageUrl} className={classes.avatar} />
       </ListItemIcon>
       <ListItemText primary={name} />
       {unread && (
