@@ -87,7 +87,7 @@ function Project({ project, fetchProject, user }) {
   const { languageChart, featuresLayout } = project.ui;
   return (
     <div>
-      <Drawer developer={user} comments={project.comments} />
+      <Drawer project={project} developer={user} comments={project.comments} />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>
