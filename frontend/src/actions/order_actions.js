@@ -1,6 +1,6 @@
-export const RECEIVE_ORDERING = 'RECEIVE_ORDERING';
+export const RECEIVE_ORDER = 'RECEIVE_ORDER';
 
-export const receiveOrdering = (order) => ({
-  type: RECEIVE_ORDERING,
+export const setOrder = (order) => ({
+  type: RECEIVE_ORDER,
   order,
 });
