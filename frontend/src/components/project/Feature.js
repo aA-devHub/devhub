@@ -7,11 +7,7 @@ export const Vertical = ({ features }) => {
   const [autoplay, setAutoplay] = useState(false);
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
-      const featureImages = [
-        ftr.image,
-        'https://github.com/kaycbas/rocket/blob/main/app/assets/images/readme/save_3.gif?raw=true',
-        'https://ph-files.imgix.net/0668248b-fcc0-4402-a1a2-3a01f1c62425.png?auto=format&fit=crop&frame=1&h=512&w=1024',
-      ];
+      const featureImages = [ftr.image, ftr.code];
       return (
         <div className="features-container">
           <div className="feature-container">
@@ -80,11 +76,7 @@ export const Vertical = ({ features }) => {
 export const Horiz = ({ features }) => {
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
-      const featureImages = [
-        ftr.image,
-        'https://github.com/kaycbas/rocket/blob/main/app/assets/images/readme/save_3.gif?raw=true',
-        'https://ph-files.imgix.net/0668248b-fcc0-4402-a1a2-3a01f1c62425.png?auto=format&fit=crop&frame=1&h=512&w=1024',
-      ];
+      const featureImages = [ftr.image, ftr.code];
       return <div className="horiz-features-container"></div>;
     });
   };
