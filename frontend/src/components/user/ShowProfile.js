@@ -63,7 +63,7 @@ function ShowProfile({
   };
 
   const renderSkills = () => {
-    if (!profileUser.skills.length) return;
+    if (!Object.values(profileUser.skills).length) return;
 
     var skills = [];
 

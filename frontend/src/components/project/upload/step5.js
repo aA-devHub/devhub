@@ -73,7 +73,7 @@ class Step5 extends Component {
         <StepHeader
           step={5}
           title={'Future Features'}
-          handleSubmit={this.props.handleSubmit}
+          projectAction={this.props.projectAction}
           changeStep={this.handleStepChange}
         />
         <div className="step-inner">{this.renderFutureFeatures()}</div>
