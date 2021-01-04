@@ -59,8 +59,7 @@ const BootstrapInput = withStyles((theme) => ({
 
 const CommentItem = ({ comment }) => {
   const cmt = {
-    commenterAvatarUrl:
-      'https://res.cloudinary.com/willwang/image/upload/v1608279554/26_tqjlzc.webp',
+    commenterAvatarUrl: comment.user.imageUrl,
     commenter: comment.userName,
     body: comment.body,
     createdAt: comment.createdAt,
@@ -71,9 +70,9 @@ const CommentItem = ({ comment }) => {
       <Avatar
         src={
           cmt.commenterAvatarUrl ||
-          'https://res.cloudinary.com/willwang/image/upload/v1607723511/avatar_l9tddb.png'
+          'http://res.cloudinary.com/willwang/image/upload/v1609729496/li5qk7claehau3n3hfmf.png'
         }
-        style={{ marginRight: '1rem' }}
+        style={{ marginRight: '1rem', border: `1px solid ${COLORS.DEVBLUE}` }}
       />
       <div>
         <Typography variant="body2" style={{ fontWeight: 400 }}>
@@ -112,14 +111,16 @@ function Feedback({ comments, userId, project, createComment }) {
       body: newComment,
       project: project._id,
     };
+    setNewComment('');
+
     createComment(commentData);
   };
 
   const renderCommentItems = () => {
     if (!comments) return null;
     return comments.map((cmnt, i) => (
-      <React.Fragment>
-        <CommentItem key={i} comment={cmnt} />
+      <React.Fragment key={i}>
+        <CommentItem comment={cmnt} />
         <Divider style={{ marginBottom: 20 }} />
       </React.Fragment>
     ));
