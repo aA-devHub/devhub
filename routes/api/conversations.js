@@ -2,14 +2,34 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+const { findOrCreateConversation } = require('./messages');
 const Conversation = require('../../models/Conversation');
 const User = require('../../models/User');
 // const validateConversation = require('../../validation/conversations');
 
 const getUsers = async (search) => {
-  let users = await User.find({ name: new RegExp(search, 'i') }, { _id: 1 });
-  return users && users.map((usr) => usr._id);
+  let users = await User.find({ name: new RegExp(search, 'i') });
+  // return users && users.map((usr) => usr._id);
+  return users;
 };
+
+// XXX: semi-broken lol
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    const user = req.user;
+    const otherUser = req.body.userId;
+
+    try {
+      return res.json({
+        conversation: findOrCreateConversation(user._id, otherUser),
+      });
+    } catch (err) {
+      return res.status(404).json(err);
+    }
+  }
+);
 
 // XXX: could add filtered search only for current conversations?
 // https://stackoverflow.com/questions/11303294/querying-after-populate-in-mongoose
@@ -37,8 +57,12 @@ router.get(
     const { search } = req.query;
     if (search) {
       users = await getUsers(search);
+      console.log('Users: ', users);
       filter = {
-        $and: [{ participants: { $in: users } }, filter],
+        $and: [
+          { participants: { $in: users.map((user) => user._id) } },
+          filter,
+        ],
       };
     }
 
@@ -48,14 +72,10 @@ router.get(
       .populate('participants', 'name imageUrl')
       .populate('unreadBy', 'name')
       .sort({ createdAt: -1 })
-      .then((conversations) => res.json(conversations))
+      .then((conversations) => res.json({ conversations, users }))
       .catch((errors) => res.status(404).json(errors));
 
-    // if (!conversations.length && users.length) {
-    //   console.log('Search for new user instead?');
-    // }
-
-    return { conversations, users };
+    return conversations;
   }
 );
 

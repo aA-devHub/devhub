@@ -9,3 +9,7 @@ export const fetchConversations = (filter) => {
 export const fetchConversation = (conversationId) => {
   return axios.get(`/api/conversations/${conversationId}`);
 };
+
+export const startConversation = (userId) => {
+  return axios.post(`/api/conversations`, userId);
+};
