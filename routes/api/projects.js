@@ -244,6 +244,12 @@ router.delete('/:projectId', (req, res) => {
       if (!project) {
         return res.status(404).send();
       }
+      User.findById(project.user).then((user) => {
+        const i = user.projects.indexOf(project._id);
+        if (i > -1) {
+          user.projects.splice(i, 1);
+        }
+      });
       res.send(project);
     })
     .catch((e) => {
