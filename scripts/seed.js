@@ -29,14 +29,18 @@ const seed = (numMsg, userIds = 10) => {
 
       // Projects
       // await Project.deleteMany({ });
+      try {
+      } catch (err) {
+        console.log(err);
+      }
 
       // Comments
-      try {
-        await Comment.deleteMany({});
-      } catch (_) {
-        // return ;
-        console.log('Skipping comments');
-      }
+      // try {
+      //   await Comment.deleteMany({});
+      // } catch (_) {
+      //   // return ;
+      //   console.log('Skipping comments');
+      // }
 
       // Messages/Conversations
       try {
@@ -93,6 +97,7 @@ const argv = yargs
     num_msg: {
       description: 'Number of messages to generate',
       alias: 'm',
+      default: 0,
       type: 'number',
     },
   })
