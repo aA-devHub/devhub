@@ -54,7 +54,7 @@ const App = () => {
           <Route path="/card" component={Card} />
           <Route path="/cards" component={Cards} />
           <Route path="/comment" component={Comment} />
-          <Route path="/projects/:id" component={Project} />
+          <ProtectedRoute path="/projects/:id" component={Project} />
         </Switch>
       </div>
       <Footer />
