@@ -107,7 +107,7 @@ function ProjectCard({ project, author }) {
           className={classes.leftPanel}
           onClick={() => history.push(`/users/${project.user}`)}
         >
-          <Avatar className={classes.avatar} src={author.avatarUrl} />
+          <Avatar className={classes.avatar} src={author && author.avatarUrl} />
           <div>
             <div className={classes.userInfo}>
               <Typography

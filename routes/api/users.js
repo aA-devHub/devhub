@@ -15,12 +15,12 @@ const userMessages = require('./messages').userMessages;
 
 // Extract fields to store under state.session.user
 const sessionUserPayload = (user) => ({
-  ...user,
+  // ...user,
   id: user.id,
   name: user.name,
   imageUrl: user.imageUrl,
   favorites: user.favorites,
-  notifications: user.notifications || 0,
+  // notifications: user.notifications || 0,
 });
 
 router.get(
