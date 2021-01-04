@@ -381,6 +381,8 @@ function Navbar(props) {
             className={(classes.title, classes.grow)}
             variant="h6"
             noWrap
+            style={{ cursor: 'pointer' }}
+            onClick={() => handleMenuClick('home')}
           >
             devHUB
           </Typography>
