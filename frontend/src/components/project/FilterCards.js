@@ -8,15 +8,18 @@ import Select from '@material-ui/core/Select';
 
 import * as COLORS from '../../colors';
 import { addTag, removeTag, clearTags } from '../../actions/tag_actions';
+import { setOrder } from '../../actions/order_actions';
 
 const mapStateToProps = (state) => ({
   tags: state.ui.tags,
+  order: state.ui.order,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   removeTag: (tag) => dispatch(removeTag(tag)),
   addTag: (tag) => dispatch(addTag(tag)),
   clearTags: () => dispatch(clearTags()),
+  setOrder: (order) => dispatch(setOrder(order)),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -48,9 +51,11 @@ const defaultTags = [
   'Java',
 ];
 
-function FilterCards({ addTag, removeTag, clearTags, tags }) {
-  const [filter, setFilter] = useState('popularity');
-  const handleFilter = (e) => setFilter(e.target.value);
+function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
+  // const [filter, setFilter] = useState('popularity');
+  // const handleFilter = (e) => {
+  //   setFilter(e.target.value);
+  // };
   const classes = useStyles();
 
   const toggleTag = (tag) => {
@@ -68,8 +73,8 @@ function FilterCards({ addTag, removeTag, clearTags, tags }) {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={filter}
-          onChange={handleFilter}
+          value={order}
+          onChange={(e) => setOrder(e.currentTarget.value)}
           label="Order by"
         >
           <MenuItem value="popularity">
