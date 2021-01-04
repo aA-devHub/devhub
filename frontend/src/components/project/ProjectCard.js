@@ -82,7 +82,7 @@ function ProjectCard({ project, author }) {
       <Carousel
         animation="fade"
         autoPlay={autoplay}
-        interval={1500}
+        interval={2000}
         indicators={false}
         timeout={500}
       >

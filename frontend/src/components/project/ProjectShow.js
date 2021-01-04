@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
@@ -82,6 +82,7 @@ function Project({ project, fetchProject, user }) {
   return (
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
+      <Link to={`/projects/${project._id}/edit`}>Edit page</Link>
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>

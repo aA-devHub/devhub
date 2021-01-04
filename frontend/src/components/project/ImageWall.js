@@ -24,7 +24,7 @@ export const CarouselWall = ({ images }) => {
       <Carousel
         animation="slide"
         autoPlay={autoplay}
-        interval={1500}
+        interval={2500}
         indicators={true}
         timeout={500}
       >
