@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
+import MailIcon from '@material-ui/icons/Mail';
 import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';
@@ -21,6 +22,16 @@ function ShowProfile({
   }, []);
 
   if (profileUser === undefined) return null;
+
+  const renderRightIcon = () => {
+    if (currentUser) {
+      if (currentUser.id === profileUser._id) {
+        return <EditIcon onClick={() => history.push('/users/edit')} />;
+      } else {
+        return <MailIcon onClick={() => alert('HI KEWTIE')} />;
+      }
+    }
+  };
 
   const renderSocials = () => {
     if (profileUser.socials) {
@@ -106,16 +117,7 @@ function ShowProfile({
           <div className="back-icon pointer" onClick={() => history.goBack()}>
             <ArrowBackIosIcon />
           </div>
-          <div
-            className="edit-icon pointer"
-            onClick={() => history.push('/users/edit')}
-          >
-            {currentUser && currentUser.id === profileUser._id ? (
-              <EditIcon />
-            ) : (
-              ''
-            )}
-          </div>
+          <div className="edit-icon pointer">{renderRightIcon()}</div>
         </div>
         <div className="user-image-container">
           <div className="user-image">

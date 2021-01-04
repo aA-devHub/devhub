@@ -32,7 +32,7 @@ const findOrCreateConversation = async (user1, user2) => {
         select: 'name imageUrl',
       },
     })
-    .populate('participants', 'name')
+    .populate('participants', 'name imageUrl')
     .populate('unreadBy', 'name');
 
   if (!conversation) {

@@ -93,7 +93,7 @@ class Step3 extends Component {
     switch (layoutNum) {
       case 1:
         layoutImageUrl =
-          'https://res.cloudinary.com/willwang/image/upload/v1609652708/Group_8_komke9.png';
+          'https://res.cloudinary.com/willwang/image/upload/v1609652708/Group_7_azatw5.png';
         break;
       case 2:
         layoutImageUrl =
@@ -101,7 +101,7 @@ class Step3 extends Component {
         break;
       case 3:
         layoutImageUrl =
-          'https://res.cloudinary.com/willwang/image/upload/v1609652708/Group_7_azatw5.png';
+          'https://res.cloudinary.com/willwang/image/upload/v1609652708/Group_8_komke9.png';
         break;
       default:
         break;
