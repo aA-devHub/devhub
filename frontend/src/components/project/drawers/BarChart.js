@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   item: {
     display: 'flex',
     alignItems: 'center',
-    width: '70%',
+    width: '90%',
     justifyContent: 'space-between',
     '& > p': {
       marginTop: 20,

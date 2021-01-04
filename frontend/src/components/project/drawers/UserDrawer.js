@@ -2,6 +2,8 @@ import * as COLORS from '../../../colors';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import BarChart from './BarChart';
+import MessageBox from '../MessageModal';
+import { sendMessage } from '../../../actions/message_actions';
 import {
   fade,
   withStyles,
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 50,
   },
 }));
-function UserInfo({ developer }) {
+function UserInfo({ developer, currentUserId, sendMessage }) {
   const classes = useStyles();
   const renderJobs = () => {
     if (!developer.experience.length)
@@ -166,16 +168,18 @@ function UserInfo({ developer }) {
           </Typography>
         </div>
       </div>
-      <Button
-        variant="contained"
-        style={{
-          marginTop: '1rem',
-          backgroundColor: COLORS.DEVBLUE,
-          color: 'white',
-        }}
-      >
-        MESSAGE
-      </Button>
+      <br></br>
+      {currentUserId === developer._id ? (
+        <div></div>
+      ) : (
+        <MessageBox
+          currentUserId={currentUserId}
+          receiverId={developer._id}
+          avatar={developer.imageUrl}
+          userName={developer.name}
+          sendMessage={sendMessage}
+        />
+      )}
       <div>{renderJobs()}</div>
       <div>{renderSkills()}</div>
       <BarChart skills={developer.skills} />
@@ -185,8 +189,9 @@ function UserInfo({ developer }) {
 
 export default connect(
   (state, ownProps) => ({
+    currentUserId: state.session.user.id,
     users: state.entities.users,
     toggleDrawer: ownProps.toggleDrawer,
   }),
-  (dispatch) => ({})
+  (dispatch) => ({ sendMessage: (data) => dispatch(sendMessage(data)) })
 )(UserInfo);
