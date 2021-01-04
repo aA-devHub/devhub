@@ -74,7 +74,7 @@ function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={order}
-          onChange={(e) => setOrder(e.currentTarget.value)}
+          onChange={(e) => setOrder(e.target.value)}
           label="Order by"
         >
           <MenuItem value="popularity">
