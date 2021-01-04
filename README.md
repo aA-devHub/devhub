@@ -1,6 +1,6 @@
 # devhub
 
-[Live](https://aa-devhub.herokuapp.com/)
+[Live](https://getdevhub.herokuapp.com/)
 
 # Install
 
