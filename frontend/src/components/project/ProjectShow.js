@@ -84,24 +84,35 @@ function Project({ project, fetchProject, user, currentUser }) {
   return (
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
-      {project.user === currentUser.id ? (
-        <Button onClick={() => history.push(`/projects/${project._id}/edit`)}>
-          Edit
-        </Button>
-      ) : (
-        <div></div>
-      )}
+
       <div className={classes.root}>
-        <Typography className={classes.title}>{title}</Typography>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Typography className={classes.title}>{title}</Typography>
+          {currentUser === project.user ? (
+            <Button
+              style={{ marginLeft: 20, marginTop: 2, color: COLORS.DEVBLUE }}
+              onClick={() => history.push(`/projects/${project._id}/edit`)}
+            >
+              Edit
+            </Button>
+          ) : (
+            <div></div>
+          )}
+        </div>
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className="project-overview-section">
           <Description description={description} />
           {renderTechChart(languageChart)}
         </div>
         {renderFeatures(featuresLayout)}
-        <FutureFeatures features={futureFeatures} />
+        <FutureFeatures project={project} features={futureFeatures} />
       </div>
     </div>
   );
@@ -112,7 +123,7 @@ export default connect(
       state.entities.users[
         state.entities.projects[ownProps.match.params.id]?.user
       ],
-    currentUser: state.entities.users,
+    currentUser: state.session.user.id,
     project: state.entities.projects[ownProps.match.params.id],
   }),
   (dispatch) => ({
