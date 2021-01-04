@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ProtectedRoute } from '../../util/route_util';
 import { Switch, Route } from 'react-router-dom';
@@ -15,15 +15,19 @@ export const navOffset = 64;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: '2rem',
     display: 'flex',
     // margin: '10px',
     // padding: '0 10px 0 10px',
     // minHeight: '500px'
     height: '75vh',
+    boxShadow: '0px 20px 35px 0px rgba(0, 0, 0, 0.1)',
   },
   content: {
     position: 'relative',
     flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center',
     backgroundColor: '#fff',
     borderRight: '1px solid rgba(0,0,0, 0.12)',
     // padding: theme.spacing(3),
@@ -41,19 +45,35 @@ export const otherParticipant = (user, participants) => {
 const Messages = ({ history }) => {
   const classes = useStyles();
   // const [conversation, setConversation] = React.useState(null);
+  const [imgshow, setImgshow] = useState('');
 
   return (
     <div>
       <div className={classes.root}>
-        <ConversationDrawer /* setConversation={setConversation} */ />
+        <ConversationDrawer
+          onMouseIn={() => setImgshow('none')}
+          /* setConversation={setConversation} */
+        />
 
         <main className={classes.content}>
           {/* <div className={classes.toolbar} /> */}
 
           {/* <Typography paragraph>Chattings</Typography> */}
+          <div style={{ margin: '0 auto', display: imgshow }}>
+            <img
+              src="https://res.cloudinary.com/willwang/image/upload/v1609657172/MessagePage_wajrjn.png"
+              style={{
+                zIndex: -1,
+                width: 300,
+                marginLeft: 20,
+                marginRight: 10,
+              }}
+            />
+          </div>
 
           <Switch>
             <ProtectedRoute
+              style={{ zIndex: 888 }}
               exact
               path="/messages/:conversationId"
               component={ShowConversation}

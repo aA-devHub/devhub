@@ -8,10 +8,10 @@ class ProjectCarousel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // projects: this.props.projects,
       active: 0,
       direction: '',
     };
+
     this.rightClick = this.moveRight.bind(this);
     this.leftClick = this.moveLeft.bind(this);
   }
@@ -19,24 +19,54 @@ class ProjectCarousel extends Component {
   generateprojects() {
     var projects = [];
     var level;
+
     for (var i = this.state.active - 2; i < this.state.active + 3; i++) {
       var index = i;
+
       if (i < 0) {
         index = this.props.projects.length + i;
       } else if (i >= this.props.projects.length) {
         index = i % this.props.projects.length;
       }
-      level = this.state.active - i;
+
+      if (this.props.projects.length === 1) {
+        level = 0;
+      } else if (this.props.projects.length <= 3) {
+        level = this.state.active - i + 1;
+      } else {
+        level = this.state.active - i;
+      }
+
       projects.push(
         <ProjectCarouselItem
           key={index}
           project={this.props.projects[index]}
-          id={this.props.projects[index]?._id}
           level={level}
         />
       );
     }
+
     return projects;
+  }
+
+  renderLeftArrow() {
+    if (this.props.projects.length > 1) {
+      return (
+        <div className="arrow arrow-left pointer" onClick={this.leftClick}>
+          <ArrowBackIosIcon style={{ height: '30px', width: '30px' }} />
+        </div>
+      );
+    }
+  }
+
+  renderRightArrow() {
+    if (this.props.projects.length > 1) {
+      return (
+        <div className="arrow arrow-right pointer" onClick={this.rightClick}>
+          <ArrowForwardIosIcon style={{ height: '30px', width: '30px' }} />
+        </div>
+      );
+    }
   }
 
   moveLeft() {
@@ -63,9 +93,7 @@ class ProjectCarousel extends Component {
           <h1 className="carousel-title">Projects</h1>
         </div>
         <div id="project-carousel" className="noselect">
-          <div className="arrow arrow-left pointer" onClick={this.leftClick}>
-            <ArrowBackIosIcon style={{ height: '30px', width: '30px' }} />
-          </div>
+          {this.renderLeftArrow()}
           <CSSTransitionGroup
             transitionName={this.state.direction}
             transitionEnterTimeout={100}
@@ -73,9 +101,7 @@ class ProjectCarousel extends Component {
           >
             {this.generateprojects()}
           </CSSTransitionGroup>
-          <div className="arrow arrow-right pointer" onClick={this.rightClick}>
-            <ArrowForwardIosIcon style={{ height: '30px', width: '30px' }} />
-          </div>
+          {this.renderRightArrow()}
         </div>
       </React.Fragment>
     );

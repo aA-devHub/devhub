@@ -48,7 +48,9 @@ class ProjectCarouselItem extends Component {
         onClick={this.handleClick}
       >
         <h3 className="project-title">{this.generateTitle()}</h3>
-        {/* <span className="project-subtitle">Short Subtitle</span> */}
+        <span className="project-subtitle">
+          {/* {this.props.project.description.slice(0, 30) + '...'} */}
+        </span>
         <div
           className="project-image"
           style={{ backgroundImage: `url(${this.props.project.images.hero})` }}

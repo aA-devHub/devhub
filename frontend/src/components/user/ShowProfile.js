@@ -121,7 +121,17 @@ function ShowProfile({
           </div>
         </div>
         <div className="user-image-container">
-          <div className="user-image">
+          <div
+            className="user-image"
+            style={{
+              maxWidth: 400,
+              maxHeight: 300,
+              backgroundColor: 'white',
+              padding: 20,
+              boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.3)',
+              borderRadius: 10,
+            }}
+          >
             <img
               src={profileUser.imageUrl}
               alt={profileUser.name + `'s Image`}

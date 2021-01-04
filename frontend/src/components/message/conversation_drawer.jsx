@@ -5,12 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, ListSubheader, Divider } from '@material-ui/core';
 
 import ConversationItem from './conversation_item';
+import UserItem from './user_item';
 import ConversationSearch from './conversation_search';
 import { drawerWidth, navOffset } from './messages';
 import { fetchConversations } from '../../actions/conversation_actions';
 
 const mapStateToProps = (state, _ownProps) => ({
   conversations: state.entities.conversations,
+  users: state.entities.users,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -51,7 +53,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ConversationDrawer = ({ history, conversations, fetchConversations }) => {
+const ConversationDrawer = ({
+  history,
+  users,
+  conversations,
+  fetchConversations,
+}) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -84,6 +91,17 @@ const ConversationDrawer = ({ history, conversations, fetchConversations }) => {
         {Object.values(conversations).map((conversation, idx) => (
           <ConversationItem key={idx} conversation={conversation} />
         ))}
+
+        {/* if no conversations match filter, display matching users */}
+        {!Object.keys(conversations).length && (
+          <>
+            <Divider />
+            <ListSubheader>Start Conversation</ListSubheader>
+            {Object.values(users).map((user, idx) => (
+              <UserItem key={idx} user={user} />
+            ))}
+          </>
+        )}
       </List>
     </Drawer>
   );

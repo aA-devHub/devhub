@@ -1,4 +1,5 @@
 import React from 'react';
+import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
 
 import { makeStyles, fade, Typography, Avatar } from '@material-ui/core';
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     height: 'calc(100% - 44px)',
     overflowY: 'scroll',
-    padding: '0 24px',
+    padding: '20px 24px 40px 24px',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
@@ -38,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
   messageBubbleContainer: {
     display: 'flex',
     alignItems: 'center',
+
     margin: '8px 0 8px 0',
   },
   avatars: {
-    margin: '2rem 1rem 0 1rem',
+    border: `1px solid ${COLORS.DEVBLUE}`,
   },
   dateContainer: {
     display: 'flex',
@@ -88,7 +90,7 @@ const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
         }`}
       >
         <Avatar
-          className={classes.avatar}
+          className={classes.avatars}
           src={from ? user.imageUrl : otherUser.imageUrl}
         />
         <Typography

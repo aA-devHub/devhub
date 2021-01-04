@@ -115,7 +115,7 @@ class Step4 extends Component {
   handleInput(field) {
     return (e) => {
       if (field === 'mobile') {
-        this.setState({ mobile: e.currentTarget.value });
+        this.setState((prevState) => ({ mobile: !prevState.mobile }));
       } else if (field === 'browsers') {
         this.setState((prevState) => {
           var newBrowsers = [...prevState.browsers];
@@ -158,12 +158,12 @@ class Step4 extends Component {
                 onChange={this.handleInput('mobile')}
               >
                 <FormControlLabel
-                  value="true"
+                  value={true}
                   control={<Radio color="default" />}
                   label="Yes"
                 />
                 <FormControlLabel
-                  value="false"
+                  value={false}
                   control={<Radio color="default" />}
                   label="No"
                 />

@@ -11,7 +11,7 @@ const validateComment = require('../../validation/comments');
 // Note: GET routes populate user field with user's namte
 router.get('/', (req, res) => {
   Comment.find()
-    .populate('user', 'name')
+    .populate('user', 'name imageUrl')
     .then((comments) => res.json(comments))
     .catch((error) => res.status(404).json(error));
 });
