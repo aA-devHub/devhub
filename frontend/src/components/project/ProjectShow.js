@@ -15,7 +15,7 @@ import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
 import { fetchUser } from '../../actions/user_actions';
 
-function Project({ project, fetchProject, user }) {
+function Project({ project, fetchProject, user, currentUser }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: '2%',
@@ -84,9 +84,14 @@ function Project({ project, fetchProject, user }) {
   return (
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
-      <Link to={`/projects/${project._id}/edit`}>Edit page</Link>
+      {project.user === currentUser.id ? (
+        <Button onClick={() => history.push(`/projects/${project._id}/edit`)}>
+          Edit
+        </Button>
+      ) : (
+        <div></div>
+      )}
       <div className={classes.root}>
-        <Link to={`/projects/${project._id}/edit`}>Edit</Link>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}
