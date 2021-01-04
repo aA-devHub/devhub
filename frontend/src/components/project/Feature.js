@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 
 export const Vertical = ({ features }) => {
   const [autoplay, setAutoplay] = useState(false);
@@ -65,6 +65,7 @@ export const Vertical = ({ features }) => {
               </Carousel>
             </div>
           </div>
+          <Divider style={{ marginBottom: 20 }} />
         </div>
       );
     });

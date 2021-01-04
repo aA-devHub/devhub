@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core';
 import { disconnect } from 'mongoose';
 import React from 'react';
 
-function FutureFeatures({ features }) {
+function FutureFeatures({ features, project }) {
   const futureFeatures = features.map((ftr, idx) => (
     <div className="future-feature-bucket">
       <Typography
@@ -17,8 +17,19 @@ function FutureFeatures({ features }) {
       <Typography style={{ fontSize: 18 }}>{ftr.description}</Typography>
     </div>
   ));
+
+  // let reverseFeatures = '';
+  // if (project.features.length % 2 == 0) {
+  //   reverseFeatures = "reverse-features"
+  // }
+
   return (
-    <div className="future-features-grid">
+    <div
+      id="future-features"
+      className={`future-features-grid ${
+        project.features.length % 2 == 0 ? 'reverse-features' : ''
+      }`}
+    >
       <img
         className="future-features-image"
         src="https://res.cloudinary.com/willwang/image/upload/v1609721698/FutureFeatures_ig8hzf.png"

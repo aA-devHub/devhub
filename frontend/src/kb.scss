@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
     // height: 390px;
+    padding-bottom: 40px;
 }
 
 .features-container:nth-child(even) .feature-container {
@@ -33,7 +34,11 @@
         padding-bottom: 16px;
     }
     width: 90%;
-    // font-size: 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .feature-images > img {
@@ -96,3 +101,14 @@
     width: 100%;
 }
 
+.reverse-features {
+    .future-features-image {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .future-features-desc {
+        grid-column: 1;
+        grid-row: 1;
+    }
+}

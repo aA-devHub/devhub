@@ -101,7 +101,7 @@ function Project({ project, fetchProject, user, currentUser }) {
           {renderTechChart(languageChart)}
         </div>
         {renderFeatures(featuresLayout)}
-        <FutureFeatures features={futureFeatures} />
+        <FutureFeatures project={project} features={futureFeatures} />
       </div>
     </div>
   );
