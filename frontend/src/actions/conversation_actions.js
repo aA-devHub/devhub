@@ -1,5 +1,6 @@
 import * as ConversationAPI from '../util/conversation_api_util';
 import { fetchNotifications } from '../util/notification_api_util';
+import { receiveUsers } from './user_actions';
 
 export const RECEIVE_CONVERSATION = 'RECEIVE_CONVERSATION';
 export const RECEIVE_CONVERSATIONS = 'RECEIVE_CONVERSATIONS';
@@ -28,7 +29,11 @@ export const receiveConversations = (conversations) => ({
 // Populate the users slice with users that the current user is engaged with
 export const fetchConversations = (filter) => (dispatch) => {
   return ConversationAPI.fetchConversations(filter)
-    .then((conversations) => dispatch(receiveConversations(conversations.data)))
+    .then((conversations) => {
+      dispatch(receiveConversations(conversations.data.conversations));
+      // console.log('fetch: ', conversations);
+      dispatch(receiveUsers(conversations.data.users));
+    })
     .catch((errors) =>
       dispatch(receiveConversationErrors(errors.response.data))
     );
