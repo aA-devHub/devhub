@@ -50,8 +50,7 @@ h6 {
 .user-header {
   display: flex;
   position: relative;
-  padding: 80px 0;
-  margin-bottom: 20px;
+  padding: 80px 0 40px 0;
 }
 
 .user-header:before {
@@ -62,7 +61,7 @@ h6 {
   bottom: 0;
   left: 0;
   background-color: $devhub-blue;
-  border-radius: 0 0 10px 0;
+  border-radius: 0 0 10px 10px;
   z-index: 0;
   max-height: 500px;
 }
@@ -252,7 +251,7 @@ h6 {
 .carousel-header .carousel-title {
   color: $devhub-blue;
   font-weight: 500;
-  font-size: 26px;
+  font-size: 28px;
 }
 
 $default-height: 80%;
@@ -277,7 +276,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 #project-carousel {
   position: relative;
   height: 450px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #project-carousel > .arrow {
@@ -332,6 +331,12 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
   line-height: 1;
   margin-top: 20px;
+}
+
+.project-carousel-item .project-subtitle-container {
+  height: 28px;
+  overflow: hidden;
+  max-width: 175px;
 }
 
 .project-carousel-item .project-subtitle {
