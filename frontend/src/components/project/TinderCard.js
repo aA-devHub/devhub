@@ -13,7 +13,7 @@ function TinderCards({ featured, fetchProjects }) {
   const [showImage, setShowImage] = useState(false);
   const [dispImage, setDispImage] = useState('none');
   const [display, setDisplay] = useState('');
-  let counter = 10;
+  let counter = Object.keys(featuredProjects).length;
   useEffect(() => {
     fetchProjects();
   }, []);
