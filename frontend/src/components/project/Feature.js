@@ -55,6 +55,7 @@ export const Vertical = ({ features }) => {
                   >
                     <img
                       src={img}
+                      className="feature-img-img"
                       style={{
                         borderTopLeftRadius: 10,
                         borderTopRightRadius: 10,
