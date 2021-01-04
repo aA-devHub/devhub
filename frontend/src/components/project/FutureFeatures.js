@@ -21,7 +21,7 @@ function FutureFeatures({ features }) {
     <div className="future-features-grid">
       <img
         className="future-features-image"
-        src="https://cdn.tkmkt.com/wp-content/uploads/2019/04/tk-services-01-1024x866.png"
+        src="https://res.cloudinary.com/willwang/image/upload/v1609721698/FutureFeatures_ig8hzf.png"
       ></img>
       <div className="future-features-desc">
         <Typography

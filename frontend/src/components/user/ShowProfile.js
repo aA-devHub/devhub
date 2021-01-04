@@ -7,6 +7,7 @@ import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';
 import * as userHelpers from './user_helpers';
+import { Modal, InputBase } from '@material-ui/core';
 
 function ShowProfile({
   currentUser,
@@ -32,6 +33,32 @@ function ShowProfile({
       }
     }
   };
+
+  // const renderMessageModal = () => {
+  //   return (
+  //     <Modal
+  //       open={true}
+  //       // onClose={handleClose}
+  //       aria-labelledby="simple-modal-title"
+  //       aria-describedby="simple-modal-description"
+  //       style={{
+  //         width: 400,
+  //         height: 400,
+  //       }}
+  //       text="primary"
+  //     >
+  //       <InputBase
+  //         /* multiline={true} */
+  //         placeholder="Aa…"
+  //         rows={2}
+  //         style={{ padding: '0' }}
+  //         // className={classes.baseInput}
+  //         // value={message}
+  //         // onChange={(e) => setMessage(e.currentTarget.value)}
+  //       />
+  //     </Modal>
+  //   )
+  // }
 
   const renderSocials = () => {
     if (profileUser.socials) {
