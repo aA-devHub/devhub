@@ -729,6 +729,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       bio,
       socials: { facebook, twitter, instagram, github, linkedin },
       skills: skills,
+      title,
       experience: Object.values(experience),
     };
     console.log('userinfo', userinfo);
