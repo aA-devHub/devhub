@@ -2,7 +2,13 @@ import React from 'react';
 import { Button, Typography } from '@material-ui/core';
 import * as COLORS from '../../../colors';
 
-const StepHeader = ({ step, title, changeStep }) => {
+const StepHeader = ({
+  step,
+  title,
+  changeStep,
+  nextDisabled,
+  projectAction,
+}) => {
   var backClasses = '';
   var nextClasses = '';
 
@@ -27,13 +33,20 @@ const StepHeader = ({ step, title, changeStep }) => {
       <Button
         className={nextClasses}
         onClick={() => changeStep('next')}
+        disabled={nextDisabled}
         variant="contained"
         style={{
-          backgroundColor: COLORS.DEVBLUE,
+          backgroundColor: step === 5 ? '#f50057' : COLORS.DEVBLUE,
           color: 'white',
         }}
       >
-        <Typography>{step === 5 ? 'Submit' : 'Next'}</Typography>
+        <Typography>
+          {step === 5
+            ? projectAction === 'upload'
+              ? 'Upload'
+              : 'Save'
+            : 'Next'}
+        </Typography>
       </Button>
     </div>
   );

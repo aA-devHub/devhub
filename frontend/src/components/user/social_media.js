@@ -33,7 +33,7 @@ const SocialMedia = ({ socials, userName }) => {
 
     socialIcons.push(
       <div className="social-icon" key={socialName}>
-        <a href={'http://' + socialLink} target="blank">
+        <a href={socialLink} target="blank">
           <img src={socialIcon} alt={userName + `'s ` + socialName} />
         </a>
       </div>

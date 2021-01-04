@@ -48,6 +48,14 @@ class Step1 extends Component {
           step={1}
           title={'General Project Info'}
           changeStep={this.handleStepChange}
+          nextDisabled={
+            !Boolean(
+              this.state.title &&
+                this.state.description &&
+                this.state.githubLink &&
+                this.state.liveLink
+            )
+          }
         />
         <div className="step-inner">
           <div className="step-inner-left">
@@ -62,7 +70,9 @@ class Step1 extends Component {
               />
             </label>
             <label className="step-input-label">
-              <Typography>GitHub Repo URL</Typography>
+              <Typography>
+                GitHub Repo URL <span style={{ color: 'red' }}>*</span>
+              </Typography>
               <InputBase
                 className="step-input"
                 value={this.state.githubLink || ''}
@@ -70,7 +80,9 @@ class Step1 extends Component {
               />
             </label>
             <label className="step-input-label">
-              <Typography>Live URL</Typography>
+              <Typography>
+                Live URL <span style={{ color: 'red' }}>*</span>
+              </Typography>
               <InputBase
                 className="step-input"
                 value={this.state.liveLink || ''}
@@ -80,7 +92,9 @@ class Step1 extends Component {
           </div>
           <div className="step-inner-right">
             <label className="step-input-label">
-              <Typography>Project Description</Typography>
+              <Typography>
+                Project Description <span style={{ color: 'red' }}>*</span>
+              </Typography>
               <InputBase
                 multiline={true}
                 rows={5}

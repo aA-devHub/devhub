@@ -8,7 +8,7 @@ class ProjectCarousel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: this.props.projects,
+      // projects: this.props.projects,
       active: 0,
       direction: '',
     };
@@ -22,16 +22,16 @@ class ProjectCarousel extends Component {
     for (var i = this.state.active - 2; i < this.state.active + 3; i++) {
       var index = i;
       if (i < 0) {
-        index = this.state.projects.length + i;
-      } else if (i >= this.state.projects.length) {
-        index = i % this.state.projects.length;
+        index = this.props.projects.length + i;
+      } else if (i >= this.props.projects.length) {
+        index = i % this.props.projects.length;
       }
       level = this.state.active - i;
       projects.push(
         <ProjectCarouselItem
           key={index}
-          project={this.state.projects[index]}
-          id={this.state.projects[index]._id}
+          project={this.props.projects[index]}
+          id={this.props.projects[index]?._id}
           level={level}
         />
       );
@@ -43,7 +43,7 @@ class ProjectCarousel extends Component {
     var newActive = this.state.active;
     newActive--;
     this.setState({
-      active: newActive < 0 ? this.state.projects.length - 1 : newActive,
+      active: newActive < 0 ? this.props.projects.length - 1 : newActive,
       direction: 'left',
     });
   }
@@ -51,7 +51,7 @@ class ProjectCarousel extends Component {
   moveRight() {
     var newActive = this.state.active;
     this.setState({
-      active: (newActive + 1) % this.state.projects.length,
+      active: (newActive + 1) % this.props.projects.length,
       direction: 'right',
     });
   }

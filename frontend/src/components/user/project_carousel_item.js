@@ -34,6 +34,8 @@ class ProjectCarouselItem extends Component {
   }
 
   render() {
+    if (!this.props.project) return null;
+
     const className =
       'project-carousel-item level' +
       this.props.level +
@@ -46,7 +48,7 @@ class ProjectCarouselItem extends Component {
         onClick={this.handleClick}
       >
         <h3 className="project-title">{this.generateTitle()}</h3>
-        <span className="project-subtitle">Short Subtitle</span>
+        {/* <span className="project-subtitle">Short Subtitle</span> */}
         <div
           className="project-image"
           style={{ backgroundImage: `url(${this.props.project.images.hero})` }}
