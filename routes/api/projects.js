@@ -66,6 +66,8 @@ router.get('/', (req, res) => {
     user: 1,
     comments: 1,
     technologies: 1,
+    numFavorites: 1,
+    createdAt: 1,
   })
     .populate('user')
     .populate('comments')
