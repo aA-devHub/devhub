@@ -9,6 +9,7 @@ const yargs = require('yargs');
 const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 
 const { generateMessages } = require('../scripts/messages');
 const {
@@ -21,6 +22,14 @@ const seed = (numMsg, userIds = 10) => {
     .connect(db, { useNewUrlParser: true })
     .then(async () => {
       console.log('Connected to MongoDB successfully');
+
+      // Comments
+      try {
+        // await Comment.deleteMany({});
+      } catch (_) {
+        // return ;
+        console.log('Skipping comments');
+      }
 
       // Messages/Conversations
       try {
