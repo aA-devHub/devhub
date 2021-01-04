@@ -22,6 +22,11 @@ function ShowProfile({
 
   if (profileUser === undefined) return null;
 
+  const renderSocials = () => {
+    if (!profileUser.socials) return null;
+    <SocialMedia socials={profileUser.socials} userName={profileUser.name} />;
+  };
+
   const renderProjects = () => {
     if (projects.length) {
       return <ProjectCarousel projects={projects} />;
@@ -116,10 +121,7 @@ function ShowProfile({
           <h1 className="user-name">{profileUser.name}</h1>
           <h2 className="user-title">{profileUser.title}</h2>
           <p className="user-bio">{profileUser.bio}</p>
-          <SocialMedia
-            socials={profileUser.socials}
-            userName={profileUser.name}
-          />
+          {renderSocials()}
         </div>
       </div>
       {renderProjects()}
