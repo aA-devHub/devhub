@@ -49,3 +49,9 @@ export const fetchConversation = (conversationId) => (dispatch) => {
       dispatch(receiveConversationErrors(errors.response.data))
     );
 };
+
+export const startConversation = (userId) => (dispatch) => {
+  return ConversationAPI.startConversation(userId)
+    .then((conversation) => dispatch(receiveConversation(conversation)))
+    .catch((errors) => receiveConversationErrors(errors));
+};

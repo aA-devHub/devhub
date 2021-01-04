@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+const { findOrCreateConversation } = require('./messages');
 const Conversation = require('../../models/Conversation');
 const User = require('../../models/User');
 // const validateConversation = require('../../validation/conversations');
@@ -11,6 +12,24 @@ const getUsers = async (search) => {
   // return users && users.map((usr) => usr._id);
   return users;
 };
+
+// XXX: semi-broken lol
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    const user = req.user;
+    const otherUser = req.body.userId;
+
+    try {
+      return res.json({
+        conversation: findOrCreateConversation(user._id, otherUser),
+      });
+    } catch (err) {
+      return res.status(404).json(err);
+    }
+  }
+);
 
 // XXX: could add filtered search only for current conversations?
 // https://stackoverflow.com/questions/11303294/querying-after-populate-in-mongoose
