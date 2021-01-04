@@ -228,6 +228,44 @@ function Navbar(props) {
       <MenuItem>No notifications!</MenuItem>
     );
 
+  const fetchNotificationsComponent = () => {
+    if (
+      props.notifications &&
+      props.notifications.other &&
+      props.notifications.other.length > 0
+    ) {
+      return props.notifications.other.map((data, idx) => {
+        const type = data.source;
+        const projectId = data.projectId;
+        const user = data.userName;
+        const action = data.source === 'comment' ? 'commented on' : 'favorited';
+        const project = data.projectName;
+        return (
+          <MenuItem onClick={() => handleNotificationMenuClick(data)}>
+            <Typography
+              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
+            >
+              {user}
+            </Typography>{' '}
+            {action}{' '}
+            <Typography
+              style={{
+                marginLeft: 13,
+                fontWeight: 800,
+                color: COLORS.DEVDARKBLUE,
+                textDecoration: 'underline',
+              }}
+            >
+              {project}
+            </Typography>
+          </MenuItem>
+        );
+      });
+    } else {
+      return <MenuItem>No notifications!</MenuItem>;
+    }
+  };
+
   const notificationMenuId = 'primary-notifications-menu';
   let renderNotificationsMenu;
   if (props.currentUser) {
@@ -242,7 +280,7 @@ function Navbar(props) {
         onClose={() => setNotificationsAnchorEl(null)}
         style={{ marginTop: 40 }}
       >
-        {notifications}
+        {fetchNotificationsComponent()}
       </Menu>
     );
   }
