@@ -10,6 +10,7 @@ const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
+const Project = require('../models/Project');
 
 const { generateMessages } = require('../scripts/messages');
 const {
@@ -23,9 +24,15 @@ const seed = (numMsg, userIds = 10) => {
     .then(async () => {
       console.log('Connected to MongoDB successfully');
 
+      // Users
+      // await User.deleteMany({ });
+
+      // Projects
+      // await Project.deleteMany({ });
+
       // Comments
       try {
-        // await Comment.deleteMany({});
+        await Comment.deleteMany({});
       } catch (_) {
         // return ;
         console.log('Skipping comments');
