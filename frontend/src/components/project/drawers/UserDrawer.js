@@ -1,5 +1,6 @@
 import * as COLORS from '../../../colors';
 import React, { useState, useEffect } from 'react';
+import BarChart from './BarChart';
 import {
   fade,
   withStyles,
@@ -7,8 +8,8 @@ import {
   makeStyles,
   Avatar,
   Typography,
-  Button,
   Divider,
+  Button,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
@@ -42,26 +43,104 @@ function UserInfo({ developer }) {
       );
 
     const jobs = developer.experience.reverse().map((job, idx) => (
-      <div className="job" key={idx}>
-        <span className="job-dates">
+      <div style={{ marginTop: '2rem' }} key={idx}>
+        <Typography
+          style={{
+            fontWeight: 800,
+            color: COLORS.DEVBLUE,
+            marginBottom: '10px',
+          }}
+        >
           {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
-        </span>
-        <span className="job-company">{job.company}</span>
-        <span className="job-position">{job.position}</span>
+        </Typography>
+        <Typography style={{ marginBottom: 5, color: COLORS.DEVDARKBLUE }}>
+          <span style={{ fontWeight: 800, color: COLORS.DEVBLUE }}>
+            Company:{' '}
+          </span>
+          {job.company}
+        </Typography>
+        <Typography style={{ color: COLORS.DEVDARKBLUE }}>
+          <span style={{ fontWeight: 800, color: COLORS.DEVBLUE }}>
+            Position:{' '}
+          </span>
+          {job.position}
+        </Typography>
       </div>
     ));
 
     return (
-      <div className="work-info">
-        <h3 className="info-title">Work</h3>
+      <div style={{ marginTop: '2rem' }}>
+        <Typography
+          style={{
+            fontWeight: 800,
+            color: COLORS.DEVDARKBLUE,
+            marginBottom: '1rem',
+          }}
+        >
+          USER EXPERIENCES
+        </Typography>
         {jobs}
       </div>
     );
   };
+  const renderSkills = () => {
+    if (!Object.keys(developer.skills))
+      return (
+        <div style={{ marginTop: '2rem' }}>
+          <Typography
+            style={{
+              fontWeight: 800,
+              color: COLORS.DEVDARKBLUE,
+              marginBottom: '1rem',
+            }}
+          >
+            USER SKILLSET
+          </Typography>
+          <Typography style={{ color: COLORS.DEVBLUE }}>
+            User is not sharing their skillsets
+          </Typography>
+        </div>
+      );
+
+    var skills = [];
+
+    Object.entries(developer.skills).forEach(([skill, value], idx) => {
+      skills.push(
+        <div key={idx}>
+          <span>{skill}</span>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      );
+    });
+
+    return (
+      <div style={{ marginTop: '2rem' }}>
+        <Typography
+          style={{
+            fontWeight: 800,
+            color: COLORS.DEVDARKBLUE,
+            marginBottom: '1rem',
+          }}
+        >
+          USER SKILLSET
+        </Typography>
+      </div>
+    );
+  };
+
   return (
     <div className={classes.root}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar src={developer.imageUrl} style={{ width: 100, height: 100 }} />
+        <Avatar
+          src={developer.imageUrl}
+          style={{
+            border: `1px solid ${COLORS.DEVBLUE}`,
+            width: 100,
+            height: 100,
+          }}
+        />
         <div>
           <Typography
             variant="h3"
@@ -84,6 +163,8 @@ function UserInfo({ developer }) {
         </div>
       </div>
       <div>{renderJobs()}</div>
+      <div>{renderSkills()}</div>
+      <BarChart skills={developer.skills} />
     </div>
   );
 }
