@@ -139,6 +139,8 @@ router.post(
 
     newProject.save().then((project) => {
       User.findById(project.user).then((user) => {
+        user.projects.push(project._id);
+        user.save();
         res.json({ project, user, comments: [] });
       });
     });

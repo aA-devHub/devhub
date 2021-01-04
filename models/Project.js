@@ -39,6 +39,7 @@ const ProjectSchema = new Schema({
       title: String,
       description: String,
       image: String,
+      code: String,
     },
   ],
   futureFeatures: [
