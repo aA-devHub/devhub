@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
-import MailIcon from '@material-ui/icons/Mail';
 import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';
+import { sendMessage } from '../../actions/message_actions';
 import * as userHelpers from './user_helpers';
-
+import MessageBox from '../project/MessageModal';
 function ShowProfile({
   currentUser,
   fetchUser,
@@ -15,6 +15,7 @@ function ShowProfile({
   projects,
   history,
   match,
+  sendMessage,
 }) {
   useEffect(() => {
     fetchUser(match.params.id);
@@ -22,16 +23,6 @@ function ShowProfile({
   }, []);
 
   if (profileUser === undefined) return null;
-
-  const renderRightIcon = () => {
-    if (currentUser) {
-      if (currentUser.id === profileUser._id) {
-        return <EditIcon onClick={() => history.push('/users/edit')} />;
-      } else {
-        return <MailIcon onClick={() => alert('HI KEWTIE')} />;
-      }
-    }
-  };
 
   const renderSocials = () => {
     if (profileUser.socials) {
@@ -117,7 +108,6 @@ function ShowProfile({
           <div className="back-icon pointer" onClick={() => history.goBack()}>
             <ArrowBackIosIcon />
           </div>
-          <div className="edit-icon pointer">{renderRightIcon()}</div>
         </div>
         <div className="user-image-container">
           <div className="user-image">
@@ -130,6 +120,18 @@ function ShowProfile({
         <div className="user-info">
           <h1 className="user-name">{profileUser.name}</h1>
           <h2 className="user-title">{profileUser.title}</h2>
+
+          {currentUser._id === profileUser._id ? (
+            <div></div>
+          ) : (
+            <MessageBox
+              style={{ marginTop: 50, marginBottom: 30 }}
+              receiverId={profileUser._id}
+              avatar={profileUser.imageUrl}
+              userName={profileUser.name}
+              sendMessage={sendMessage}
+            />
+          )}
           <p className="user-bio">{profileUser.bio}</p>
           {renderSocials()}
         </div>
@@ -161,6 +163,7 @@ const mapSTP = (store, ownProps) => {
 const mapDTP = (dispatch) => {
   return {
     fetchUser: (userId) => dispatch(fetchUser(userId)),
+    sendMessage: (message) => dispatch(sendMessage(message)),
   };
 };
 
