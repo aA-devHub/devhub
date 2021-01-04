@@ -13,6 +13,7 @@ import { getImageArray } from '../../selectors/projects';
 
 const mapStateToProps = (state, { project }) => {
   const author = state.entities.users[project.user];
+  if (!author) return { author: null };
   author.avatarUrl = author.avatarUrl || author.imageUrl;
   return {
     author,
@@ -77,6 +78,7 @@ function ProjectCard({ project, author }) {
   const [autoplay, setAutoplay] = useState(false);
   const classes = useStyles();
 
+  if (!author) return null;
   return (
     <div className={classes.root}>
       <Carousel
@@ -107,7 +109,7 @@ function ProjectCard({ project, author }) {
           className={classes.leftPanel}
           onClick={() => history.push(`/users/${project.user}`)}
         >
-          <Avatar className={classes.avatar} src={author.avatarUrl} />
+          <Avatar className={classes.avatar} src={author && author.avatarUrl} />
           <div>
             <div className={classes.userInfo}>
               <Typography

@@ -70,7 +70,7 @@ function ShowProfile({
   const renderJobs = () => {
     if (!profileUser.experience.length) return;
 
-    const jobs = profileUser.experience.reverse().map((job, idx) => (
+    const jobs = profileUser.experience.map((job, idx) => (
       <div className="job" key={idx}>
         <span className="job-dates">
           {job.start.slice(0, 4) + ' – ' + job.end.slice(0, 4)}
@@ -119,6 +119,16 @@ function ShowProfile({
           <div className="back-icon pointer" onClick={() => history.goBack()}>
             <ArrowBackIosIcon />
           </div>
+          {currentUser && currentUser.id === profileUser._id ? (
+            <div
+              className="edit-icon pointer"
+              onClick={() => history.push(`/users/edit`)}
+            >
+              <EditIcon />
+            </div>
+          ) : (
+            ''
+          )}
         </div>
         <div className="user-image-container">
           <div
@@ -128,7 +138,7 @@ function ShowProfile({
               maxHeight: 300,
               backgroundColor: 'white',
               padding: 20,
-              boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0px 10px 15px 0px rgba(0, 0, 0, 0.1)',
               borderRadius: 10,
             }}
           >
@@ -142,9 +152,7 @@ function ShowProfile({
           <h1 className="user-name">{profileUser.name}</h1>
           <h2 className="user-title">{profileUser.title}</h2>
 
-          {currentUser._id === profileUser._id ? (
-            <div></div>
-          ) : (
+          {currentUser && currentUser.id !== profileUser._id ? (
             <MessageBox
               style={{ marginTop: 50, marginBottom: 30 }}
               receiverId={profileUser._id}
@@ -152,6 +160,8 @@ function ShowProfile({
               userName={profileUser.name}
               sendMessage={sendMessage}
             />
+          ) : (
+            ''
           )}
           <p className="user-bio">{profileUser.bio}</p>
           {renderSocials()}

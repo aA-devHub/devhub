@@ -41,17 +41,30 @@ h6 {
 
 .icon-overlay .back-icon svg {
   fill: white;
+  transition: all 0.4s;
+}
+
+.icon-overlay .back-icon svg:hover {
+  fill: $navbar-black;
 }
 
 .icon-overlay .edit-icon svg {
   fill: rgba(0, 0, 0, 0.25);
+  transition: all 0.4s;
+}
+
+.icon-overlay .edit-icon svg:hover {
+  fill: $devhub-blue;
+}
+
+.icon-overlay svg {
+  font-size: 25px;
 }
 
 .user-header {
   display: flex;
   position: relative;
-  padding: 80px 0;
-  margin-bottom: 20px;
+  padding: 80px 0 40px 0;
 }
 
 .user-header:before {
@@ -62,7 +75,7 @@ h6 {
   bottom: 0;
   left: 0;
   background-color: $devhub-blue;
-  border-radius: 0 0 10px 0;
+  border-radius: 0 0 10px 10px;
   z-index: 0;
   max-height: 500px;
 }
@@ -252,7 +265,7 @@ h6 {
 .carousel-header .carousel-title {
   color: $devhub-blue;
   font-weight: 500;
-  font-size: 26px;
+  font-size: 28px;
 }
 
 $default-height: 80%;
@@ -277,7 +290,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 #project-carousel {
   position: relative;
   height: 450px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #project-carousel > .arrow {
@@ -332,6 +345,12 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
   line-height: 1;
   margin-top: 20px;
+}
+
+.project-carousel-item .project-subtitle-container {
+  height: 28px;
+  overflow: hidden;
+  max-width: 175px;
 }
 
 .project-carousel-item .project-subtitle {
@@ -515,7 +534,9 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 .step-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 3px solid rgba(234, 234, 234, 1);
 }
 
 .step-header .hidden {
@@ -541,7 +562,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 }
 
 .step-inner:not(:last-child) {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .step-inner-third {
@@ -573,7 +594,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 @media screen and (max-width: 750px) {
@@ -731,7 +752,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
 
 .image-uploader-cloud-icon {
   color: $devhub-blue;
-  font-size: 10rem !important;
+  font-size: 8rem !important;
 }
 
 .image-uploader-content {
@@ -742,7 +763,7 @@ $level0-bs: 0 0.4em 0.8em rgba(0, 0, 0, 0.2);
   height: 100%;
   position: relative;
   background-color: white;
-  border: 5px dashed $devhub-blue;
+  border: 5px solid $devhub-blue;
   border-radius: 5px;
   padding: 1rem;
   display: flex;
