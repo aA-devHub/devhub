@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function UserInfo({ developer }) {
-  console.log('developer', developer);
   const classes = useStyles();
   const renderJobs = () => {
     if (!developer.experience.length)
@@ -171,6 +170,7 @@ function UserInfo({ developer }) {
 
 export default connect(
   (state, ownProps) => ({
+    users: state.entities.users,
     toggleDrawer: ownProps.toggleDrawer,
   }),
   (dispatch) => ({})
