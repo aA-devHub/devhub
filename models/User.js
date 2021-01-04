@@ -58,7 +58,7 @@ const UserSchema = new Schema(
     socials: {
       type: Map,
       of: String,
-      default: { devhub: {} },
+      default: null,
     },
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
