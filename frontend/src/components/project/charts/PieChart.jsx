@@ -13,7 +13,7 @@ const RADIAN = Math.PI / 180;
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 const renderLabel = ({ x, y, name, fill, midAngle, ...props }) => {
-  console.log('Props: ', props);
+  // console.log('Props: ', props);
   const anchor = midAngle > 45 && midAngle < 275 ? 'end' : 'start';
   return (
     <text
