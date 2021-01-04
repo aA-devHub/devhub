@@ -6,9 +6,12 @@ import { Typography } from '@material-ui/core';
 import './TinderCard.css';
 import { makeStyles } from '@material-ui/core';
 import { fetchProjects } from '../../actions/project_actions';
+import { Zoom } from '@material-ui/core';
 
 function TinderCards({ featured, fetchProjects }) {
   const [featuredProjects, setFeatured] = useState(featured);
+  const [showImage, setShowImage] = useState(false);
+  const [dispImage, setDispImage] = useState('none');
   let counter = 10;
   useEffect(() => {
     fetchProjects();
@@ -17,6 +20,8 @@ function TinderCards({ featured, fetchProjects }) {
     setFeatured(featured);
   }, [featured]);
   const [display, setDisplay] = useState('');
+  const imageUrl =
+    'https://res.cloudinary.com/willwang/image/upload/v1609722148/LandingTop_jat0ue.png';
   const useStyles = makeStyles((theme) => ({
     root: {
       display: display,
@@ -27,41 +32,60 @@ function TinderCards({ featured, fetchProjects }) {
   const swiped = (direction, imagesId) => {
     counter--;
     console.log('counter', counter);
-    if (counter <= 0) setDisplay('none');
+    if (counter <= 0) {
+      setDisplay('none');
+      setShowImage(true);
+      setDispImage('');
+    }
     console.log('counter', counter);
     console.log(imagesId, 'imageid is out of frame');
   };
   console.log('featuredProjects', featuredProjects);
   return (
-    <div className={clsx('tinderCards', classes.root)}>
-      <div className="tinderCards__cardContainer">
-        {Object.values(featuredProjects).map((project) => (
-          <TinderCard
-            className="swipe"
-            key={Math.random()}
-            preventSwipe={['up, down']}
-            onSwipe={(dir) => swiped(dir, project.id)}
-            onCardLeftScreen={() => outOfFrame(project.id)}
-          >
-            <div
-              className="card"
-              style={{ backgroundImage: `url(${project.images.hero})` }}
+    <div>
+      <Zoom
+        in={showImage}
+        timeout={{ enter: 4500 }}
+        style={{ diplay: dispImage }}
+      >
+        <img
+          src={imageUrl}
+          style={{
+            display: dispImage,
+            maxWidth: '100%',
+          }}
+        />
+      </Zoom>
+      <div className={clsx('tinderCards', classes.root)}>
+        <div className="tinderCards__cardContainer">
+          {Object.values(featuredProjects).map((project) => (
+            <TinderCard
+              className="swipe"
+              key={Math.random()}
+              preventSwipe={['up, down']}
+              onSwipe={(dir) => swiped(dir, project.id)}
+              onCardLeftScreen={() => outOfFrame(project.id)}
             >
               <div
-                style={{
-                  padding: '4px 10px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  display: 'inline-block',
-                }}
+                className="card"
+                style={{ backgroundImage: `url(${project.images.hero})` }}
               >
-                <Typography style={{ fontWeight: 800 }}>
-                  {project.title}
-                </Typography>
+                <div
+                  style={{
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    color: 'white',
+                    display: 'inline-block',
+                  }}
+                >
+                  <Typography style={{ fontWeight: 800 }}>
+                    {project.title}
+                  </Typography>
+                </div>
               </div>
-            </div>
-          </TinderCard>
-        ))}
+            </TinderCard>
+          ))}
+        </div>
       </div>
     </div>
   );
