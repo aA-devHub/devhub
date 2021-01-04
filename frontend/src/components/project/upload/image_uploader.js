@@ -10,12 +10,13 @@ const baseStyle = {
   padding: '2rem 0',
   borderWidth: 5,
   borderRadius: 10,
-  borderColor: COLORS.DEVBLUE,
+  borderColor: COLORS.NAVBARBLACK,
   borderStyle: 'dashed',
   backgroundColor: '#fafafa',
   outline: 'none',
   transition: 'border .24s ease-in-out',
   cursor: 'pointer',
+  transition: 'all 0.3s',
 };
 
 const activeStyle = {
@@ -23,7 +24,7 @@ const activeStyle = {
 };
 
 const acceptStyle = {
-  borderColor: '#00e676',
+  borderColor: '#00c93c',
 };
 
 const rejectStyle = {
