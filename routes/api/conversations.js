@@ -3,20 +3,26 @@ const router = express.Router();
 const passport = require('passport');
 
 const Conversation = require('../../models/Conversation');
+const User = require('../../models/User');
 // const validateConversation = require('../../validation/conversations');
 
-// TODO: add filtered search
+const getUsers = async (search) => {
+  let users = await User.find({ name: new RegExp(search, 'i') }, { _id: 1 });
+  return users && users.map((usr) => usr._id);
+};
+
+// XXX: could add filtered search only for current conversations?
 // https://stackoverflow.com/questions/11303294/querying-after-populate-in-mongoose
 // needs to filter by participant name after populate, see $lookup
-const buildSearchFilter = ({ search }) => {
-  return search
-    ? {
-        participants: {
-          name: new RegExp(search, 'i'),
-        },
-      }
-    : null;
-};
+// const buildSearchFilter = async ({ search }) => {
+//   if (search) {
+//     let users = await getUsers(search);
+//     return {
+//       participants: { $in: users }
+//     };
+//   }
+//   return [];
+// };
 
 router.get(
   '/',
@@ -24,9 +30,21 @@ router.get(
   async (req, res) => {
     const user = req.user;
 
-    const filter = buildSearchFilter(req.query);
+    let filter = { participants: user._id };
 
-    let conversations = await Conversation.find({ participants: user._id })
+    // If search query is passed, populate users
+    let users = [];
+    const { search } = req.query;
+    if (search) {
+      users = await getUsers(search);
+      filter = {
+        $and: [{ participants: { $in: users } }, filter],
+      };
+    }
+
+    if (search) console.log('Filtering conversations by: ', filter);
+
+    let conversations = await Conversation.find(filter)
       .populate('participants', 'name imageUrl')
       .populate('unreadBy', 'name')
       .sort({ createdAt: -1 })
