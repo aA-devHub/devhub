@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState = {
       ...preloadedState,
       session: { isAuthenticated: true, user: decodedUser, notifications },
-      notifications,
     };
 
     store = configureStore(preloadedState);
