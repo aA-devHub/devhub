@@ -28,6 +28,7 @@ export default function Drawers({ project, comments, developer }) {
   const toggleUserDrawer = (bool) => (event) => {
     setShowUser({ right: bool });
   };
+
   return (
     <React.Fragment key={'right'}>
       <div
@@ -82,6 +83,7 @@ export default function Drawers({ project, comments, developer }) {
         onClose={toggleCommentDrawer(false)}
       >
         <CommentDrawer
+          project={project}
           comments={comments}
           toggleCommentDrawer={toggleCommentDrawer}
         />

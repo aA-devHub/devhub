@@ -61,7 +61,9 @@ export const fetchComment = (commentId) => (dispatch) => {
 
 export const createComment = (data) => (dispatch) => {
   return CommentAPI.createComment(data)
-    .then((comment) => dispatch(receiveComment(comment.data)))
+    .then((comment) => {
+      dispatch(receiveComment(comment.data));
+    })
     .catch((errors) => receiveCommentErrors(errors.response.data));
 };
 
