@@ -203,7 +203,22 @@ function Navbar(props) {
         const project = data.projectName;
         return (
           <MenuItem onClick={() => handleNotificationMenuClick(data)}>
-            {user} {action} {project}
+            <Typography
+              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
+            >
+              {user}
+            </Typography>{' '}
+            {action}{' '}
+            <Typography
+              style={{
+                marginLeft: 13,
+                fontWeight: 800,
+                color: COLORS.DEVDARKBLUE,
+                textDecoration: 'underline',
+              }}
+            >
+              {project}
+            </Typography>
           </MenuItem>
         );
       })
