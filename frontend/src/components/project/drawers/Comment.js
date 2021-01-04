@@ -72,7 +72,7 @@ const CommentItem = ({ comment }) => {
           cmt.commenterAvatarUrl ||
           'http://res.cloudinary.com/willwang/image/upload/v1609729496/li5qk7claehau3n3hfmf.png'
         }
-        style={{ marginRight: '1rem' }}
+        style={{ marginRight: '1rem', border: `1px solid ${COLORS.DEVBLUE}` }}
       />
       <div>
         <Typography variant="body2" style={{ fontWeight: 400 }}>
@@ -118,8 +118,8 @@ function Feedback({ comments, userId, project, createComment }) {
   const renderCommentItems = () => {
     if (!comments) return null;
     return comments.map((cmnt, i) => (
-      <React.Fragment>
-        <CommentItem key={i} comment={cmnt} />
+      <React.Fragment key={i}>
+        <CommentItem comment={cmnt} />
         <Divider style={{ marginBottom: 20 }} />
       </React.Fragment>
     ));
