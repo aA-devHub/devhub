@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
+import { Button } from '@material-ui/core';
 import { CarouselWall, Three, Mason } from './ImageWall';
 import { BarChart, PieChart } from './charts/TechChart';
 import { Vertical, Whirligig, Horiz } from './Feature';
@@ -82,6 +83,7 @@ function Project({ project, fetchProject, user }) {
     }
   };
 
+  const history = useHistory();
   if (!project || !project.ui || !project.images) return null;
   const { title, overviewLayout, description, futureFeatures } = project;
   const { languageChart, featuresLayout } = project.ui;
@@ -89,6 +91,7 @@ function Project({ project, fetchProject, user }) {
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
       <div className={classes.root}>
+        <Link to={`/projects/${project._id}/edit`}>Edit</Link>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}

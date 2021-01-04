@@ -12,6 +12,7 @@ function TinderCards({ featured, fetchProjects }) {
   const [featuredProjects, setFeatured] = useState(featured);
   const [showImage, setShowImage] = useState(false);
   const [dispImage, setDispImage] = useState('none');
+  const [display, setDisplay] = useState('');
   let counter = 10;
   useEffect(() => {
     fetchProjects();
@@ -19,7 +20,6 @@ function TinderCards({ featured, fetchProjects }) {
   useEffect(() => {
     setFeatured(featured);
   }, [featured]);
-  const [display, setDisplay] = useState('');
   const imageUrl =
     'https://res.cloudinary.com/willwang/image/upload/v1609722148/LandingTop_jat0ue.png';
   const useStyles = makeStyles((theme) => ({
@@ -29,6 +29,7 @@ function TinderCards({ featured, fetchProjects }) {
   }));
   const classes = useStyles();
   const outOfFrame = (imagesId) => {};
+
   const swiped = (direction, imagesId) => {
     counter--;
     console.log('counter', counter);
