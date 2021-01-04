@@ -43,6 +43,7 @@ router.post(
       });
     });
 
+    req.body.userName = req.body.user.name;
     return new Comment(req.body)
       .save()
       .then((comment) => res.json(comment))

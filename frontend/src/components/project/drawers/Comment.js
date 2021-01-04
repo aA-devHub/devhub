@@ -12,6 +12,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     float: 'right',
@@ -59,9 +60,9 @@ const CommentItem = ({ comment }) => {
   const cmt = {
     commenterAvatarUrl:
       'https://res.cloudinary.com/willwang/image/upload/v1608279554/26_tqjlzc.webp',
-    commenter: 'Will Wang',
-    body: 'great project',
-    createdAt: new Date(),
+    commenter: comment.userName,
+    body: comment.body,
+    createdAt: comment.createdAt,
   };
   const classes = useStyles();
   return (
@@ -99,15 +100,22 @@ const CommentItem = ({ comment }) => {
   );
 };
 
-function Feedback({ userId }) {
+function Feedback({ comments, userId }) {
   useEffect(() => {}, []);
   const classes = useStyles();
   const [height, setHeight] = useState(1);
   const [newComment, setNewComment] = useState('');
-  console.log('userId');
-  // const submitComment = () => {
-  // console.log('userId', userId);
-  // };
+
+  const renderCommentItems = () => {
+    if (!comments) return null;
+    return comments.map((cmnt, i) => (
+      <React.Fragment>
+        <CommentItem key={i} comment={cmnt} />
+        <Divider style={{ marginBottom: 20 }} />
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.feedback}>
@@ -153,7 +161,7 @@ function Feedback({ userId }) {
         </label>
       </div>
       <div className={classes.comments}>
-        <CommentItem key={1} comment={{}} />
+        {/* <CommentItem key={1} comment={{}} />
         <Divider style={{ marginBottom: 20 }} />
         <CommentItem key={2} comment={{}} />
         <Divider style={{ marginBottom: 20 }} />
@@ -162,6 +170,9 @@ function Feedback({ userId }) {
         <CommentItem key={4} comment={{}} />
         <Divider style={{ marginBottom: 20 }} />
         <CommentItem key={5} comment={{}} />
+        <Divider style={{ marginBottom: 20 }} />
+        <CommentItem key={6} comment={{}} /> */}
+        {renderCommentItems()}
       </div>
     </div>
   );
@@ -169,9 +180,10 @@ function Feedback({ userId }) {
 
 export default connect(
   (state, ownProps) => ({
-    userId: state.session.user.id,
+    userId: state.session.user?.id,
     toggleDrawer: ownProps.toggleDrawer,
-    comments: ownProps.comments,
+    comments: Object.values(state.entities.comments),
+    // comments: ownProps.comments,
   }),
   (dispatch) => ({})
 )(Feedback);
