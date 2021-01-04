@@ -29,7 +29,6 @@ router.post(
     req.body.userName = req.user.name;
     req.body.user = req.user._id;
 
-    // FIX, not working atm
     const projectId = req.body.project;
     User.findById(req.user._id).then((commenter) => {
       Project.findById(projectId).then((project) => {
