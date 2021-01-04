@@ -83,7 +83,7 @@ class Step4 extends Component {
         break;
       case 2:
         layoutImageUrl =
-          'https://t4.ftcdn.net/jpg/01/67/90/25/360_F_167902506_CBRRubORGPVJ1RopHMf2Rie6tJte74C9.jpg';
+          'http://res.cloudinary.com/willwang/image/upload/v1609746475/hu9oxtw7b1t88up74os5.png';
         break;
       default:
         break;
