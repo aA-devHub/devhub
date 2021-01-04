@@ -23,8 +23,16 @@ function ShowProfile({
   if (profileUser === undefined) return null;
 
   const renderSocials = () => {
-    if (!profileUser.socials) return null;
-    <SocialMedia socials={profileUser.socials} userName={profileUser.name} />;
+    if (profileUser.socials) {
+      return (
+        <SocialMedia
+          socials={profileUser.socials}
+          userName={profileUser.name}
+        />
+      );
+    } else {
+      return;
+    }
   };
 
   const renderProjects = () => {
