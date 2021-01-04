@@ -7,7 +7,7 @@ import Card from './ProjectCard';
 import { fetchProjects } from '../../actions/project_actions';
 
 const mapStateToProps = (state, _ownProps) => {
-  const { search, tags } = state.ui;
+  const { search, tags, order } = state.ui;
   const { projects } = state.entities;
   return {
     search,
