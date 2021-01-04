@@ -16,14 +16,17 @@ export const navOffset = 64;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    margin: '10px',
-    padding: '0 10px 0 10px',
-    minHeight: '500px',
+    // margin: '10px',
+    // padding: '0 10px 0 10px',
+    // minHeight: '500px'
+    height: '75vh',
   },
   content: {
+    position: 'relative',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
+    backgroundColor: '#fff',
+    borderRight: '1px solid rgba(0,0,0, 0.12)',
+    // padding: theme.spacing(3),
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -45,7 +48,7 @@ const Messages = ({ history }) => {
         <ConversationDrawer /* setConversation={setConversation} */ />
 
         <main className={classes.content}>
-          <div className={classes.toolbar} />
+          {/* <div className={classes.toolbar} /> */}
 
           {/* <Typography paragraph>Chattings</Typography> */}
 

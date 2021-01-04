@@ -5,14 +5,15 @@ import { useParams } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
-import * as ImageWall from './ImageWall';
-import * as TechChart from './TechChart';
-import * as Feature from './Feature';
+import { CarouselWall, Three, Mason } from './ImageWall';
+import { BarChart, PieChart } from './charts/TechChart';
+import { Vertical, Whirligig, Horiz } from './Feature';
 import FutureFeatures from './FutureFeatures';
 import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
+import { fetchUser } from '../../actions/user_actions';
 
-function Project({ project, fetchProject, users }) {
+function Project({ project, fetchProject, user }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: '2%',
@@ -35,78 +36,58 @@ function Project({ project, fetchProject, users }) {
       maxHeight: 700,
     },
   }));
+
   const classes = useStyles();
   const { id } = useParams();
-  const [user, setUser] = useState({});
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState({});
-  const [comments, setComments] = useState([]);
-  const [features, setFeatures] = useState([]);
-  const [futureFeatures, setFutureFeatures] = useState([]);
-  const [overviewLayout, setOverviewLayout] = useState(1);
-  const [languageChart, setLanguageChart] = useState(1);
-  const [featuresLayout, setFeaturesLayout] = useState(1);
-  const [githubLink, setGithubLink] = useState('');
-  const [colors, setColors] = useState(0);
-  const [technologies, setTechnologies] = useState([]);
-  // const []
+
   useEffect(() => {
-    fetchProject(id).then((data) => {
-      const { project } = data;
-      setComments(data.comments);
-      setUser(users[project.user]);
-      setTitle(project.title);
-      setDescription(project.description);
-      setImages(project.images);
-      setFeatures(project.features);
-      setFutureFeatures(project.futureFeatures);
-      setOverviewLayout(project.ui.overviewLayout);
-      setLanguageChart(project.ui.languageChart);
-      setColors(project.ui.colors);
-      setFeaturesLayout(project.ui.featuresLayout);
-      setGithubLink(project.githubLink);
-      setTechnologies(project.technologies);
-    });
+    fetchProject(id);
   }, []);
+
+  // const images = [];
   const renderImageWall = (theme) => {
     switch (theme) {
       case 1:
-        return ImageWall.CarouselWall(images);
+        return <CarouselWall images={project.images} />;
       case 2:
-        return ImageWall.Mason(images);
+        return <Mason images={project.images} />;
       case 3:
-        return ImageWall.Three(images);
+        return <Three images={project.images} />;
       default:
-        return ImageWall.CarouselWall(images);
-    }
-  };
-  const renderTechChart = (theme) => {
-    switch (theme) {
-      case 1:
-        return TechChart.BarChart(technologies);
-      case 2:
-        return TechChart.PieChart(technologies);
-      default:
-        return TechChart.PieChart(technologies);
-    }
-  };
-  const renderFeatures = (theme) => {
-    switch (theme) {
-      case 3:
-        return Feature.Whirligig(features);
-      case 2:
-        return Feature.Horiz(features);
-      case 1:
-        return Feature.Vertical(features);
-      default:
-        return Feature.Vertical(features);
+        return <CarouselWall images={project.images} />;
     }
   };
 
+  const renderTechChart = (theme) => {
+    switch (theme) {
+      case 1:
+        return <BarChart project={project} />;
+      case 2:
+        return <PieChart project={project} />;
+      default:
+        return <PieChart project={project} />;
+    }
+  };
+
+  const renderFeatures = (theme) => {
+    switch (theme) {
+      case 3:
+        return <Whirligig features={project.features} />;
+      case 2:
+        return <Horiz features={project.features} />;
+      case 1:
+        return <Vertical features={project.features} />;
+      default:
+        return <Vertical features={project.features} />;
+    }
+  };
+
+  if (!project || !project.ui || !project.images) return null;
+  const { title, overviewLayout, description, futureFeatures } = project;
+  const { languageChart, featuresLayout } = project.ui;
   return (
     <div>
-      <Drawer project={project} />
+      <Drawer project={project} developer={user} comments={project.comments} />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>
@@ -124,11 +105,15 @@ function Project({ project, fetchProject, users }) {
 }
 export default connect(
   (state, ownProps) => ({
-    users: state.entities.users,
+    user:
+      state.entities.users[
+        state.entities.projects[ownProps.match.params.id]?.user
+      ],
     currentUser: state.entities.users,
     project: state.entities.projects[ownProps.match.params.id],
   }),
   (dispatch) => ({
     fetchProject: (id) => dispatch(fetchProject(id)),
+    fetchUser: (id) => dispatch(fetchUser(id)),
   })
 )(Project);

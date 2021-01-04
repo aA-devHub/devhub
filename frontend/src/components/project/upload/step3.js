@@ -14,6 +14,7 @@ class Step3 extends Component {
         color: this.props.masterState.ui.color,
         overviewLayout: this.props.masterState.ui.overviewLayout,
         featuresLayout: this.props.masterState.ui.featuresLayout,
+        languageChart: this.props.masterState.ui.languageChart,
       },
     };
 
@@ -43,28 +44,30 @@ class Step3 extends Component {
             addFeatureToState={this.addFeatureToState}
           />
         )}
-        <Button
-          onClick={() =>
-            this.setState((prevProps) => {
-              let features = [...prevProps.features];
-              features.push({
-                title: '',
-                description: '',
-                image: '',
-                code: '',
-              });
+        <div className="add-button">
+          <Button
+            onClick={() =>
+              this.setState((prevProps) => {
+                let features = [...prevProps.features];
+                features.push({
+                  title: '',
+                  description: '',
+                  image: '',
+                  code: '',
+                });
 
-              return { features };
-            })
-          }
-          variant="contained"
-          style={{
-            backgroundColor: COLORS.DEVBLUE,
-            color: 'white',
-          }}
-        >
-          <Typography>Add New</Typography>
-        </Button>
+                return { features };
+              })
+            }
+            variant="contained"
+            style={{
+              backgroundColor: COLORS.DEVBLUE,
+              color: 'white',
+            }}
+          >
+            <Typography>Add Another Feature</Typography>
+          </Button>
+        </div>
       </React.Fragment>
     );
   }
@@ -142,7 +145,7 @@ class Step3 extends Component {
         />
         {this.renderFeatures()}
         <div className="step-inner layouts">
-          <label className="step-input-label">
+          <label className="step-input-label big center">
             <Typography>Select Layout</Typography>
           </label>
           <div className="step-layouts">

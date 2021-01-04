@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../../colors';
 import { IconButton, Drawer, Avatar } from '@material-ui/core';
 import { Sms } from '@material-ui/icons';
@@ -7,8 +7,19 @@ import CommentDrawer from './Comment';
 import UserDrawer from './UserDrawer';
 
 export default function Drawers({ project, comments, developer }) {
-  const useStyles = makeStyles((theme) => ({}));
+  const [dev, setDev] = useState({});
+  const useStyles = makeStyles((theme) => ({
+    root: {},
+  }));
+  useEffect(() => {
+    if (developer?.imageUrl) {
+      setImage(developer.imageUrl);
+      setDev(developer);
+    }
+    console.log('developer', developer);
+  }, [developer]);
   const [cmt, setCmt] = useState({ right: false });
+  const [image, setImage] = useState('');
   const [showUser, setShowUser] = useState({ right: false });
   const classes = useStyles();
   const toggleCommentDrawer = (bool) => (event) => {
@@ -43,10 +54,7 @@ export default function Drawers({ project, comments, developer }) {
             border: `1px solid ${COLORS.DEVBLUE}`,
             cursor: 'pointer',
           }}
-          src={
-            developer?.imageUrl ||
-            'https://res.cloudinary.com/willwang/image/upload/v1608279563/23_npj6fd.webp'
-          }
+          src={image}
         />
         <div
           style={{ backgroundColor: COLORS.DEVBLUE, height: 20, width: 1 }}
@@ -76,6 +84,7 @@ export default function Drawers({ project, comments, developer }) {
       >
         <CommentDrawer
           project={project}
+          comments={comments}
           toggleCommentDrawer={toggleCommentDrawer}
         />
       </Drawer>
@@ -85,7 +94,7 @@ export default function Drawers({ project, comments, developer }) {
         open={showUser.right}
         onClose={toggleUserDrawer(false)}
       >
-        <UserDrawer toggleDrawer={toggleUserDrawer} />
+        <UserDrawer developer={dev} toggleDrawer={toggleUserDrawer} />
       </Drawer>
     </React.Fragment>
   );
