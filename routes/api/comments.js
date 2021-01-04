@@ -26,8 +26,12 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    req.body.userName = req.user.name;
+    req.body.user = req.user._id;
+
+    // FIX, not working atm
     const projectId = req.body.project;
-    User.findById(req.body.user).then((commenter) => {
+    User.findById(req.user._id).then((commenter) => {
       Project.findById(projectId).then((project) => {
         User.findById(project.user).then((recipient) => {
           let newNotification = {
@@ -43,10 +47,15 @@ router.post(
       });
     });
 
-    req.body.userName = req.body.user.name;
     return new Comment(req.body)
       .save()
-      .then((comment) => res.json(comment))
+      .then((comment) => {
+        Project.findById(comment.project).then((project) => {
+          project.comments.push(comment._id);
+          project.save();
+        });
+        res.json(comment);
+      })
       .catch((errors) => res.status(404).json(errors));
   }
 );

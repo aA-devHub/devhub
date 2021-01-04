@@ -106,7 +106,7 @@ function Project({ project, fetchProject, users }) {
 
   return (
     <div>
-      <Drawer />
+      <Drawer project={project} />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
         <div className={classes.imageWall}>

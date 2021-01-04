@@ -12,6 +12,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { createComment } from '../../../actions/comment_actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,11 +101,19 @@ const CommentItem = ({ comment }) => {
   );
 };
 
-function Feedback({ comments, userId }) {
+function Feedback({ comments, userId, project, createComment }) {
   useEffect(() => {}, []);
   const classes = useStyles();
   const [height, setHeight] = useState(1);
   const [newComment, setNewComment] = useState('');
+
+  const submitComment = () => {
+    const commentData = {
+      body: newComment,
+      project: project._id,
+    };
+    createComment(commentData);
+  };
 
   const renderCommentItems = () => {
     if (!comments) return null;
@@ -137,7 +146,7 @@ function Feedback({ comments, userId }) {
               onBlur={() => setHeight(1)}
             />
             <Button
-              // onMouseDown={submitComment}
+              onMouseDown={submitComment}
               variant="contained"
               color="secondary"
               disabled={!newComment}
@@ -183,7 +192,10 @@ export default connect(
     userId: state.session.user?.id,
     toggleDrawer: ownProps.toggleDrawer,
     comments: Object.values(state.entities.comments),
+    project: ownProps.project,
     // comments: ownProps.comments,
   }),
-  (dispatch) => ({})
+  (dispatch) => ({
+    createComment: (comment) => dispatch(createComment(comment)),
+  })
 )(Feedback);
