@@ -7,7 +7,8 @@ import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
 import { Button } from '@material-ui/core';
 import { CarouselWall, Three, Mason } from './ImageWall';
-import { BarChart, PieChart } from './charts/TechChart';
+// import { BarChart, PieChart } from './charts/TechChart';
+import TechChart from './charts/ChartContainer';
 import { Vertical, Whirligig, Horiz } from './Feature';
 import FutureFeatures from './FutureFeatures';
 import Description from './Description';
@@ -60,14 +61,7 @@ function Project({ project, fetchProject, user }) {
   };
 
   const renderTechChart = (theme) => {
-    switch (theme) {
-      case 1:
-        return <BarChart project={project} />;
-      case 2:
-        return <PieChart project={project} />;
-      default:
-        return <PieChart project={project} />;
-    }
+    return <TechChart project={project} theme={theme} />;
   };
 
   const renderFeatures = (theme) => {
@@ -90,6 +84,7 @@ function Project({ project, fetchProject, user }) {
   return (
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
+      <Link to={`/projects/${project._id}/edit`}>Edit page</Link>
       <div className={classes.root}>
         <Link to={`/projects/${project._id}/edit`}>Edit</Link>
         <Typography className={classes.title}>{title}</Typography>
