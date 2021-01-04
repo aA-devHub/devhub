@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import MasonWall from './Mason';
 import ThreeWall from './Three';
 
-export const CarouselWall = (images) => {
+export const CarouselWall = ({ images }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginBottom: theme.spacing(10),
@@ -56,7 +56,7 @@ export const CarouselWall = (images) => {
   );
 };
 
-export const Mason = (images) => {
+export const Mason = ({ images }) => {
   const [imgs, setImgs] = useState([]);
   useEffect(() => {
     if (images.hero)
@@ -95,6 +95,6 @@ export const Mason = (images) => {
     </div>
   );
 };
-export const Three = (images) => {
+export const Three = ({ images }) => {
   return <ThreeWall images={images} />;
 };
