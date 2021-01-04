@@ -117,31 +117,6 @@
 
 // ----------------
 
-// .project-overview-section {
-//     // display: flex;
-//     // align-items: center;
-//     // justify-content: center;
-
-//     .overview-description {
-//         padding-left: 100px;
-//         width: 600px;
-
-//         p {
-//             margin: 0 !important;
-//             max-width: 100% !important;
-//         }
-//         margin: 0;
-//     }
-
-//     .tech-pie-chart {
-//         width: 600px;
-
-//         .recharts-surface {
-//             width: 600px !important;
-//         }
-//     }
-// }
-
 .project-overview-section {
     display: grid;
     grid-template-columns: 45% 55%;
