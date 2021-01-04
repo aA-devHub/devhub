@@ -116,7 +116,13 @@ router.get('/user/:userId', (req, res) => {
 router.get('/:projectId', (req, res) => {
   Project.findById(req.params.projectId)
     .populate('user')
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'user',
+        select: 'imageUrl',
+      },
+    })
     .then((project) => {
       let user = project.user ? project.user : 'ignore';
       const comments = project.comments;
