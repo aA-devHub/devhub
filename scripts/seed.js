@@ -17,6 +17,11 @@ const {
   findOrCreateConversation,
   addMessageToConversation,
 } = require('../routes/api/messages');
+const { tagProjects } = require('./projects');
+
+// Get array of all user IDs in database
+const getUserIds = async () =>
+  User.find({}, { _id: 1 }).then((ids) => ids.map((id) => id._id));
 
 const seed = (numMsg, userIds = 10) => {
   mongoose
@@ -26,10 +31,12 @@ const seed = (numMsg, userIds = 10) => {
 
       // Users
       // await User.deleteMany({ });
+      const userIds = await getUserIds();
 
       // Projects
-      // await Project.deleteMany({ });
       try {
+        // await Project.deleteMany({ });
+        // await tagProjects();
       } catch (err) {
         console.log(err);
       }
@@ -64,10 +71,10 @@ const seed = (numMsg, userIds = 10) => {
         //   { upsert: true }
         // );
 
-        let userIds = await User.find({}, { _id: 1 }).then((ids) =>
-          ids.map((id) => id._id)
-        );
-        console.log(userIds);
+        // let userIds = await User.find({}, { _id: 1 }).then((ids) =>
+        //   ids.map((id) => id._id)
+        // );
+        // console.log(userIds);
 
         const messages = generateMessages(numMsg, userIds);
 
