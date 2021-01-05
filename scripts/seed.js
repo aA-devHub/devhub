@@ -17,6 +17,11 @@ const {
   findOrCreateConversation,
   addMessageToConversation,
 } = require('../routes/api/messages');
+const { tagProjects } = require('./projects');
+
+// Get array of all user IDs in database
+const getUserIds = async () =>
+  User.find({}, { _id: 1 }).then((ids) => ids.map((id) => id._id));
 
 const seed = (numMsg, userIds = 10) => {
   mongoose
@@ -26,17 +31,23 @@ const seed = (numMsg, userIds = 10) => {
 
       // Users
       // await User.deleteMany({ });
+      const userIds = await getUserIds();
 
       // Projects
-      // await Project.deleteMany({ });
+      try {
+        // await Project.deleteMany({ });
+        // await tagProjects();
+      } catch (err) {
+        console.log(err);
+      }
 
       // Comments
-      try {
-        await Comment.deleteMany({});
-      } catch (_) {
-        // return ;
-        console.log('Skipping comments');
-      }
+      // try {
+      //   await Comment.deleteMany({});
+      // } catch (_) {
+      //   // return ;
+      //   console.log('Skipping comments');
+      // }
 
       // Messages/Conversations
       try {
@@ -60,10 +71,10 @@ const seed = (numMsg, userIds = 10) => {
         //   { upsert: true }
         // );
 
-        let userIds = await User.find({}, { _id: 1 }).then((ids) =>
-          ids.map((id) => id._id)
-        );
-        console.log(userIds);
+        // let userIds = await User.find({}, { _id: 1 }).then((ids) =>
+        //   ids.map((id) => id._id)
+        // );
+        // console.log(userIds);
 
         const messages = generateMessages(numMsg, userIds);
 
@@ -93,6 +104,7 @@ const argv = yargs
     num_msg: {
       description: 'Number of messages to generate',
       alias: 'm',
+      default: 0,
       type: 'number',
     },
   })
