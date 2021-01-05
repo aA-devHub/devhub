@@ -38,6 +38,7 @@ router.post(
             userName: commenter.name,
             projectId: project._id,
             projectName: project.title,
+            imageUrl: commenter.imageUrl,
             _id: mongoose.Types.ObjectId(),
           };
           recipient.notifications.other.push(newNotification);

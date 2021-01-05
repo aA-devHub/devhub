@@ -50,6 +50,7 @@ const UserSchema = new Schema(
           userName: String,
           projectId: Schema.Types.ObjectId,
           projectName: String,
+          imageUrl: String,
         },
       ],
     },
