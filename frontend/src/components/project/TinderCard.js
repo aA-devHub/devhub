@@ -59,33 +59,35 @@ function TinderCards({ featured, fetchProjects }) {
       </Zoom>
       <div className={clsx('tinderCards', classes.root)}>
         <div className="tinderCards__cardContainer">
-          {Object.values(featuredProjects).map((project) => (
-            <TinderCard
-              className="swipe"
-              key={Math.random()}
-              preventSwipe={['up, down']}
-              onSwipe={(dir) => swiped(dir, project.id)}
-              onCardLeftScreen={() => outOfFrame(project.id)}
-            >
-              <div
-                className="card"
-                style={{ backgroundImage: `url(${project.images.hero})` }}
+          {Object.values(featuredProjects)
+            .reverse()
+            .map((project) => (
+              <TinderCard
+                className="swipe"
+                key={Math.random()}
+                preventSwipe={['up, down']}
+                onSwipe={(dir) => swiped(dir, project.id)}
+                onCardLeftScreen={() => outOfFrame(project.id)}
               >
                 <div
-                  style={{
-                    padding: '4px 10px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    color: 'white',
-                    display: 'inline-block',
-                  }}
+                  className="card"
+                  style={{ backgroundImage: `url(${project.images.hero})` }}
                 >
-                  <Typography style={{ fontWeight: 800 }}>
-                    {project.title}
-                  </Typography>
+                  <div
+                    style={{
+                      padding: '4px 10px',
+                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      color: 'white',
+                      display: 'inline-block',
+                    }}
+                  >
+                    <Typography style={{ fontWeight: 800 }}>
+                      {project.title}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-            </TinderCard>
-          ))}
+              </TinderCard>
+            ))}
         </div>
       </div>
     </div>

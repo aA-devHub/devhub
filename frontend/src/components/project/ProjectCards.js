@@ -5,14 +5,17 @@ import { makeStyles } from '@material-ui/core';
 
 import Card from './ProjectCard';
 import { fetchProjects } from '../../actions/project_actions';
+import { sortProjects, byPopularity, byDate } from '../../selectors/projects';
 
 const mapStateToProps = (state, _ownProps) => {
   const { search, tags, order } = state.ui;
-  const { projects } = state.entities;
+  let { projects } = state.entities;
+
   return {
     search,
     tags,
     projects,
+    order,
   };
 };
 
@@ -20,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchProjects: (filter) => dispatch(fetchProjects(filter)),
 });
 
-function ProjectCards({ projects, fetchProjects, search, tags }) {
+function ProjectCards({ projects, order, fetchProjects, search, tags }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       padding: '20px 5%',
@@ -33,9 +36,16 @@ function ProjectCards({ projects, fetchProjects, search, tags }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const sortedProjects =
+    (order === 'popularity'
+      ? sortProjects(projects, byPopularity)
+      : sortProjects(projects, byDate)) || [];
+
+  console.log(sortedProjects);
+
   return (
     <Grid container className={classes.root}>
-      {Object.values(projects).map((project, idx) => (
+      {sortedProjects.map((project, idx) => (
         <Grid item md={3} sm={6} key={idx}>
           <Card project={project} />
         </Grid>
