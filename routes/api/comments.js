@@ -30,6 +30,7 @@ router.post(
     req.body.user = req.user._id;
 
     const projectId = req.body.project;
+    const imageUrl = '';
     User.findById(req.user._id).then((commenter) => {
       Project.findById(projectId).then((project) => {
         User.findById(project.user).then((recipient) => {
@@ -41,6 +42,7 @@ router.post(
             imageUrl: commenter.imageUrl,
             _id: mongoose.Types.ObjectId(),
           };
+          imageUrl = commenter.imageUrl;
           recipient.notifications.other.push(newNotification);
           recipient.save();
         });
@@ -54,7 +56,11 @@ router.post(
           project.comments.push(comment._id);
           project.save();
         });
-        res.json(comment);
+        Comment.findById(comment._id)
+          .populate('user')
+          .then((newComment) => {
+            res.json(newComment);
+          });
       })
       .catch((errors) => res.status(404).json(errors));
   }

@@ -64,6 +64,7 @@ const CommentItem = ({ comment }) => {
     body: comment.body,
     createdAt: comment.createdAt,
   };
+
   const classes = useStyles();
   return (
     <div className={classes.commentBox}>
@@ -117,6 +118,7 @@ function Feedback({ comments, userId, project, createComment }) {
 
   const renderCommentItems = () => {
     if (!comments) return null;
+    // debugger;
     return comments.map((cmnt, i) => (
       <React.Fragment key={i}>
         <CommentItem comment={cmnt} />
