@@ -16,7 +16,6 @@ const baseStyle = {
   outline: 'none',
   transition: 'border .24s ease-in-out',
   cursor: 'pointer',
-  transition: 'all 0.3s',
 };
 
 const activeStyle = {

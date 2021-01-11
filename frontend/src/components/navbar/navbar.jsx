@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { IconButton, Button, Typography, Badge } from '@material-ui/core';
-import InputBase from '@material-ui/core/InputBase';
+import { IconButton, Typography, Badge } from '@material-ui/core';
 import { Menu, MenuItem } from '@material-ui/core';
 import { AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -199,13 +198,13 @@ function Navbar(props) {
       props.notifications.other.length > 0
     ) {
       return props.notifications.other.map((data, idx) => {
-        const type = data.source;
-        const projectId = data.projectId;
+        // const type = data.source;
+        // const projectId = data.projectId;
         const user = data.userName;
         const action = data.source === 'comment' ? 'commented on' : 'favorited';
         const project = data.projectName;
         return (
-          <MenuItem onClick={() => handleNotificationMenuClick(data)}>
+          <MenuItem key={idx} onClick={() => handleNotificationMenuClick(data)}>
             <Typography
               style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
             >
@@ -312,16 +311,6 @@ function Navbar(props) {
   if (props.currentUser) {
     navIcons = (
       <React.Fragment>
-        {/* <Button
-          onClick={() => handleMenuClick('uploadproject')}
-          variant="contained"
-          style={{
-            backgroundColor: COLORS.DEVBLUE,
-            color: 'white',
-          }}
-        >
-          <Typography>Upload Project</Typography>
-        </Button> */}
         <IconButton
           aria-label="show new notifications"
           color="inherit"
@@ -336,13 +325,16 @@ function Navbar(props) {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <IconButton aria-label="show new mails" color="inherit">
+        <IconButton
+          aria-label="show new mails"
+          color="inherit"
+          onClick={() => handleMenuClick('messages')}
+        >
           <Badge
             badgeContent={
               props.notifications ? props.notifications.messages : 0
             }
             color="secondary"
-            onClick={() => handleMenuClick('messages')}
           >
             <MailIcon />
           </Badge>
