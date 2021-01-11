@@ -24,13 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function ProjectCards({ projects, order, fetchProjects, search, tags }) {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      padding: '20px 5%',
-    },
-  }));
-  const classes = useStyles();
-
   useEffect(() => {
     fetchProjects({ search, tags });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,10 +34,10 @@ function ProjectCards({ projects, order, fetchProjects, search, tags }) {
       ? sortProjects(projects, byPopularity)
       : sortProjects(projects, byDate)) || [];
 
-  console.log(sortedProjects);
+  // console.log(sortedProjects);
 
   return (
-    <Grid container className={classes.root}>
+    <Grid container>
       {sortedProjects.map((project, idx) => (
         <Grid item md={3} sm={6} key={idx}>
           <Card project={project} />

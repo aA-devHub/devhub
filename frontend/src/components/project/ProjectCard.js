@@ -10,6 +10,7 @@ import { KeyboardArrowUp } from '@material-ui/icons';
 import FavoriteButton from './FavoriteButton.jsx';
 import * as COLORS from '../../colors';
 import { getImageArray } from '../../selectors/projects';
+import * as userHelpers from '../user/user_helpers';
 
 const mapStateToProps = (state, { project }) => {
   const author = state.entities.users[project.user];
@@ -24,9 +25,26 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '1rem',
+    padding: '1.25rem',
+    '&:hover > #project-title': {
+      opacity: '0',
+    },
+  },
+  projectTitle: {
+    position: 'absolute',
+    margin: '7.5px 0 0 7.5px',
+    borderRadius: '3px',
+    zIndex: 2,
+    padding: '4px 10px',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    color: 'white',
+    fontWeight: '800',
+    opacity: '1',
+    transition: 'opacity 0.2s',
+    boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
   },
   image: {
+    border: '1px solid rgba(0,0,0,0.05)',
     maxWidth: 300,
     height: 170,
     borderRadius: 10,
@@ -59,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  title: {
+  authorTitle: {
     backgroundColor: COLORS.DEVDARKBLUE,
     color: 'white',
     padding: '0 7px',
@@ -81,6 +99,9 @@ function ProjectCard({ project, author }) {
   if (!author) return null;
   return (
     <div className={classes.root}>
+      <div id="project-title" className={classes.projectTitle}>
+        {project.title}
+      </div>
       <Carousel
         animation="fade"
         autoPlay={autoplay}
@@ -103,7 +124,6 @@ function ProjectCard({ project, author }) {
           ></div>
         ))}
       </Carousel>
-
       <div className={classes.userDisplay}>
         <div
           className={classes.leftPanel}
@@ -119,9 +139,10 @@ function ProjectCard({ project, author }) {
                   fontWeight: 800,
                 }}
               >
-                {author.name.split(' ')[0].toUpperCase().slice(0, 4)}
+                {' '}
+                {author.name.split(' ')[0].toUpperCase().slice(0, 5)}
               </Typography>
-              <div className={classes.title}>
+              <div className={classes.authorTitle}>
                 <Typography style={{ fontSize: 10 }}>
                   {author.title
                     .split(' ')
@@ -135,8 +156,12 @@ function ProjectCard({ project, author }) {
               <Typography
                 style={{ color: 'red', fontSize: 10, fontWeight: 500 }}
               >
-                {author.yearsOfExperience || parseInt(Math.random() * 10)} years
-                of experience
+                {userHelpers.calculateExperience(author.experience) ||
+                  author.projects.length +
+                    ' project' +
+                    (author.projects.length > 1 ? 's' : '') ||
+                  author.location ||
+                  ''}
               </Typography>
             </div>
           </div>
