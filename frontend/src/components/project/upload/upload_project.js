@@ -13,7 +13,7 @@ const mapSTP = () => ({
       hero: '',
       secondaries: [],
     },
-    features: [],
+    features: [{ title: '', description: '', image: '', code: '' }],
     ui: {
       color: 'light',
       overviewLayout: 1,
@@ -22,7 +22,7 @@ const mapSTP = () => ({
     },
     mobile: false,
     browsers: [],
-    futureFeatures: [],
+    futureFeatures: [{ title: '', description: '' }],
   },
 });
 

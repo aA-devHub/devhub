@@ -27,10 +27,12 @@ class FutureFeature extends Component {
     return (
       <div className="step-inner-third future">
         <label className="step-input-label med upper">
-          <Typography>{`Feature ${this.props.idx + 1}`}</Typography>
+          <Typography>{`Future Feature ${this.props.idx + 1}`}</Typography>
         </label>
         <label className="step-input-label">
-          <Typography>Feature Title</Typography>
+          <Typography>
+            Feature Title <span style={{ color: 'red' }}>*</span>
+          </Typography>
           <InputBase
             className="step-input"
             value={this.state.title || ''}
@@ -38,7 +40,9 @@ class FutureFeature extends Component {
           />
         </label>
         <label className="step-input-label">
-          <Typography>Feature Description</Typography>
+          <Typography>
+            Feature Description <span style={{ color: 'red' }}>*</span>
+          </Typography>
           <InputBase
             multiline={true}
             rows={7}
