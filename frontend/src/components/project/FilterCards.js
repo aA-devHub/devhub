@@ -37,6 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     color: COLORS.DEVDARKBLUE,
+    borderRadius: 0,
+  },
+  buttonActive: {
+    borderBottom: `2px solid ${COLORS.DEVBLUE}`,
+    borderRadius: 0,
+  },
+  buttonClear: {
+    color: 'red',
   },
 }));
 
@@ -82,20 +90,26 @@ function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
           <MenuItem value={'recency'}>Recency</MenuItem>
         </Select>
       </FormControl>
-      {/* TODO: */}
-      {/* There should be a button here to clear all the tags, or some way */}
-      {/* to show which one is active */}
       <div>
         {defaultTags.map((tag, idx) => (
           <Button
             key={idx}
-            className={classes.button}
+            className={
+              tags.includes(tag) ? classes.buttonActive : classes.button
+            }
             onClick={() => toggleTag(tag)}
           >
             {tag}
           </Button>
         ))}
       </div>
+      {tags.length ? (
+        <Button className={classes.buttonClear} onClick={() => clearTags()}>
+          CLEAR
+        </Button>
+      ) : (
+        ''
+      )}
     </div>
   );
 }

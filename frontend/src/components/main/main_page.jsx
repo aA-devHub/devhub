@@ -11,7 +11,6 @@ class MainPage extends Component {
         <TinderCard />
         <FilterCards />
         <Cards />
-        {/* <Footer /> */}
       </div>
     );
   }
