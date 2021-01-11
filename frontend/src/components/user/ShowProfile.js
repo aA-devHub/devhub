@@ -8,7 +8,6 @@ import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';
 import { sendMessage } from '../../actions/message_actions';
 import * as userHelpers from './user_helpers';
-import { Modal, InputBase } from '@material-ui/core';
 import MessageBox from '../project/MessageModal';
 function ShowProfile({
   currentUser,
@@ -25,16 +24,6 @@ function ShowProfile({
   }, []);
 
   if (profileUser === undefined) return null;
-  const renderRightIcon = () => {
-    if (currentUser) {
-      if (currentUser.id === profileUser._id) {
-        return <EditIcon onClick={() => history.push('/users/edit')} />;
-      } else {
-        return <MailIcon onClick={() => alert('HI KEWTIE')} />;
-      }
-    }
-  };
-
   const renderSocials = () => {
     if (profileUser.socials) {
       return (
