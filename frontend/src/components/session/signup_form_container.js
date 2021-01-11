@@ -79,8 +79,6 @@ function SignupForm({ errors, currentUser, signup }) {
       password,
       password2: passwordConfirmation,
     };
-    console.log('user', user);
-    console.log('signing up');
     signup(user);
   };
   const renderErrors = () => (

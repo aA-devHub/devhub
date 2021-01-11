@@ -59,7 +59,6 @@ export const fetchUserProjects = (userId) => (dispatch) => {
 export const fetchProject = (projectId) => (dispatch) => {
   return ApiUtil.fetchProject(projectId)
     .then((payload) => {
-      // console.log('payload', payload);
       dispatch(receiveProject(payload.data));
       // Todo: Will need this change to fetchProject
       return payload.data;

@@ -57,7 +57,6 @@ router.get(
     const { search } = req.query;
     if (search) {
       users = await getUsers(search);
-      console.log('Users: ', users);
       filter = {
         $and: [
           { participants: { $in: users.map((user) => user._id) } },
@@ -65,8 +64,6 @@ router.get(
         ],
       };
     }
-
-    if (search) console.log('Filtering conversations by: ', filter);
 
     let conversations = await Conversation.find(filter)
       .populate('participants', 'name imageUrl')

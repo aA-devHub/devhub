@@ -1,7 +1,6 @@
 import React from 'react';
 
 const renderLabel = ({ x, y, name, fill, midAngle, ...props }) => {
-  console.log('Props: ', props);
   const anchor = midAngle > 45 && midAngle < 275 ? 'end' : 'start';
   return (
     <text

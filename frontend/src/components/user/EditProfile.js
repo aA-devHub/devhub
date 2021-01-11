@@ -181,7 +181,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
 
   useEffect(() => {
     fetchUser(userId).then(({ user }) => {
-      console.log('user', user);
       setTitle(user.title);
       setLocation(user.location);
       setName(user.name);
@@ -195,10 +194,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       setGithub(socials?.github || '');
       setLinkedin(socials?.linkedin || '');
       setSkills(user.skills);
-      console.log('skills', skills);
       setExperience(user.experience);
-      console.log('experience here', experience);
-      console.log('showAddExp', showAddExp);
     });
   }, []);
 
@@ -274,7 +270,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
 
   const renderExperience = () => {
     const exp = [];
-    console.log('experience[0]', experience[0]);
     for (const key in experience) {
       exp.push(
         <div style={{ display: 'flex', alignItems: 'center' }} key={key}>
@@ -346,7 +341,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
               let newExper = { ...experience };
               delete newExper[key];
               setExperience({ ...newExper });
-              console.log('experience', experience);
             }}
           />
         </div>
@@ -650,7 +644,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
           value={facebook}
           onChange={(e) => {
             setFacebook(e.target.value);
-            console.log('facebook', facebook);
           }}
         />
       </div>
@@ -711,7 +704,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       .then((res) => res.json())
       .then((data) => {
         setAvatarUrl(data.url);
-        console.log('data', data.url);
       })
       .catch((err) => console.log('error', err));
   };
@@ -732,7 +724,6 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       title,
       experience: Object.values(experience),
     };
-    console.log('userinfo', userinfo);
     updateUser(userinfo);
     history.push(`/users/${user._id}`);
   };

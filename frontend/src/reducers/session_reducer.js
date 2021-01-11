@@ -25,7 +25,6 @@ export default (state = initialState, action) => {
     case RECEIVE_USER:
       const { user } = action.payload;
       if (state.user && state.user.id === user._id) {
-        // console.log('update user ', action.user);
         return {
           ...state,
           user: currentUserDetails(user),

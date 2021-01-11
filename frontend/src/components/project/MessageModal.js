@@ -86,7 +86,6 @@ export default function AlertDialogSlide({
       body: messageBody,
       to: receiverId,
     };
-    console.log('msg', msg);
     sendMessage(msg);
     setOpen(false);
   };

@@ -67,8 +67,6 @@ export const Mason = ({ images }) => {
   }));
   const classes = useStyles();
 
-  console.log('imgs', imgs);
-
   return (
     <div className={classes.root}>
       {imgs.length ? (

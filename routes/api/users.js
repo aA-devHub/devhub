@@ -165,8 +165,6 @@ router.post('/login', (req, res) => {
       return res.status(404).json({ email: 'This user does not exist' });
     }
 
-    console.log('Logged in: ', user);
-
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
         const payload = sessionUserPayload(user);

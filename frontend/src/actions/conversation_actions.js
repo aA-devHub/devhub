@@ -31,7 +31,6 @@ export const fetchConversations = (filter) => (dispatch) => {
   return ConversationAPI.fetchConversations(filter)
     .then((conversations) => {
       dispatch(receiveConversations(conversations.data.conversations));
-      // console.log('fetch: ', conversations);
       dispatch(receiveUsers(conversations.data.users));
     })
     .catch((errors) =>

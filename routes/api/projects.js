@@ -58,7 +58,6 @@ const buildSearchFilter = ({ tags, search }) => {
 // Will prob need some limit / filtering logic
 router.get('/', (req, res) => {
   const filter = buildSearchFilter(req.query);
-  console.log('Filtering projects by: ', filter);
 
   Project.find(filter, {
     title: 1,

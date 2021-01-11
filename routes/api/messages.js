@@ -36,7 +36,6 @@ const findOrCreateConversation = async (user1, user2) => {
     .populate('unreadBy', 'name');
 
   if (!conversation) {
-    // console.log('Creating conversation...');
     conversation = await Conversation.create({
       participants: [user1, user2],
     });
@@ -79,7 +78,6 @@ router.post(
 
     try {
       let conversation = await findOrCreateConversation(userFrom, userTo);
-      // console.log('conversation: ', conversation);
       let message = await Message.create({
         ...req.body,
         from: userFrom,
@@ -139,7 +137,6 @@ router.get(
 
     // create filter for a conversation with user
     let filter = userId ? userMessages(userId) : {};
-    // console.log('Filtering messages by: ', filter);
 
     Message.find({
       ...userMessages(user._id),
