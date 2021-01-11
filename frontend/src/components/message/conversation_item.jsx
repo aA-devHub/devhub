@@ -44,6 +44,7 @@ const ConversationItem = ({
     (x) => x.name !== user.name
   )[0];
   const unread = any(unreadBy, (x) => x.name === user.name);
+  // console.log('unread, name, username: ', unread, name, user.name);
   return (
     <ListItem
       button

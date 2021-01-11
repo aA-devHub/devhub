@@ -41,6 +41,8 @@ function ProjectCards({ projects, order, fetchProjects, search, tags }) {
       ? sortProjects(projects, byPopularity)
       : sortProjects(projects, byDate)) || [];
 
+  console.log(sortedProjects);
+
   return (
     <Grid container className={classes.root}>
       {sortedProjects.map((project, idx) => (
