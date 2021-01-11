@@ -74,6 +74,7 @@ export const Vertical = ({ features }) => {
     <React.Fragment>
       {/* <Divider style={{ marginBottom: 20 }} /> */}
       <div className="master-features-container">{renderFeatures()}</div>
+      {/* <Divider style={{ marginBottom: 20, width: 1200 }} />  */}
     </React.Fragment>
   );
 };
@@ -188,7 +189,7 @@ export const Whirligig = ({ features }) => {
 
   return (
     <React.Fragment>
-      {/* <Divider style={{ marginBottom: 20, width: 1200 }} /> */}
+      <Divider style={{ marginBottom: 20, width: 1200 }} />
       <div className="master-whirl-container">{renderFeatures()}</div>
     </React.Fragment>
   );
