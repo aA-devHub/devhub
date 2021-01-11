@@ -73,6 +73,8 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
       email,
       password,
     };
+    console.log('email', email);
+    console.log('password', password);
     login(user);
   };
   const renderErrors = () => (

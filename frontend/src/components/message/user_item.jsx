@@ -44,7 +44,9 @@ const UserItem = ({
       button
       key={user.name}
       onClick={() => {
+        console.log('Start a conversation!');
         history.push(`/users/${user._id}`);
+        /* startConversation(); */
       }}
     >
       <ListItemIcon>

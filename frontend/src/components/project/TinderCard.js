@@ -32,12 +32,16 @@ function TinderCards({ featured, fetchProjects }) {
 
   const swiped = (direction, imagesId) => {
     counter--;
+    console.log('counter', counter);
     if (counter <= 0) {
       setDisplay('none');
       setShowImage(true);
       setDispImage('');
     }
+    console.log('counter', counter);
+    console.log(imagesId, 'imageid is out of frame');
   };
+  console.log('featuredProjects', featuredProjects);
   return (
     <div>
       <Zoom

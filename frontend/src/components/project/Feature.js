@@ -40,7 +40,6 @@ export const Vertical = ({ features }) => {
               >
                 {featureImages.map((img, i) => (
                   <div
-                    // className={classes.image}
                     className="feature-image-container"
                     style={{
                       height: 310,
@@ -80,13 +79,85 @@ export const Vertical = ({ features }) => {
 };
 
 export const Horiz = ({ features }) => {
+  const [autoplay, setAutoplay] = useState(false);
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
       const featureImages = [ftr.image, ftr.code];
-      return <div className="horiz-features-container"></div>;
+      return (
+        <div className="horiz-features-container">
+          <Divider style={{ marginBottom: 20, width: 1200 }} />
+          <div className="counter">
+            <img className="horiz-primary-img" src={featureImages[0]} />
+            <div className="horiz-ftr-details-container">
+              <div className="horiz-feature-description">
+                <Typography
+                  style={{
+                    lineHeight: '1.8em',
+                    fontSize: 30,
+                    fontWeight: 100,
+                    maxWidth: '70%',
+                    paddingLeft: 10,
+                    paddingBottom: 15,
+                  }}
+                >
+                  {ftr.title}
+                </Typography>
+                <Typography style={{ fontSize: 18 }}>
+                  {ftr.description}
+                </Typography>
+              </div>
+              <img className="horiz-secondary-img" src={featureImages[1]} />
+            </div>
+          </div>
+        </div>
+      );
     });
   };
-  return <div>Horizontal Feature</div>;
+  return (
+    <React.Fragment>
+      <Divider style={{ marginBottom: 20 }} />
+      <div className="master-horiz-container">{renderFeatures()}</div>
+    </React.Fragment>
+  );
 };
 
 export const Whirligig = ({ features }) => <div>Whirligig Features</div>;
+
+{
+  /* <Carousel
+                animation="slide"
+                autoPlay={autoplay}
+                interval={1500}
+                indicators={true}
+                timeout={500}
+                style={{
+                  width: 300,
+                }}
+              >
+                {featureImages.map((img, i) => (
+                  <div
+                    // className={classes.image}
+                    className="feature-image-container"
+                    style={{
+                      height: 310,
+                      //   width: 400
+                    }}
+                    key={i}
+                    onMouseOver={() => setAutoplay(true)}
+                    onMouseOut={() => setAutoplay(false)}
+                  >
+                    <img
+                      src={img}
+                      className="feature-img-img"
+                      style={{
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        height: 300,
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel> */
+}

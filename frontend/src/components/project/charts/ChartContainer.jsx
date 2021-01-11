@@ -34,11 +34,13 @@ const ChartContainer = ({
   ...props
 }) => {
   useEffect(() => {
+    console.log('Fetching languages for: ', project);
     fetchLanguages();
   }, []);
 
   if (!languages) return <PropagateLoader />;
   const Component = theme !== 1 ? BarChart : PieChart;
+  console.log('Theme: ', theme);
 
   return (
     <>

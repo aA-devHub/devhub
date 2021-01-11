@@ -4,18 +4,9 @@ import { useHistory } from 'react-router-dom';
 import BarChart from './BarChart';
 import MessageBox from '../MessageModal';
 import { sendMessage } from '../../../actions/message_actions';
-import {
-  fade,
-  withStyles,
-  InputBase,
-  makeStyles,
-  Avatar,
-  Typography,
-  Divider,
-  Button,
-} from '@material-ui/core';
+import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minWidth: 600,
     padding: 20,

@@ -60,6 +60,7 @@ const MessageInput = ({ receiver, sendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log('Body: ', e.currentTarget.value);
     sendMessage({ body: message, to: receiver._id });
     setMessage('');
   };
