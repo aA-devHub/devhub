@@ -27,20 +27,7 @@ class Step5 extends Component {
       )
     );
 
-    return (
-      <React.Fragment>
-        {futureFeatures.length ? (
-          futureFeatures
-        ) : (
-          <FutureFeature
-            futureFeature={{}}
-            key={0}
-            idx={0}
-            addFutureFeatureToState={this.addFutureFeatureToState}
-          />
-        )}
-      </React.Fragment>
-    );
+    return <React.Fragment>{futureFeatures}</React.Fragment>;
   }
 
   addFutureFeatureToState(futureFeature) {
@@ -68,6 +55,11 @@ class Step5 extends Component {
   }
 
   render() {
+    var featuresValidated = () =>
+      this.state.futureFeatures.every(
+        (feature) => feature.title && feature.description
+      );
+
     return (
       <React.Fragment>
         <StepHeader
@@ -75,6 +67,7 @@ class Step5 extends Component {
           title={'Future Features'}
           projectAction={this.props.projectAction}
           changeStep={this.handleStepChange}
+          nextDisabled={!featuresValidated()}
         />
         <div className="step-inner">{this.renderFutureFeatures()}</div>
         <div className="add-button">

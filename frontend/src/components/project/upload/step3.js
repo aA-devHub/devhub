@@ -34,16 +34,7 @@ class Step3 extends Component {
 
     return (
       <React.Fragment>
-        {features.length ? (
-          features
-        ) : (
-          <Feature
-            feature={{}}
-            key={0}
-            idx={0}
-            addFeatureToState={this.addFeatureToState}
-          />
-        )}
+        {features}
         <div className="add-button">
           <Button
             onClick={() =>
@@ -136,13 +127,19 @@ class Step3 extends Component {
   }
 
   render() {
+    var featuresValidated = () =>
+      this.state.features.every(
+        (feature) =>
+          feature.title && feature.description && feature.image && feature.code
+      );
+
     return (
       <React.Fragment>
         <StepHeader
           step={3}
           title={'Key Features'}
           changeStep={this.handleStepChange}
-          nextDisabled={!this.state.features.length}
+          nextDisabled={!featuresValidated()}
         />
         {this.renderFeatures()}
         <div className="step-inner layouts">
