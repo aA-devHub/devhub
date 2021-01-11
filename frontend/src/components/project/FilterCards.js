@@ -24,12 +24,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '2rem',
     display: 'flex',
     alignItems: 'center',
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2.25),
     minWidth: 120,
     marginRight: '2rem',
   },
