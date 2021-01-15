@@ -33,13 +33,19 @@ npm run dev
 ## `Features`
 ### User Profile Display & Edit
 
-![Viewing and Editing a User Profile](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/user_profile.gif)
+![Viewing and Editing User Profiles](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/user_profile.gif)
 
 ### Project Display & Edit
 
+![Viewing and Editing Projects](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/project_display.gif)
+
 ### Messaging
 
+![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/messaging.gif)
+
 ### Commenting & Notifications
+
+![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/commenting.gif)
 
 ### Search
 
