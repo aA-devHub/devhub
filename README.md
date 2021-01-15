@@ -49,4 +49,6 @@ npm run dev
 
 ### Search
 
+![Search](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/search.gif)
+
 ## `Future Features`
