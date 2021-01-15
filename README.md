@@ -31,5 +31,15 @@ npm run dev
 ```
 
 ## `Features`
+### User Profile Setup & Display
+
+### Project Setup & Display
+
+### Messaging
+
+### Search
+
+### Notifications
+
 
 ## `Future Features`
