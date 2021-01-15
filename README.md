@@ -24,7 +24,7 @@ npm install && npm run frontend-install
 
 recharts 2.0 bug: https://github.com/recharts/recharts/issues/2360
 
-#### Development
+### Development
 
 ```sh
 npm run dev
