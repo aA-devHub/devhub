@@ -2,6 +2,8 @@
 
 ### [Live Link](https://getdevhub.herokuapp.com/)
 
+### ![Home](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/home.png)
+
 ## `About`
 Devhub is a professional networking site for developers, empowering them to beautifully showcase their portfolios, connect with other developers, and be scouted for professional opportunities. 
 This project was a collaborative effort, built by [Ori Ravid](https://github.com/oriravid), [Noah Peart](https://github.com/nverno), [Will Wang](https://github.com/YizheWill), and [Kevin Bastoul](https://github.com/kaycbas). 
