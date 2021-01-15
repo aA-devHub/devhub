@@ -1,6 +1,6 @@
 # Devhub
 
-[Live](https://getdevhub.herokuapp.com/)
+## [Live Link](https://getdevhub.herokuapp.com/)
 
 ## `About`
 Devhub is a professional networking site for developers, empowering them to beautifully showcase their portfolios, connect with other developers, and be scouted for professional opportunities. 
