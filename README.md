@@ -33,6 +33,8 @@ npm run dev
 ## `Features`
 ### User Profile Display & Edit
 
+![Viewing and Editing a User Profile](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/user_profile.gif)
+
 ### Project Display & Edit
 
 ### Messaging
