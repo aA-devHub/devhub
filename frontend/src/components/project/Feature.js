@@ -8,7 +8,7 @@ export const Vertical = ({ features }) => {
     return features.map((ftr, idx) => {
       const featureImages = [ftr.image, ftr.code];
       return (
-        <div className="features-container">
+        <div key={idx} className="features-container">
           <Divider style={{ marginBottom: 20 }} />
           <div className="feature-container">
             <p className="feature-description">

@@ -72,9 +72,10 @@ const TechPieChart = ({ data, ...props }) => {
           paddingAngle={5}
           /* onMouseEnter={onPieEnter} */
           label={renderLabel}
+          dataKey="value"
         >
           {data.map((entry, index) => (
-            <Cell fill={COLORS[index % COLORS.length]} />
+            <Cell key={index} fill={COLORS[index % COLORS.length]} />
           ))}
           {/* <Legend /> */}
           {/* <Tooltip */}
