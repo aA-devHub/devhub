@@ -31,6 +31,7 @@
   "homepage": "https://github.com/aA-devHub/devhub#readme",
   "dependencies": {
     "@date-io/date-fns": "^2.10.6",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
