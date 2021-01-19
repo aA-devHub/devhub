@@ -52,6 +52,7 @@ Project display pages are where developers can showcase their work in a clean an
 
 ### Messaging
 Devhub supports messaging between users. Messages can be initiated from multiple places throughout the app and conversations can be managed from within the Messenger by selecting the mail icon in the navbar. Inside the messenger, users can navigate between their conversation threads, search for a specific thread using the searchbar, and send and receive messages.
+
 ![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/messaging.gif)
 
 ### Commenting & Notifications
