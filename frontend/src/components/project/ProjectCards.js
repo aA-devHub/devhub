@@ -27,7 +27,7 @@ function ProjectCards({ projects, order, fetchProjects, search, tags }) {
   useEffect(() => {
     fetchProjects({ search, tags });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tags]);
 
   const sortedProjects =
     (order === 'popularity'

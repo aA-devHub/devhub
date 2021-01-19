@@ -18,8 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
   clearTags: () => dispatch(clearTags()),
 });
 
-// Debounce reference:
-// https://dev.to/jasonnordheim/debounce-performance-and-react-4de1
 const SearchInput = ({
   search,
   tags,
@@ -45,26 +43,27 @@ const SearchInput = ({
 
   prevLocation = locationRef.current;
 
-  useEffect(() => {
-    // Uncomment to add debouncing .3 seconds
-    // const timeout = setTimeout(() => {
-    if (tags.length > 0) {
-      fetchProjects({
-        search,
-        tags,
-      });
-    }
-    // }, 300);
+  // Uncomment to add debouncing .3 seconds
+  // Debounce reference:
+  // https://dev.to/jasonnordheim/debounce-performance-and-react-4de1
 
-    // return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tags]);
+  // useEffect(() => {
+  // const timeout = setTimeout(() => {
+  // if (tags.length > 0) {
+  //   fetchProjects({
+  //     search,
+  //     tags,
+  //   });
+  // }
+  // }, 300);
+  // return () => clearTimeout(timeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [tags]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push('/');
+    if (locationRef.current !== '/') history.push('/');
     fetchProjects({ search, tags });
-    // setSearch('');
   };
 
   return (
