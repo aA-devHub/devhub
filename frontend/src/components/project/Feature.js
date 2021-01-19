@@ -11,7 +11,7 @@ export const Vertical = ({ features }) => {
         <div key={idx} className="features-container">
           <Divider style={{ marginBottom: 20 }} />
           <div className="feature-container">
-            <p className="feature-description">
+            <div className="feature-description">
               <Typography
                 style={{
                   lineHeight: '1.8em',
@@ -25,7 +25,7 @@ export const Vertical = ({ features }) => {
               <Typography style={{ fontSize: 18 }}>
                 {ftr.description}
               </Typography>
-            </p>
+            </div>
             <div className="feature-images">
               <Carousel
                 animation="slide"
