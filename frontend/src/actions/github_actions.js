@@ -24,7 +24,6 @@ export const clearLanguages = () => ({
 });
 
 export const fetchLanguages = (repo) => (dispatch) => {
-  dispatch(clearLanguages());
   return GithubAPI.fetchLanguages(repo)
     .then((languages) => dispatch(receiveLanguages(languages)))
     .catch((errors) => dispatch(receiveGithubErrors(errors)));

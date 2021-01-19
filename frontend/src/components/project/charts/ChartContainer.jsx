@@ -4,7 +4,10 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 
 import PieChart from './PieChart';
 import BarChart from './BarChart';
-import { fetchLanguages } from '../../../actions/github_actions';
+import {
+  fetchLanguages,
+  clearLanguages,
+} from '../../../actions/github_actions';
 
 const mapStateToProps = (state, _ownProps) => ({
   languages: state.entities.languages,
@@ -12,6 +15,7 @@ const mapStateToProps = (state, _ownProps) => ({
 
 const mapDispatchToProps = (dispatch, { project }) => ({
   fetchLanguages: () => project && dispatch(fetchLanguages(project.githubLink)),
+  clearLanguages: () => dispatch(clearLanguages()),
 });
 
 const chartSpecs = {
@@ -31,11 +35,13 @@ const ChartContainer = ({
   theme,
   languages,
   fetchLanguages,
+  clearLanguages,
   ...props
 }) => {
   useEffect(() => {
     console.log('Fetching languages for: ', project);
-    fetchLanguages();
+    clearLanguages();
+    setTimeout(() => fetchLanguages(), 300);
   }, []);
 
   if (!languages) return <PropagateLoader />;
