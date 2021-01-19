@@ -40,7 +40,7 @@ Users can visit other developers' profiles to see more information about them an
 
 ### Project Display & Edit
 Project display pages are where developers can showcase their work in a clean and dynamic format. Some of the noteworthy features of this page are:
-- Project language chart that is auto-generated using the Github api and project repo link
+- A project language chart that is auto-generated using the Github api and project repo link
 - Carousel images for the banner and features, allowing for the display of up to 8 images without clutter
 - A multi-step setup process that walks a user through uploading images and writing section content
 - Any section of a project can be edited at any time after initial setup by selecting the 'Edit' option near the top
