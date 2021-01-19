@@ -6,7 +6,7 @@ import { makeStyles, fade, Typography, Avatar } from '@material-ui/core';
 
 // import ConversationAppBar from './conversation_app_bar';
 import MessageInput from './message_input';
-import { otherParticipant, drawerWidth, navOffset } from './messages';
+import { otherParticipant } from './messages';
 import { getMessages } from '../../selectors/messages';
 import './messages.css';
 
@@ -74,7 +74,6 @@ const mapDispatchToProps = (dispatch) => ({});
 const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
   const from = user.id === message.from._id;
 
-  // console.log('User: ', user, ', Other: ', otherUser);
   return (
     <div style={{ width: 700 }}>
       {showDate && (

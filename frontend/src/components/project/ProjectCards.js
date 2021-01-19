@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
 
 import Card from './ProjectCard';
 import { fetchProjects } from '../../actions/project_actions';

@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import * as COLORS from '../../colors';
 import { addTag, removeTag, clearTags } from '../../actions/tag_actions';
 import { setOrder } from '../../actions/order_actions';
 
