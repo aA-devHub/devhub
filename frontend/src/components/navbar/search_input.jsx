@@ -39,6 +39,7 @@ const SearchInput = ({
       if (tags.length > 0) clearTags();
       if (search !== '') setSearch('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   prevLocation = locationRef.current;

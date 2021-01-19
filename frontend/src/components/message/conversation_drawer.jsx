@@ -7,7 +7,7 @@ import { Drawer, List, ListSubheader, Divider } from '@material-ui/core';
 import ConversationItem from './conversation_item';
 import UserItem from './user_item';
 import ConversationSearch from './conversation_search';
-import { drawerWidth, navOffset } from './messages';
+import { drawerWidth } from './messages';
 import { fetchConversations } from '../../actions/conversation_actions';
 
 const mapStateToProps = (state, _ownProps) => ({
@@ -63,6 +63,7 @@ const ConversationDrawer = ({
 
   useEffect(() => {
     fetchConversations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

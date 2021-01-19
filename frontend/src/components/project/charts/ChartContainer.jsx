@@ -39,14 +39,13 @@ const ChartContainer = ({
   ...props
 }) => {
   useEffect(() => {
-    console.log('Fetching languages for: ', project);
     clearLanguages();
     setTimeout(() => fetchLanguages(), 300);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!languages) return <PropagateLoader />;
   const Component = theme !== 1 ? BarChart : PieChart;
-  console.log('Theme: ', theme);
 
   return (
     <>

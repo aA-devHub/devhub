@@ -20,7 +20,7 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateComment(req.body);
+    let { errors, isValid } = validateComment(req.body);
 
     if (!isValid) {
       return res.status(400).json(errors);
@@ -29,8 +29,8 @@ router.post(
     req.body.userName = req.user.name;
     req.body.user = req.user._id;
 
-    const projectId = req.body.project;
-    const imageUrl = '';
+    let projectId = req.body.project;
+    let imageUrl = '';
     User.findById(req.user._id).then((commenter) => {
       Project.findById(projectId).then((project) => {
         User.findById(project.user).then((recipient) => {

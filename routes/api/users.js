@@ -58,7 +58,6 @@ router.patch(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // const user = req.user;
-    // console.log('User:', user);
     // if (!user) {
     //   return res.status(404).json({ email: 'This user does not exist' });
     // }

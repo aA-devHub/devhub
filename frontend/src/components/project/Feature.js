@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Typography, Divider } from '@material-ui/core';
 
@@ -9,10 +8,10 @@ export const Vertical = ({ features }) => {
     return features.map((ftr, idx) => {
       const featureImages = [ftr.image, ftr.code];
       return (
-        <div className="features-container">
+        <div key={idx} className="features-container">
           <Divider style={{ marginBottom: 20 }} />
           <div className="feature-container">
-            <p className="feature-description">
+            <div className="feature-description">
               <Typography
                 style={{
                   lineHeight: '1.8em',
@@ -26,7 +25,7 @@ export const Vertical = ({ features }) => {
               <Typography style={{ fontSize: 18 }}>
                 {ftr.description}
               </Typography>
-            </p>
+            </div>
             <div className="feature-images">
               <Carousel
                 animation="slide"
@@ -59,6 +58,7 @@ export const Vertical = ({ features }) => {
                         borderBottomRightRadius: 10,
                         height: 300,
                       }}
+                      alt="Feature"
                     />
                   </div>
                 ))}
@@ -80,7 +80,7 @@ export const Vertical = ({ features }) => {
 };
 
 export const Horiz = ({ features }) => {
-  const [autoplay, setAutoplay] = useState(false);
+  // const [autoplay, setAutoplay] = useState(false);
   const renderFeatures = () => {
     return features.map((ftr, idx) => {
       const featureImages = [ftr.image, ftr.code];
@@ -88,7 +88,11 @@ export const Horiz = ({ features }) => {
         <div className="horiz-features-container">
           <Divider style={{ marginBottom: 20, width: 1200 }} />
           <div className="counter">
-            <img className="horiz-primary-img" src={featureImages[0]} />
+            <img
+              className="horiz-primary-img"
+              src={featureImages[0]}
+              alt="Project Hero"
+            />
             <div className="horiz-ftr-details-container">
               <div className="horiz-feature-description">
                 <Divider style={{ marginBottom: 20 }} />
@@ -108,7 +112,11 @@ export const Horiz = ({ features }) => {
                   {ftr.description}
                 </Typography>
               </div>
-              <img className="horiz-secondary-img" src={featureImages[1]} />
+              <img
+                className="horiz-secondary-img"
+                src={featureImages[1]}
+                alt="Secondary"
+              />
             </div>
           </div>
         </div>
@@ -164,6 +172,7 @@ export const Whirligig = ({ features }) => {
                       borderBottomRightRadius: 10,
                       // height: 300,
                     }}
+                    alt="Feature"
                   />
                 </div>
               ))}
