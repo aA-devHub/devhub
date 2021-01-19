@@ -4,6 +4,10 @@ export const fetchProjects = (filter) => {
   return axios.get('/api/projects', { params: { ...filter } });
 };
 
+export const fetchFeaturedProjects = () => {
+  return axios.get('/api/projects/featured');
+};
+
 export const fetchUserProjects = (userId) => {
   return axios.get(`/api/projects/user/${userId}`);
 };
