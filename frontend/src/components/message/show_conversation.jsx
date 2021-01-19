@@ -76,7 +76,7 @@ const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
 
   // console.log('User: ', user, ', Other: ', otherUser);
   return (
-    <div>
+    <div style={{ width: 700 }}>
       {showDate && (
         <div className={classes.dateContainer}>
           <Typography className={classes.dateText}>

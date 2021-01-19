@@ -12,7 +12,7 @@ export const navOffset = 64;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '2rem',
+    marginTop: '6.5vh',
     display: 'flex',
     height: '75vh',
     boxShadow: '0px 20px 35px 0px rgba(0, 0, 0, 0.1)',
