@@ -3,7 +3,7 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 const Carousel = ({ images }) => {
-  const handleDrag = (e) => e.preventDefault();
+  // const handleDrag = (e) => e.preventDefault();
   const [imgs, setImgs] = useState([]);
   useEffect(() => {
     if (images.hero) setImgs([images.hero].concat(images.secondaries));

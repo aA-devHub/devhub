@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { ProtectedRoute } from '../../util/route_util';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 
 import ConversationDrawer from './conversation_drawer';
-import ConversationAppBar from './conversation_app_bar';
 import ShowConversation from './show_conversation';
 
 export const drawerWidth = 240;
@@ -17,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '2rem',
     display: 'flex',
-    // margin: '10px',
-    // padding: '0 10px 0 10px',
-    // minHeight: '500px'
     height: '75vh',
     boxShadow: '0px 20px 35px 0px rgba(0, 0, 0, 0.1)',
   },
@@ -68,6 +62,7 @@ const Messages = ({ history }) => {
                 marginLeft: 20,
                 marginRight: 10,
               }}
+              alt="Messages"
             />
           </div>
 

@@ -105,11 +105,13 @@ function Navbar(props) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   let location = useLocation();
+  const { fetchNotifications } = props;
+
   useEffect(() => {
-    // props.fetchNotifications();
     setTimeout(() => {
-      props.fetchNotifications();
+      fetchNotifications();
     }, 150);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const handleProfileMenuOpen = (event) => {

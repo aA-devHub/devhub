@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
-import MailIcon from '@material-ui/icons/Mail';
 import SocialMedia from './social_media';
 import ProjectCarousel from './project_carousel';
 import { fetchUser } from '../../actions/user_actions';

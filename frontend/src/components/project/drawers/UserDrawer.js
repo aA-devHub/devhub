@@ -1,5 +1,5 @@
 import * as COLORS from '../../../colors';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import BarChart from './BarChart';
 import MessageBox from '../MessageModal';

@@ -9,7 +9,6 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 import * as COLORS from '../../colors';
 import { startConversation } from '../../actions/conversation_actions';

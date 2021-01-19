@@ -42,6 +42,7 @@ const ChartContainer = ({
     console.log('Fetching languages for: ', project);
     clearLanguages();
     setTimeout(() => fetchLanguages(), 300);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!languages) return <PropagateLoader />;

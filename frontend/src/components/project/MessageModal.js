@@ -67,7 +67,7 @@ export default function AlertDialogSlide({
   }));
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = useState({
+  const [user] = useState({
     imageUrl:
       'https://cdn.dribbble.com/users/2202649/avatars/normal/bebd416006c3351d4731c0c626ed9548.png?1604385482',
   });

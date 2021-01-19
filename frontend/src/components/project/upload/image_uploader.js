@@ -54,6 +54,7 @@ function ImageUploader({ errors, incomingImage, type, handleImageChange }) {
 
   const onDrop = useCallback((acceptedFiles) => {
     postShot(acceptedFiles[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
@@ -91,6 +92,7 @@ function ImageUploader({ errors, incomingImage, type, handleImageChange }) {
             src={imageUrl}
             className="pointer"
             style={{ opacity: opa }}
+            alt="Uploaded File"
           ></img>
           <div
             className={`delete-button pointer` + del}

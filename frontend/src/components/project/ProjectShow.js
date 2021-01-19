@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import { fetchProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
@@ -44,6 +44,7 @@ function Project({ project, fetchProject, user, currentUser }) {
 
   useEffect(() => {
     fetchProject(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const images = [];

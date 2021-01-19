@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as COLORS from '../../colors';
+// import * as COLORS from '../../colors';
 import Carousel from 'react-material-ui-carousel';
 import { makeStyles } from '@material-ui/core';
 import MasonWall from './Mason';

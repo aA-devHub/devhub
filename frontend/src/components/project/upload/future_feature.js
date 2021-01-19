@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ImageUploader from './image_uploader';
 import { Typography, InputBase } from '@material-ui/core';
 
 class FutureFeature extends Component {
