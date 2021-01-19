@@ -1,7 +1,9 @@
 // import React, { useState } from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,7 +14,7 @@ import { addTag, removeTag, clearTags } from '../../actions/tag_actions';
 import { setOrder } from '../../actions/order_actions';
 
 const mapStateToProps = (state) => ({
-  tags: state.ui.tags,
+  selectedTags: state.ui.tags,
   order: state.ui.order,
 });
 
@@ -25,27 +27,24 @@ const mapDispatchToProps = (dispatch) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: theme.spacing(2.25),
     display: 'flex',
     alignItems: 'center',
   },
-  formControl: {
-    margin: theme.spacing(2.25),
+  sortForm: {
     minWidth: 120,
     marginRight: '2rem',
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  button: {
-    color: COLORS.DEVDARKBLUE,
-    borderRadius: 0,
-  },
-  buttonActive: {
-    borderBottom: `2px solid ${COLORS.DEVBLUE}`,
-    borderRadius: 0,
-  },
-  buttonClear: {
-    color: 'red',
+  toggleButtonGroup: {
+    flexGrow: '1',
+    display: 'flex',
+    '& > *': {
+      flexGrow: '1',
+      borderColor: 'transparent',
+    },
+    '& > *:hover': {
+      borderColor: `transparent`,
+    },
   },
 }));
 
@@ -59,20 +58,29 @@ const defaultTags = [
   'Java',
 ];
 
-function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
+function FilterCards({
+  order,
+  setOrder,
+  selectedTags,
+  addTag,
+  removeTag,
+  clearTags,
+}) {
   const classes = useStyles();
 
-  const toggleTag = (tag) => {
-    // Uncomment to allow multiple tags in filtered query
-    // if (tags.includes(tag)) removeTag(tag);
-    // else addTag(tag);
-    clearTags();
-    addTag(tag);
+  const handleTags = (e) => {
+    const tag = e.currentTarget.value;
+
+    if (tag === 'All') {
+      clearTags();
+    } else {
+      selectedTags.includes(tag) ? removeTag(tag) : addTag(tag);
+    }
   };
 
   return (
     <div className={classes.root}>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" className={classes.sortForm}>
         <InputLabel id="demo-simple-select-outlined-label">Order by</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
@@ -87,26 +95,26 @@ function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
           <MenuItem value={'recency'}>Recency</MenuItem>
         </Select>
       </FormControl>
-      <div>
-        {defaultTags.map((tag, idx) => (
-          <Button
-            key={idx}
-            className={
-              tags.includes(tag) ? classes.buttonActive : classes.button
-            }
-            onClick={() => toggleTag(tag)}
+
+      <ToggleButtonGroup
+        value={selectedTags.length ? selectedTags : 'All'}
+        onChange={handleTags}
+        className={classes.toggleButtonGroup}
+      >
+        <ToggleButton value="All" aria-label="All">
+          All
+        </ToggleButton>
+        {defaultTags.map((tag) => (
+          <ToggleButton
+            value={tag}
+            aria-label={tag}
+            key={tag}
+            className={classes.button}
           >
             {tag}
-          </Button>
+          </ToggleButton>
         ))}
-      </div>
-      {tags.length ? (
-        <Button className={classes.buttonClear} onClick={() => clearTags()}>
-          CLEAR
-        </Button>
-      ) : (
-        ''
-      )}
+      </ToggleButtonGroup>
     </div>
   );
 }
