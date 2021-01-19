@@ -20,7 +20,10 @@ const FavoriteButton = ({
   deleteFavorite,
   addFavorite,
 }) => {
-  const isFavorite = currentUser && currentUser.favorites.includes(project._id);
+  const isFavorite =
+    currentUser &&
+    currentUser.favorites &&
+    currentUser.favorites.includes(project._id);
 
   const toggleFavorite = () => {
     if (!currentUser) return;

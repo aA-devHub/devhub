@@ -1,6 +1,12 @@
 import React from 'react';
 import * as COLORS from '../../colors';
-import { Grid, makeStyles, Typography, Avatar } from '@material-ui/core';
+import {
+  Grid,
+  makeStyles,
+  Typography,
+  Avatar,
+  IconButton,
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import './Footer.css';
 
@@ -141,33 +147,50 @@ const Footer = () => {
             style={{ display: 'flex', justifyContent: 'center' }}
           >
             <Grid item className={classes.avatarContainer}>
-              <Avatar
-                className={classes.avatars}
-                src="https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/553/medium/kevin_bastoul.jpg?1602007648"
-              />
+              <IconButton
+                href="https://www.linkedin.com/in/kevin-bastoul/"
+                target="_blank"
+              >
+                <Avatar
+                  // className={classes.avatars}
+                  src="https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/553/medium/kevin_bastoul.jpg?1602007648"
+                />
+              </IconButton>
               <Typography className={classes.name}>Kevin</Typography>
             </Grid>
 
             <Grid item className={classes.avatarContainer}>
-              <Avatar
-                className={classes.avatars}
-                src="https://secure.gravatar.com/avatar/e0fb12778bde5d0dddddd3b8b619681b?secure=true&size=300"
-              />
+              <IconButton href="https://github.com/nverno" target="_blank">
+                <Avatar
+                  // className={classes.avatars}
+                  src="https://secure.gravatar.com/avatar/e0fb12778bde5d0dddddd3b8b619681b?secure=true&size=300"
+                />
+              </IconButton>
               <Typography className={classes.name}>Noah</Typography>
             </Grid>
             <Grid item className={classes.avatarContainer}>
-              <Avatar
-                className={classes.avatars}
-                src="https://ca.slack-edge.com/T03GU501J-U01AUNFQF19-4272e55fae3e-512"
-              />
+              <IconButton
+                href="https://www.linkedin.com/in/oriravid/"
+                target="_blank"
+              >
+                <Avatar
+                  // className={classes.avatars}
+                  src="https://ca.slack-edge.com/T03GU501J-U01AUNFQF19-4272e55fae3e-512"
+                />
+              </IconButton>
               <Typography className={classes.name}>Ori</Typography>
             </Grid>
 
             <Grid item className={classes.avatarContainer}>
-              <Avatar
-                className={classes.avatars}
-                src="https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/525/medium/Yizhe_Wang.jpg?1602196612"
-              />
+              <IconButton
+                href="https://www.linkedin.com/in/will-wang-6b1ba675/"
+                target="_blank"
+              >
+                <Avatar
+                  // className={classes.avatars}
+                  src="https://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/005/525/medium/Yizhe_Wang.jpg?1602196612"
+                />
+              </IconButton>
               <Typography className={classes.name}>Will</Typography>
             </Grid>
           </Grid>
