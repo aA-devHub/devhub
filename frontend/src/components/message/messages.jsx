@@ -15,7 +15,7 @@ export const navOffset = 64;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '2rem',
+    marginTop: '6.5vh',
     display: 'flex',
     // margin: '10px',
     // padding: '0 10px 0 10px',

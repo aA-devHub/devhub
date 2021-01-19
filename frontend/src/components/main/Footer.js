@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import * as COLORS from '../../colors';
 import {
   Grid,
@@ -105,6 +106,8 @@ const Footer = () => {
   }));
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  if (location.pathname.slice(0, 9) === '/messages') return <div></div>;
   return (
     <div className={classes.root}>
       <div className={classes.footerContainer}>
