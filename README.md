@@ -43,7 +43,7 @@ Project display pages are where developers can showcase their work in a clean an
 - A project language chart that is auto-generated using the Github api and project repo link
 - Carousel images for the banner and features, allowing for the display of up to 8 images without clutter
 - A multi-step setup process that walks a user through uploading images and writing section content
-- Any section of a project can be edited at any time after initial setup by selecting the 'Edit' option near the top
+- Any section of a project can be edited by its owner at any time after initial setup by selecting the 'Edit' option near the top
 - Each section of the display page supports multiple different layouts that can be customized during setup, for a total of 18 unique layouts
 - The developer's information can be viewed in a popout drawer by clicking their icon on the right side of the project page
 - Projects can be commented on or favorited, which sends a notification to the owner
