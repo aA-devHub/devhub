@@ -4,7 +4,7 @@ import React from 'react';
 
 function FutureFeatures({ features, project }) {
   const futureFeatures = features.map((ftr, idx) => (
-    <div className="future-feature-bucket">
+    <div className="future-feature-bucket" key={idx}>
       <Typography
         style={{
           lineHeight: '1.4em',
