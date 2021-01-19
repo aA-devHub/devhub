@@ -7,13 +7,12 @@ import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import './TinderCard.css';
 import { makeStyles } from '@material-ui/core';
-import { fetchProjects } from '../../actions/project_actions';
+import { fetchFeaturedProjects } from '../../actions/project_actions';
 import { addFavorite } from '../../actions/project_actions';
 import { Zoom } from '@material-ui/core';
-
 function TinderCards({ featured, fetchProjects, addFavorite }) {
   const history = useHistory();
-  const [hint, setHint] = useState('none');
+  const [hint, setHint] = useState('flex');
   const [featuredProjects, setFeatured] = useState(featured);
   const [showImage, setShowImage] = useState(false);
   const [dispImage, setDispImage] = useState('none');
@@ -87,7 +86,10 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                 className="swipe"
                 key={Math.random()}
                 preventSwipe={['up, down']}
-                onSwipe={(dir) => swiped(dir, project._id)}
+                onSwipe={(dir) => {
+                  swiped(dir, project._id);
+                  // setHint('none');
+                }}
                 onCardLeftScreen={() => outOfFrame(project._id)}
               >
                 <div
@@ -114,6 +116,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                         fontSize: 30,
                         fontWeight: 800,
                         cursor: 'pointer',
+                        textDecoration: 'underline',
                       }}
                       onClick={() => {
                         history.push(`/projects/${project._id}`);
@@ -126,25 +129,38 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                     className="hint"
                     style={{
                       // display: 'none',
-                      display: 'flex',
+                      display: hint,
                       position: 'absolute',
                       justifyContent: 'center',
                       alignItems: 'center',
                       left: 0,
                       top: '80%',
                       width: '100%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                      backgroundColor: 'rgba(255,255,255, 0.9)',
                       height: '20%',
                       borderBottomLeftRadius: 10,
                       borderBottomRightRadius: 10,
-                      '&:hover': { display: 'flex' },
                     }}
                   >
-                    <Typography
-                      style={{ fontWeight: 800, color: COLORS.DEVBLUE }}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        padding: '0 3%',
+                      }}
                     >
-                      Drag left to the next, drag right to favorite
-                    </Typography>
+                      <Typography
+                        style={{ fontWeight: 800, color: COLORS.DEVBLUE }}
+                      >
+                        Drag left to see the next
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 800, color: COLORS.DEVBLUE }}
+                      >
+                        Drag right to favorite
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               </TinderCard>
@@ -156,9 +172,9 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
 }
 
 export default connect(
-  (state) => ({ featured: state.entities.projects }),
+  (state) => ({ featured: state.entities.featured }),
   (dispatch) => ({
-    fetchProjects: () => dispatch(fetchProjects()),
+    fetchProjects: () => dispatch(fetchFeaturedProjects()),
     addFavorite: (projectId) => dispatch(addFavorite(projectId)),
   })
 )(TinderCards);
