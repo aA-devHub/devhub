@@ -14,6 +14,7 @@ import FutureFeatures from './FutureFeatures';
 import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
 import { fetchUser } from '../../actions/user_actions';
+import { fetchLanguages } from '../../actions/github_actions';
 
 function Project({ project, fetchProject, user, currentUser }) {
   const useStyles = makeStyles((theme) => ({
