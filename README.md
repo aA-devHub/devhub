@@ -55,13 +55,18 @@ Devhub supports messaging between users. Messages can be initiated from multiple
 ![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/messaging.gif)
 
 ### Commenting & Notifications
-All projects in Devhub support comments and favorites. Projects can be favorited from the homepage or from the project display page, and the number of favorites a project receives affects its ranking when filtered by popularity on the homepage. Projects comments can be accessed and submitted from the popout comment drawer on the project display page.
-When any project is favorited or commented on, its owner receives a notification. These show up on the bell in the navbar and, when clicked on, will navigate a user to the project in question.
+All projects in Devhub support comments and favorites. Projects can be favorited from the homepage or from the project display page, and the number of favorites a project receives affects its ranking when filtered by popularity on the homepage. Project comments can be accessed and submitted from the popout comment drawer on the project display page.
+
+When any project is favorited or commented on, its owner receives a notification which shows up on the bell in the navbar and navigates the owner to the project in question.
 
 ![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/commenting.gif)
 
-### Search & Tags
+### Search, Tags, & Ordering
+On the homepage, projects can be searched for by title, filtered by the languages used, and ordered by popularity or recency. The search bar is located in the nav bar, and the ordering and filtering options are located above the project tiles. These options allow recruiters and users to find the projects and developers they're interested in more quickly.
 
 ![Search](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/search.gif)
 
 ## `Future Features`
+- Tutorial Mode - help onboard new users with a walkthrough of key features
+- Fully featured messaging - messaging support for images, gifs, and file uploads
+- Favorites Page - a page where users can view their favorited projects
