@@ -25,7 +25,6 @@ export default function Drawers({ project, comments, developer }) {
       setImage(developer.imageUrl);
       setDev(developer);
     }
-    console.log('developer', developer);
   }, [developer]);
   const [cmt, setCmt] = useState({ right: false });
   const [image, setImage] = useState('');

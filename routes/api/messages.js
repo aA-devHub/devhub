@@ -109,7 +109,6 @@ router.patch(
       if (err) return res.status(404).json(err);
 
       // no need to verify if just toggling read status
-      // console.log('Message: ', message);
       if (req.body.toggleRead) {
         message.read = !message.read;
       } else {

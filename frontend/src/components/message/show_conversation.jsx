@@ -74,7 +74,6 @@ const mapDispatchToProps = (dispatch) => ({});
 const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
   const from = user.id === message.from._id;
 
-  // console.log('User: ', user, ', Other: ', otherUser);
   return (
     <div style={{ width: 700 }}>
       {showDate && (
