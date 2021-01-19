@@ -63,7 +63,7 @@ When any project is favorited or commented on, its owner receives a notification
 ![Messaging](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/commenting.gif)
 
 ### Search, Tags, & Ordering
-On the homepage, projects can be searched for by title, filtered by the languages used, and ordered by popularity or recency. The search bar is located in the nav bar, and the ordering and filtering options are located above the project tiles. These options allow recruiters and users to find the projects and developers they're interested in more quickly.
+On the homepage, projects can be searched for by title, filtered by the languages used, and ordered by popularity or recency. These options allow recruiters and users to find projects and developers they're interested in more quickly.
 
 ![Search](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/search.gif)
 
