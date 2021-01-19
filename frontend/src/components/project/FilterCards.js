@@ -60,10 +60,6 @@ const defaultTags = [
 ];
 
 function FilterCards({ order, setOrder, addTag, removeTag, clearTags, tags }) {
-  // const [filter, setFilter] = useState('popularity');
-  // const handleFilter = (e) => {
-  //   setFilter(e.target.value);
-  // };
   const classes = useStyles();
 
   const toggleTag = (tag) => {

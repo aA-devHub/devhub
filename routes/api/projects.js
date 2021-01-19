@@ -88,6 +88,17 @@ router.get('/', (req, res) => {
     );
 });
 
+// Get all featured projects
+router.get('/featured', (req, res) => {
+  Project.find({}, { title: 1, images: 1, user: 1 })
+    .then((projects) => {
+      return res.json({ projects });
+    })
+    .catch((err) => {
+      res.status(404).json({ noFeaturedfound: 'No featured projects found' });
+    });
+});
+
 // Get all projects of a user
 router.get('/user/:userId', (req, res) => {
   Project.find(

@@ -1,6 +1,7 @@
 import * as ApiUtil from '../util/project_api_util';
 
 export const RECEIVE_PROJECTS = 'RECEIVE_PROJECTS';
+export const RECEIVE_FEATURED = 'RECEIVE_FEATURED';
 export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const REMOVE_PROJECT = 'REMOVE_PROJECT';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
@@ -15,6 +16,11 @@ export const receiveFavorites = (favorites) => ({
 export const receiveProjects = (payload) => ({
   type: RECEIVE_PROJECTS,
   payload,
+});
+
+export const receiveFeatured = (projects) => ({
+  type: RECEIVE_FEATURED,
+  projects,
 });
 
 export const receiveProject = (payload) => ({
@@ -47,6 +53,12 @@ export const fetchProjects = (filter) => (dispatch) => {
   // dispatch(startLoadingProjects());
   return ApiUtil.fetchProjects(filter)
     .then((payload) => dispatch(receiveProjects(payload.data)))
+    .catch((errors) => receiveProjectErrors(errors.response));
+};
+
+export const fetchFeaturedProjects = () => (dispatch) => {
+  return ApiUtil.fetchFeaturedProjects()
+    .then((payload) => dispatch(receiveFeatured(payload.data.projects)))
     .catch((errors) => receiveProjectErrors(errors.response));
 };
 
