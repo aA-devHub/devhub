@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -26,15 +26,24 @@ const SearchInput = ({
   setSearch,
   clearTags,
   fetchProjects,
+  history,
   ...props
 }) => {
-  // clear tags when route changes
+  // clear tags/search when route changes from home to other page
   let location = useLocation();
+  const locationRef = useRef();
+  let prevLocation;
+
   useEffect(() => {
-    if (tags.length > 0) clearTags();
-    if (search !== '') setSearch('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    locationRef.current = location.pathname;
+
+    if (prevLocation === '/' && locationRef.current !== '/') {
+      if (tags.length > 0) clearTags();
+      if (search !== '') setSearch('');
+    }
   }, [location]);
+
+  prevLocation = locationRef.current;
 
   useEffect(() => {
     // Uncomment to add debouncing .3 seconds
@@ -53,6 +62,7 @@ const SearchInput = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    history.push('/');
     fetchProjects({ search, tags });
     // setSearch('');
   };
