@@ -34,6 +34,7 @@ npm run dev
 
 ## `Features`
 ### User Profile Display & Edit
+Users can visit other developers' profiles to see more information about them and their projects. Profile pages contain important information about each developer, links to their projects and social medias, and an option to message them directly. A user's profile can be set up and editted at any time by clicking the pencil icon at the top right of their page.
 
 ![Viewing and Editing User Profiles](https://github.com/aA-devHub/devhub/blob/master/frontend/public/readme/user_profile.gif)
 

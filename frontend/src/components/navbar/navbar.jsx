@@ -414,6 +414,7 @@ function Navbar(props) {
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
+                history={props.history}
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>

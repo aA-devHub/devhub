@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -18,43 +18,52 @@ const mapDispatchToProps = (dispatch) => ({
   clearTags: () => dispatch(clearTags()),
 });
 
-// Debounce reference:
-// https://dev.to/jasonnordheim/debounce-performance-and-react-4de1
 const SearchInput = ({
   search,
   tags,
   setSearch,
   clearTags,
   fetchProjects,
+  history,
   ...props
 }) => {
-  // clear tags when route changes
+  // clear tags/search when route changes from home to other page
   let location = useLocation();
+  const locationRef = useRef();
+  let prevLocation;
+
   useEffect(() => {
-    if (tags.length > 0) clearTags();
-    if (search !== '') setSearch('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    locationRef.current = location.pathname;
+
+    if (prevLocation === '/' && locationRef.current !== '/') {
+      if (tags.length > 0) clearTags();
+      if (search !== '') setSearch('');
+    }
   }, [location]);
 
-  useEffect(() => {
-    // Uncomment to add debouncing .3 seconds
-    // const timeout = setTimeout(() => {
-    if (tags.length > 0) {
-      fetchProjects({
-        search,
-        tags,
-      });
-    }
-    // }, 300);
+  prevLocation = locationRef.current;
 
-    // return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tags]);
+  // Uncomment to add debouncing .3 seconds
+  // Debounce reference:
+  // https://dev.to/jasonnordheim/debounce-performance-and-react-4de1
+
+  // useEffect(() => {
+  // const timeout = setTimeout(() => {
+  // if (tags.length > 0) {
+  //   fetchProjects({
+  //     search,
+  //     tags,
+  //   });
+  // }
+  // }, 300);
+  // return () => clearTimeout(timeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [tags]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (locationRef.current !== '/') history.push('/');
     fetchProjects({ search, tags });
-    // setSearch('');
   };
 
   return (
