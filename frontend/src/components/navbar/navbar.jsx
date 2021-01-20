@@ -94,13 +94,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = React.useState(
     null
   );
 
-  const isMenuOpen = Boolean(anchorEl);
+  const isProfileMenuOpen = Boolean(profileAnchorEl);
   const isNotificationsMenuOpen = Boolean(notificationsAnchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -114,20 +114,20 @@ function Navbar(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleNotificationsMenuOpen = (event) => {
     setNotificationsAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const handleNotificationMenuClose = () => {
+    setNotificationsAnchorEl(null);
   };
 
-  const handleMenuClick = (option) => {
-    setAnchorEl(null);
+  const handleProfileMenuOpen = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileMenuClick = (option) => {
+    setProfileAnchorEl(null);
     handleMobileMenuClose();
 
     switch (option) {
@@ -165,23 +165,31 @@ function Navbar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
-      anchorEl={anchorEl}
+      anchorEl={profileAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClick}
+      open={isProfileMenuOpen}
+      onClose={handleProfileMenuClick}
       style={{ marginTop: 40 }}
     >
-      <MenuItem onClick={() => handleMenuClick('profile')}>Profile</MenuItem>
-      <MenuItem onClick={() => handleMenuClick('editprofile')}>
+      <MenuItem onClick={() => handleProfileMenuClick('profile')}>
+        Profile
+      </MenuItem>
+      <MenuItem onClick={() => handleProfileMenuClick('editprofile')}>
         Edit Profile
       </MenuItem>
-      <MenuItem onClick={() => handleMenuClick('signout')}>Sign Out</MenuItem>
+      <MenuItem onClick={() => handleProfileMenuClick('signout')}>
+        Sign Out
+      </MenuItem>
     </Menu>
   );
 
@@ -237,12 +245,12 @@ function Navbar(props) {
     renderNotificationsMenu = (
       <Menu
         anchorEl={notificationsAnchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         id={notificationMenuId}
         keepMounted
         transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         open={isNotificationsMenuOpen}
-        onClose={() => setNotificationsAnchorEl(null)}
+        onClose={handleNotificationMenuClose}
         style={{ marginTop: 40 }}
       >
         {fetchNotificationsComponent()}
@@ -261,7 +269,7 @@ function Navbar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={() => handleMenuClick('profile')}>
+      <MenuItem onClick={() => handleProfileMenuClick('profile')}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -272,7 +280,7 @@ function Navbar(props) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem onClick={() => handleMenuClick('messages')}>
+      <MenuItem onClick={() => handleProfileMenuClick('messages')}>
         <IconButton aria-label="show new mails" color="inherit">
           {/* <Badge badgeContent={props.notifications.messages} color="secondary"> */}
           <Badge badgeContent={0} color="secondary">
@@ -281,7 +289,7 @@ function Navbar(props) {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem onClick={() => handleMenuClick('notifications')}>
+      <MenuItem onClick={() => handleProfileMenuClick('notifications')}>
         <IconButton aria-label="show new notifications" color="inherit">
           <Badge
             // this breaks because mobile menu doesn't check if props.currentUser
@@ -294,13 +302,13 @@ function Navbar(props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={() => handleMenuClick('uploadproject')}>
+      <MenuItem onClick={() => handleProfileMenuClick('uploadproject')}>
         <IconButton aria-label="upload new project" color="inherit">
           <AddCircleIcon />
         </IconButton>
         <p>Upload Project</p>
       </MenuItem>
-      <MenuItem onClick={() => handleMenuClick('signout')}>
+      <MenuItem onClick={() => handleProfileMenuClick('signout')}>
         <IconButton aria-label="sign out" color="inherit">
           <ExitToAppIcon />
         </IconButton>
@@ -330,7 +338,7 @@ function Navbar(props) {
         <IconButton
           aria-label="show new mails"
           color="inherit"
-          onClick={() => handleMenuClick('messages')}
+          onClick={() => handleProfileMenuClick('messages')}
         >
           <Badge
             badgeContent={
@@ -356,7 +364,7 @@ function Navbar(props) {
           />
         </IconButton>
 
-        <IconButton onClick={() => handleMenuClick('uploadproject')}>
+        <IconButton onClick={() => handleProfileMenuClick('uploadproject')}>
           <CloudUploadIcon
             style={{
               color: COLORS.DEVBLUE,
@@ -372,7 +380,7 @@ function Navbar(props) {
     navIcons = (
       <IconButton
         edge="end"
-        onClick={() => handleMenuClick('signin')}
+        onClick={() => handleProfileMenuClick('signin')}
         color="inherit"
       >
         <AccountCircle />
@@ -393,14 +401,14 @@ function Navbar(props) {
             src="../../logo.png"
             alt="logo"
             className={classes.logo + ' pointer'}
-            onClick={() => handleMenuClick('home')}
+            onClick={() => handleProfileMenuClick('home')}
           />
           <Typography
             className={(classes.title, classes.grow)}
             variant="h6"
             noWrap
             style={{ cursor: 'pointer' }}
-            onClick={() => handleMenuClick('home')}
+            onClick={() => handleProfileMenuClick('home')}
           >
             devHUB
           </Typography>
