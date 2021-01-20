@@ -118,7 +118,6 @@ function Feedback({ comments, userId, project, createComment }) {
 
   const renderCommentItems = () => {
     if (!comments) return null;
-    // debugger;
     return comments.map((cmnt, i) => (
       <React.Fragment key={i}>
         <CommentItem comment={cmnt} />
