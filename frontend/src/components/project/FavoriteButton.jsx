@@ -9,9 +9,13 @@ const mapStateToProps = (state, _ownProps) => ({
   currentUser: state.session.user,
 });
 
-const mapDispatchToProps = (dispatch, { project: { _id: projectId } }) => ({
-  addFavorite: () => dispatch(addFavorite(projectId)),
-  deleteFavorite: () => dispatch(deleteFavorite(projectId)),
+// const mapDispatchToProps = (dispatch, { project: { _id: projectId } }) => ({
+const mapDispatchToProps = (dispatch) => ({
+  // addFavorite: () => dispatch(addFavorite(projectId)),
+  addFavorite: (projectId) => dispatch(addFavorite(projectId)),
+
+  // deleteFavorite: (projectId) => dispatch(deleteFavorite(projectId)),
+  deleteFavorite: (projectId) => dispatch(deleteFavorite(projectId)),
 });
 
 const FavoriteButton = ({
@@ -25,10 +29,12 @@ const FavoriteButton = ({
     currentUser.favorites &&
     currentUser.favorites.includes(project._id);
 
+  console.log('pid', project._id);
+
   const toggleFavorite = () => {
     if (!currentUser) return;
-    if (isFavorite) deleteFavorite();
-    else addFavorite();
+    if (isFavorite) deleteFavorite(project._id);
+    else addFavorite(project._id);
   };
 
   return (
