@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as COLORS from '../../../colors';
 import { IconButton, Drawer, Avatar } from '@material-ui/core';
-import { Sms, GitHub, Star, Slideshow } from '@material-ui/icons';
+import { Sms, GitHub, Slideshow } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import CommentDrawer from './Comment';
 import UserDrawer from './UserDrawer';
