@@ -3,9 +3,16 @@ import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
-import { fetchProject } from '../../actions/project_actions';
+import { fetchProject, deleteProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
-import { Button } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from '@material-ui/core';
 import { CarouselWall, Three, Mason } from './ImageWall';
 // import { BarChart, PieChart } from './charts/TechChart';
 import TechChart from './charts/ChartContainer';
@@ -15,7 +22,9 @@ import Description from './Description';
 import { makeStyles, Typography } from '@material-ui/core';
 import { fetchUser } from '../../actions/user_actions';
 
-function Project({ project, fetchProject, user, currentUser }) {
+function Project({ project, fetchProject, deleteProject, user, currentUser }) {
+  const [alertOpen, setAlertOpen] = React.useState(false);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: '2%',
@@ -85,26 +94,74 @@ function Project({ project, fetchProject, user, currentUser }) {
   return (
     <div>
       <Drawer project={project} developer={user} comments={project.comments} />
-
       <div className={classes.root}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Typography className={classes.title}>{title}</Typography>
-          {currentUser === project.user ? (
+        <Typography className={classes.title}>{title}</Typography>
+        {currentUser === project.user ? (
+          <div
+            style={{
+              position: 'absolute',
+              top: '95px',
+              right: '32px',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <Button
-              style={{ marginLeft: 20, marginTop: 2, color: COLORS.DEVBLUE }}
+              style={{ color: 'COLORS.NAVBARBLACK' }}
               onClick={() => history.push(`/projects/${project._id}/edit`)}
             >
               Edit
             </Button>
-          ) : (
-            <div></div>
-          )}
-        </div>
+            <Button
+              style={{ color: 'red' }}
+              onClick={() => {
+                setAlertOpen(true);
+              }}
+            >
+              Delete
+            </Button>
+            <Dialog
+              open={alertOpen}
+              onClose={() => {
+                setAlertOpen(false);
+              }}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {'Are you sure?'}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  By confirming, you will delete this project and all of it's
+                  assosciated data.
+                  <strong>This action is irreversible.</strong>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => {
+                    setAlertOpen(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    deleteProject(project._id);
+                    history.push('/');
+                  }}
+                  color="secondary"
+                  autoFocus
+                >
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        ) : (
+          ''
+        )}
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}
         </div>
@@ -129,6 +186,7 @@ export default connect(
   }),
   (dispatch) => ({
     fetchProject: (id) => dispatch(fetchProject(id)),
+    deleteProject: (id) => dispatch(deleteProject(id)),
     fetchUser: (id) => dispatch(fetchUser(id)),
   })
 )(Project);

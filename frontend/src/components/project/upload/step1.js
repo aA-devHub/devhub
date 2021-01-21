@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as projectHelpers from './project_helpers';
 import StepHeader from './step_header';
 import { Typography, InputBase, RadioGroup, Radio } from '@material-ui/core';
 import { FormControlLabel, FormControl } from '@material-ui/core';
@@ -23,8 +24,16 @@ class Step1 extends Component {
   }
 
   handleStepChange(dir) {
-    this.props.updateMasterState(this.state);
-    this.props.changeStep(dir);
+    this.setState(
+      (prevState) => ({
+        githubLink: projectHelpers.validateURL(prevState.githubLink),
+        liveLink: projectHelpers.validateURL(prevState.liveLink),
+      }),
+      () => {
+        this.props.updateMasterState(this.state);
+        this.props.changeStep(dir);
+      }
+    );
   }
 
   handleInput(field) {
