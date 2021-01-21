@@ -17,7 +17,7 @@ const {
   findOrCreateConversation,
   addMessageToConversation,
 } = require('../routes/api/messages');
-const { tagProjects } = require('./projects');
+// const { tagProjects } = require('./projects');
 
 // Get array of all user IDs in database
 const getUserIds = async () =>
@@ -111,4 +111,19 @@ const argv = yargs
   .help()
   .alias('help', 'h').argv;
 
-seed(argv.num_msg);
+// seed(argv.num_msg);
+
+const clean = () => {
+  mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
+    console.log('Connected to MongoDB successfully');
+    await Message.deleteMany({});
+    await Conversation.deleteMany({});
+    await User.updateMany(
+      {},
+      { $set: { conversations: [] } },
+      { upsert: true }
+    );
+  });
+};
+
+clean();
