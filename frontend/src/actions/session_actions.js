@@ -34,29 +34,29 @@ export const logout = () => (dispatch) => {
   dispatch(logoutUser());
 };
 
-export const signup = (user) => (dispatch) => {
-  APIUtil.signup(user).then(
-    (payload) => {
-      dispatch(receiveCurrentUser(payload.data.payload));
-      dispatch(receiveUserSignIn());
-    },
-    (err) => dispatch(receiveErrors(err.response.data))
-  );
-};
-
 export const login = (user) => (dispatch) => {
+  console.log('signing in');
   APIUtil.login(user)
     .then((res) => {
+      console.log(`signin responded`);
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       APIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
-      // APIUtil.fetchCurrentUser().then((res) =>
-      //   dispatch(receiveCurrentUser(res.data))
-      // );
+      dispatch(receiveUserSignIn());
       dispatch(receiveCurrentUser(decoded));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
+};
+
+export const signup = (user) => (dispatch) => {
+  APIUtil.signup(user).then(
+    (res) => {
+      console.log('user signed up.');
+      dispatch(login(user));
+    },
+    (err) => dispatch(receiveErrors(err.response.data))
+  );
 };
 
 export const demoLogin = () => {

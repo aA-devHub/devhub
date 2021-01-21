@@ -28,6 +28,7 @@ export const receiveConversations = (conversations) => ({
 
 // Populate the users slice with users that the current user is engaged with
 export const fetchConversations = (filter) => (dispatch) => {
+  // debugger;
   return ConversationAPI.fetchConversations(filter)
     .then((conversations) => {
       dispatch(receiveConversations(conversations.data.conversations));

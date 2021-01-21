@@ -116,7 +116,10 @@ function SignupForm({ errors, currentUser, signup, clearErrors }) {
       <form className={classes.form} onSubmit={signupUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl} alt="devhub logo"></img>
-          <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
+          <Typography
+            variant="h5"
+            style={{ color: COLORS.DEVBLUE, paddingTop: 14, paddingBottom: 12 }}
+          >
             Sign Up
           </Typography>
           {renderErrors()}
