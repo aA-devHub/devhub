@@ -113,6 +113,31 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
   const navigateToSignup = () => {
     history.push('/signup');
   };
+  const type = () => {
+    const eml = document.getElementById('email');
+    const data = 'demo@demo.com'.split('');
+    let index = 0;
+    function writing(index) {
+      if (index < data.length) {
+        eml.value += data[index];
+        setTimeout(writing, 200, ++index);
+      }
+    }
+    writing(index);
+    const pass = document.getElementById('password');
+    let index1 = 0;
+    let pdata = 'password'.split('');
+    function writingpass(index1) {
+      if (index1 < pdata.length) {
+        pass.value += pdata[index1];
+        setTimeout(writingpass, 200, ++index1);
+      }
+    }
+    writingpass(index1);
+    setTimeout(() => {
+      login({ email: 'demo@demo.com', password: 'password' });
+    }, 3000);
+  };
   return (
     <div className={classes.root}>
       {renderErrors()}
@@ -125,7 +150,8 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
           <TextField
             className={classes.leftPanelItems}
             required
-            id="outlined-required"
+            id="email"
+            placeholder="email"
             label="EMAIL"
             value={email}
             variant="outlined"
@@ -134,9 +160,10 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
           <TextField
             className={classes.leftPanelItems}
             required
-            id="outlined-required"
             label="PASSWORD"
+            id="password"
             type="password"
+            placeholder="password"
             value={password}
             variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
@@ -144,7 +171,7 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
-              onClick={demoLogin}
+              onClick={type}
               style={{
                 color: COLORS.DEVBLUE,
                 cursor: 'pointer',
