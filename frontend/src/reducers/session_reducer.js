@@ -57,6 +57,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notifications: action.user.notifications,
+        user: action.user,
       };
 
     default:
