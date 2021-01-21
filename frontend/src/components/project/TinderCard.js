@@ -12,7 +12,6 @@ import { addFavorite } from '../../actions/project_actions';
 import { Zoom } from '@material-ui/core';
 function TinderCards({ featured, fetchProjects, addFavorite }) {
   const history = useHistory();
-  const [hint, setHint] = useState('flex');
   const [featuredProjects, setFeatured] = useState(featured);
   const [showImage, setShowImage] = useState(false);
   const [dispImage, setDispImage] = useState('none');
@@ -20,19 +19,17 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
   let counter = Object.keys(featuredProjects).length;
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
   useEffect(() => {
     setFeatured(featured);
-  }, [featured]);
+  }, [featured, setFeatured]);
   const imageUrl =
     'https://res.cloudinary.com/willwang/image/upload/v1609722148/LandingTop_jat0ue.png';
   const useStyles = makeStyles((theme) => ({
     root: {
       display: display,
     },
-    hint: {
-      display: hint,
-    },
+    hint: {},
     card: {
       '&:hover .hint': {
         display: 'none',
@@ -41,12 +38,6 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
   }));
   const classes = useStyles();
   const outOfFrame = (imagesId) => {};
-  const showHint = () => {
-    setHint('flex');
-  };
-  const hideHint = () => {
-    setHint('none');
-  };
 
   const swiped = (direction, projectId) => {
     counter--;
@@ -61,7 +52,6 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
       addFavorite(projectId);
     }
   };
-  console.log('featuredProjects', featuredProjects);
   return (
     <div>
       <Zoom
@@ -75,6 +65,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
             display: dispImage,
             maxWidth: '100%',
           }}
+          alt="featured projects"
         />
       </Zoom>
       <div className={clsx('tinderCards', classes.root)}>
@@ -130,8 +121,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                   <div
                     className="hint"
                     style={{
-                      // display: 'none',
-                      display: hint,
+                      display: 'flex',
                       position: 'absolute',
                       justifyContent: 'center',
                       alignItems: 'center',

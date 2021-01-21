@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
 import * as COLORS from '../../colors';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 import { fetchProject, deleteProject } from '../../actions/project_actions';
 import Drawer from './drawers/Drawers';
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-} from '@material-ui/core';
+
 import { CarouselWall, Three, Mason } from './ImageWall';
 // import { BarChart, PieChart } from './charts/TechChart';
 import TechChart from './charts/ChartContainer';
@@ -23,9 +16,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import { fetchUser } from '../../actions/user_actions';
 
 function Project({ project, fetchProject, deleteProject, user, currentUser }) {
-  const [alertOpen, setAlertOpen] = React.useState(false);
-
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     root: {
       marginTop: '2%',
       display: 'flex',

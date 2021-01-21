@@ -53,12 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ConversationDrawer = ({
-  history,
-  users,
-  conversations,
-  fetchConversations,
-}) => {
+const ConversationDrawer = ({ users, conversations, fetchConversations }) => {
   const classes = useStyles();
 
   useEffect(() => {

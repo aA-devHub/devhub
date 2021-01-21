@@ -42,7 +42,7 @@ const ChartContainer = ({
     clearLanguages();
     setTimeout(() => fetchLanguages(), 300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [clearLanguages, fetchLanguages]);
 
   if (!languages) return <PropagateLoader />;
   const Component = theme !== 1 ? BarChart : PieChart;

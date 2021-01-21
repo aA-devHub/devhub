@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { receiveProjectNumber } from '../../actions/project_actions';
 import { useLocation } from 'react-router-dom';
@@ -7,7 +7,6 @@ import {
   Grid,
   makeStyles,
   Typography,
-  Link,
   Avatar,
   IconButton,
 } from '@material-ui/core';
@@ -17,8 +16,7 @@ import './Footer.css';
 const Footer = ({ receiveProjectCount, numProjects }) => {
   useEffect(() => {
     receiveProjectCount();
-  }, []);
-  console.log('numProjects', numProjects);
+  }, [receiveProjectCount]);
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#F8F8F8',

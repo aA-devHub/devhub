@@ -72,9 +72,8 @@ const useStyles = makeStyles((theme) => ({
 function SignupForm({ errors, currentUser, signup, clearErrors }) {
   const history = useHistory();
   useEffect(() => {
-    console.log('clearing');
     clearErrors();
-  }, []);
+  }, [clearErrors]);
   useEffect(() => {
     if (currentUser) {
       history.push('/signin');

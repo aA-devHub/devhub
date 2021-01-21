@@ -69,8 +69,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
-
 const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
   const from = user.id === message.from._id;
 
@@ -134,4 +132,4 @@ const ShowConversation = ({ user, otherUser, conversation, messages }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowConversation);
+export default connect(mapStateToProps)(ShowConversation);
