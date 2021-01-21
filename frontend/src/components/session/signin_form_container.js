@@ -111,7 +111,6 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
 
   return (
     <div className={classes.root}>
-      {/* {renderErrors()} */}
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
           <img alt="devhub logo" className={classes.logo} src={logoUrl}></img>
