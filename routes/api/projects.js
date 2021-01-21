@@ -88,6 +88,11 @@ router.get('/', (req, res) => {
     );
 });
 
+// return project count
+router.get('/count', (req, res) => {
+  Project.count({}).then((count) => res.json(count));
+});
+
 // Get all featured projects
 router.get('/featured', (req, res) => {
   Project.find({}, { title: 1, images: 1, user: 1 })
