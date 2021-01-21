@@ -231,3 +231,19 @@
 //     width: 450px;
 //     height: 400px;
 // }
+
+
+// Session Errors
+
+.session-errors {
+    li {
+        list-style: none;
+    }
+    text-align: center;
+    box-sizing: border-box;
+    color: #c33;
+    background-color: #ffe8e9;
+    border-radius: 4px;
+    padding: .4em .6em .4em;
+    margin: 0.5em auto 0.5em;
+}

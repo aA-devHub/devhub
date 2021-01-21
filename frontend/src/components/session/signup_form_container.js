@@ -68,17 +68,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     marginBottom: '2rem',
   },
-  errors: {
-    position: 'absolute',
-    top: '20vh',
-    left: 0,
-    '& > li': {
-      marginBottom: '1rem',
-      color: 'red',
-      textDecoration: 'none',
-      listStyle: 'none',
-    },
-  },
 }));
 function SignupForm({ errors, currentUser, signup, clearErrors }) {
   const history = useHistory();
@@ -108,25 +97,29 @@ function SignupForm({ errors, currentUser, signup, clearErrors }) {
     };
     signup(user);
   };
-  const renderErrors = () => (
-    <ul className={classes.errors}>
-      {Object.keys(errors).map((err, i) => (
-        <li key={`error-${i}`}>{errors[err]}</li>
-      ))}
-    </ul>
-  );
+  const renderErrors = () => {
+    if (!errors || errors.length === 0) return null;
+    console.log(`errors: ${Object.values(errors)}`);
+    return (
+      <ul className="session-errors">
+        {Object.values(errors).map((err, i) => (
+          <li key={`error-${i}`}>{err}</li>
+        ))}
+      </ul>
+    );
+  };
   const navigateToSignin = () => {
     history.push('/signin');
   };
   return (
     <div className={classes.root}>
-      {renderErrors()}
       <form className={classes.form} onSubmit={signupUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl} alt="devhub logo"></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign Up
           </Typography>
+          {renderErrors()}
           <TextField
             className={classes.leftPanelItems}
             required
