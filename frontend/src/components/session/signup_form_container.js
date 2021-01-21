@@ -170,7 +170,7 @@ function SignupForm({ errors, currentUser, signup, clearErrors }) {
             style={{ height: 70 }}
           />
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
-            No account yet?{' '}
+            Already have an account?{' '}
             <span
               onClick={navigateToSignin}
               style={{ color: COLORS.DEVBLUE, cursor: 'pointer' }}
