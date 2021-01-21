@@ -49,7 +49,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const user = req.user;
-
+    // debugger;
     let filter = { participants: user._id };
 
     // If search query is passed, populate users
