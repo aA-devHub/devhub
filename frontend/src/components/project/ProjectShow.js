@@ -93,75 +93,15 @@ function Project({ project, fetchProject, deleteProject, user, currentUser }) {
   const { languageChart, featuresLayout } = project.ui;
   return (
     <div>
-      <Drawer project={project} developer={user} comments={project.comments} />
+      <Drawer
+        project={project}
+        developer={user}
+        comments={project.comments}
+        deleteProject={deleteProject}
+        currentUser={currentUser}
+      />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
-        {currentUser === project.user ? (
-          <div
-            style={{
-              position: 'absolute',
-              top: '95px',
-              right: '32px',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Button
-              style={{ color: 'COLORS.NAVBARBLACK' }}
-              onClick={() => history.push(`/projects/${project._id}/edit`)}
-            >
-              Edit
-            </Button>
-            <Button
-              style={{ color: 'red' }}
-              onClick={() => {
-                setAlertOpen(true);
-              }}
-            >
-              Delete
-            </Button>
-            <Dialog
-              open={alertOpen}
-              onClose={() => {
-                setAlertOpen(false);
-              }}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {'Are you sure?'}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  By confirming, you will delete this project and all of it's
-                  assosciated data.
-                  <strong>This action is irreversible.</strong>
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  onClick={() => {
-                    setAlertOpen(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={() => {
-                    deleteProject(project._id);
-                    history.push('/');
-                  }}
-                  color="secondary"
-                  autoFocus
-                >
-                  Delete
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
-        ) : (
-          ''
-        )}
         <div className={classes.imageWall}>
           {renderImageWall(overviewLayout)}
         </div>
