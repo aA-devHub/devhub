@@ -92,7 +92,7 @@ function Project({ project, fetchProject, deleteProject, user, currentUser }) {
   const { title, overviewLayout, description, futureFeatures } = project;
   const { languageChart, featuresLayout } = project.ui;
   return (
-    <div style={{ position: 'relative' }}>
+    <div>
       <Drawer project={project} developer={user} comments={project.comments} />
       <div className={classes.root}>
         <Typography className={classes.title}>{title}</Typography>
@@ -100,8 +100,8 @@ function Project({ project, fetchProject, deleteProject, user, currentUser }) {
           <div
             style={{
               position: 'absolute',
-              top: '0',
-              right: '25px',
+              top: '95px',
+              right: '32px',
               display: 'flex',
               flexDirection: 'column',
             }}
@@ -129,13 +129,13 @@ function Project({ project, fetchProject, deleteProject, user, currentUser }) {
               aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title">
-                {'Are you sure you want to permanently delete this project?'}
+                {'Are you sure?'}
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                   By confirming, you will delete this project and all of it's
-                  assosciated data, comments, and stars. This action is
-                  irreversible.
+                  assosciated data.
+                  <strong>This action is irreversible.</strong>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>

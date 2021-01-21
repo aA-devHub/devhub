@@ -23,7 +23,6 @@ export const fetchNotifications = () => (dispatch) => {
   return NotificationAPI.fetchNotifications()
     .then((user) => {
       console.log('user', user);
-      debugger;
       dispatch(receiveNotifications(user.data));
     })
     .catch((errors) =>
