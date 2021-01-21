@@ -2,7 +2,11 @@ import * as COLORS from '../../colors';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { login, demoLogin } from '../../actions/session_actions';
+import {
+  login,
+  demoLogin,
+  clearSessionErrors,
+} from '../../actions/session_actions';
 import { makeStyles, TextField, Typography } from '@material-ui/core';
 // import { fetchUser } from '../../util/user_api_util';
 const logoUrl =
@@ -11,7 +15,8 @@ const leaves =
   'https://res.cloudinary.com/willwang/image/upload/v1609184956/leaves_phog8l.png';
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '90vh',
+    // height: '90vh',
+    marginTop: '4%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,18 +32,29 @@ const useStyles = makeStyles((theme) => ({
   },
   leftPanel: {
     flex: 0.5,
-    margin: '30px 0 0 20px',
+    width: 350,
+    margin: '30px 0 0 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: 20,
   },
   leftPanelItems: {
-    minWidth: 300,
+    width: 270,
     marginTop: '2rem',
   },
   rightPanel: {
+    display: 'none',
     flex: 0.5,
+    width: '70%',
+    minWidth: 350,
+    backgroundImage: `url(${leaves})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   leaves: {
     position: 'relative',
@@ -48,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   signinButton: {
     marginTop: '2rem',
-    width: 300,
+    width: 270,
     height: 40,
     border: 'none',
     backgroundColor: COLORS.DEVBLUE,
@@ -56,13 +72,25 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     cursor: 'pointer',
   },
+  errors: {
+    position: 'absolute',
+    top: '20vh',
+    left: 0,
+    '& > li': {
+      color: 'red',
+      listStyle: 'none',
+    },
+  },
 }));
 
-function SigninForm({ currentUser, login, demoLogin, errors }) {
+function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
   const history = useHistory();
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  useEffect(() => {
+    clearErrors();
+  }, []);
   useEffect(() => {
     if (currentUser) history.push('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +104,7 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
     login(user);
   };
   const renderErrors = () => (
-    <ul>
+    <ul className={classes.errors}>
       {Object.keys(errors).map((err, i) => (
         <li key={`error-${i}`}>{errors[err]}</li>
       ))}
@@ -87,15 +115,10 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
   };
   return (
     <div className={classes.root}>
+      {renderErrors()}
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
-          <img
-            onClick={demoLogin}
-            alt="devhub logo"
-            className={classes.logo}
-            src={logoUrl}
-            style={{ cursor: 'pointer' }}
-          ></img>
+          <img alt="devhub logo" className={classes.logo} src={logoUrl}></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign in
           </Typography>
@@ -121,8 +144,23 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
+              onClick={demoLogin}
+              style={{
+                color: COLORS.DEVBLUE,
+                cursor: 'pointer',
+                margin: '0 10px',
+              }}
+            >
+              Demo
+            </span>
+            |
+            <span
               onClick={navigateToSignup}
-              style={{ color: COLORS.DEVBLUE, cursor: 'pointer' }}
+              style={{
+                color: COLORS.DEVBLUE,
+                cursor: 'pointer',
+                marginLeft: 10,
+              }}
             >
               Sign Up
             </span>
@@ -130,11 +168,8 @@ function SigninForm({ currentUser, login, demoLogin, errors }) {
           <button type="submit" className={classes.signinButton}>
             Sign in
           </button>
-          {renderErrors()}
         </div>
-        <div className={classes.rightPanel}>
-          <img className={classes.leaves} src={leaves} alt="leaves vector" />
-        </div>
+        <div className={classes.rightPanel}></div>
       </form>
     </div>
   );
@@ -148,6 +183,7 @@ const mapStateToProps = (state, _ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   login: (user) => dispatch(login(user)),
   demoLogin: () => dispatch(demoLogin()),
+  clearErrors: () => dispatch(clearSessionErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);

@@ -207,9 +207,14 @@ function Navbar(props) {
         const project = data.projectName;
         return (
           <MenuItem key={idx} onClick={() => handleNotificationMenuClick(data)}>
-            <Avatar src={data.imageUrl} />
+            <Avatar src={data.imageUrl} style={{ backgroundColor: 'white' }} />
             <Typography
-              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
+              style={{
+                color: COLORS.DEVBLUE,
+                fontWeight: 800,
+                marginRight: 5,
+                marginLeft: '1rem',
+              }}
             >
               {user}
             </Typography>{' '}

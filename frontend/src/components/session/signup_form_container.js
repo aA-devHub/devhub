@@ -1,4 +1,4 @@
-import { signup } from '../../actions/session_actions';
+import { signup, clearSessionErrors } from '../../actions/session_actions';
 
 import * as COLORS from '../../colors';
 import React, { useState, useEffect } from 'react';
@@ -11,14 +11,15 @@ const leaves =
   'https://res.cloudinary.com/willwang/image/upload/v1609187722/leaves_signup_okhbfo.png';
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '90vh',
+    marginTop: '3%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   form: {
     display: 'flex',
-    height: '70vh',
+    justifyContent: 'center',
+    // height: '70vh',
     boxShadow: '0px 18px 40px 0px rgba(0, 0, 0, 0.3)',
   },
   logo: {
@@ -27,17 +28,28 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   leftPanel: {
+    width: 450,
     flex: 0.5,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   leftPanelItems: {
-    minWidth: 300,
+    width: 300,
     marginTop: '0.5rem',
   },
   rightPanel: {
+    display: 'none',
     flex: 0.5,
+    backgroundImage: `url(${leaves})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+      width: 450,
+    },
   },
   leaves: {
     position: 'relative',
@@ -56,9 +68,24 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     marginBottom: '2rem',
   },
+  errors: {
+    position: 'absolute',
+    top: '20vh',
+    left: 0,
+    '& > li': {
+      marginBottom: '1rem',
+      color: 'red',
+      textDecoration: 'none',
+      listStyle: 'none',
+    },
+  },
 }));
-function SignupForm({ errors, currentUser, signup }) {
+function SignupForm({ errors, currentUser, signup, clearErrors }) {
   const history = useHistory();
+  useEffect(() => {
+    console.log('clearing');
+    clearErrors();
+  }, []);
   useEffect(() => {
     if (currentUser) {
       history.push('/signin');
@@ -82,7 +109,7 @@ function SignupForm({ errors, currentUser, signup }) {
     signup(user);
   };
   const renderErrors = () => (
-    <ul>
+    <ul className={classes.errors}>
       {Object.keys(errors).map((err, i) => (
         <li key={`error-${i}`}>{errors[err]}</li>
       ))}
@@ -93,6 +120,7 @@ function SignupForm({ errors, currentUser, signup }) {
   };
   return (
     <div className={classes.root}>
+      {renderErrors()}
       <form className={classes.form} onSubmit={signupUser}>
         <div className={classes.leftPanel}>
           <img className={classes.logo} src={logoUrl} alt="devhub logo"></img>
@@ -154,10 +182,7 @@ function SignupForm({ errors, currentUser, signup }) {
             Sign Up
           </button>
         </div>
-        <div className={classes.rightPanel}>
-          <img className={classes.leaves} src={leaves} alt="leaves vector" />
-        </div>
-        {renderErrors()}
+        <div className={classes.rightPanel}></div>
       </form>
     </div>
   );
@@ -173,6 +198,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signup: (user) => dispatch(signup(user)),
+    clearErrors: () => dispatch(clearSessionErrors()),
   };
 };
 
