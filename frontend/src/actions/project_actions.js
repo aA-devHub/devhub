@@ -7,6 +7,7 @@ export const REMOVE_PROJECT = 'REMOVE_PROJECT';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
 export const CLEAR_PROJECT_ERRORS = 'CLEAR_PROJECT_ERRORS';
 export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
+export const RECEIVE_PROJECT_COUNT = 'RECEIVE_PROJECT_COUNT';
 
 export const receiveFavorites = (favorites) => ({
   type: RECEIVE_FAVORITES,
@@ -40,6 +41,11 @@ export const clearProjectErrors = () => ({
 export const receiveProjectErrors = (errors) => ({
   type: RECEIVE_PROJECT_ERRORS,
   errors,
+});
+
+export const receiveProjectCount = (payload) => ({
+  type: RECEIVE_PROJECT_COUNT,
+  payload,
 });
 
 // Fetch projects with optional FILTER
@@ -107,5 +113,12 @@ export const deleteFavorite = (projectId) => (dispatch) => {
   return ApiUtil.deleteProjectFavorite(projectId).then((payload) => {
     dispatch(receiveProject(payload.data));
     dispatch(receiveFavorites(payload.data.favorites));
+  });
+};
+
+export const receiveProjectNumber = () => (dispatch) => {
+  return ApiUtil.getProjectCount().then((payload) => {
+    console.log('payload', payload);
+    dispatch(receiveProjectCount({ count: payload.data }));
   });
 };

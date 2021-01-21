@@ -34,3 +34,6 @@ export const addProjectFavorite = (projectId) => {
 export const deleteProjectFavorite = (projectId) => {
   return axios.delete(`/api/projects/${projectId}/favorite`);
 };
+export const getProjectCount = () => {
+  return axios.get('/api/projects/count');
+};

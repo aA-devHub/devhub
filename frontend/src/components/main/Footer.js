@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { receiveProjectNumber } from '../../actions/project_actions';
 import { useLocation } from 'react-router-dom';
 import * as COLORS from '../../colors';
 import {
@@ -13,7 +14,11 @@ import {
 import { useHistory } from 'react-router-dom';
 import './Footer.css';
 
-const Footer = ({ numProjects }) => {
+const Footer = ({ receiveProjectCount, numProjects }) => {
+  useEffect(() => {
+    receiveProjectCount();
+  }, []);
+  console.log('numProjects', numProjects);
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#F8F8F8',
@@ -233,7 +238,7 @@ const Footer = ({ numProjects }) => {
         </Typography>
         <Typography className={classes.footerText}>
           <span style={{ color: COLORS.DEVDARKBLUE, fontWeight: 800 }}>
-            {numProjects}
+            {Object.keys(numProjects).length ? numProjects.count : 0}
           </span>{' '}
           projects on devHUB now
         </Typography>
@@ -242,6 +247,9 @@ const Footer = ({ numProjects }) => {
   );
 };
 
-export default connect((state) => ({
-  numProjects: Object.keys(state.entities.projects).length,
-}))(Footer);
+export default connect(
+  (state) => ({ numProjects: state.entities.projectCount }),
+  (dispatch) => ({
+    receiveProjectCount: () => dispatch(receiveProjectNumber()),
+  })
+)(Footer);

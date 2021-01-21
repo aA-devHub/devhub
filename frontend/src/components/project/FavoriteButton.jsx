@@ -29,8 +29,6 @@ const FavoriteButton = ({
     currentUser.favorites &&
     currentUser.favorites.includes(project._id);
 
-  console.log('pid', project._id);
-
   const toggleFavorite = () => {
     if (!currentUser) return;
     if (isFavorite) deleteFavorite(project._id);
