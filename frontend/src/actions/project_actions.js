@@ -69,6 +69,7 @@ export const fetchUserProjects = (userId) => (dispatch) => {
 };
 
 export const fetchProject = (projectId) => (dispatch) => {
+  console.log(`CHECKPOINT- IN FETCH ACTION: ${projectId}`);
   return ApiUtil.fetchProject(projectId)
     .then((payload) => {
       dispatch(receiveProject(payload.data));

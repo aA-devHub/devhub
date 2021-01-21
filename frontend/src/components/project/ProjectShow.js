@@ -43,7 +43,10 @@ function Project({ project, fetchProject, user, currentUser }) {
   const { id } = useParams();
 
   useEffect(() => {
+    // if (id) {
+    console.log(`CHECKPOINT- FETCHING: ${id}`);
     fetchProject(id);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

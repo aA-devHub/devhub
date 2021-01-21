@@ -13,6 +13,7 @@ export const fetchUserProjects = (userId) => {
 };
 
 export const fetchProject = (projectId) => {
+  console.log(`CHECKPOINT- IN FETCH API CALL: ${projectId}`);
   return axios.get(`/api/projects/${projectId}`);
 };
 
