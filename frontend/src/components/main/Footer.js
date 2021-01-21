@@ -107,7 +107,12 @@ const Footer = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  if (location.pathname.slice(0, 9) === '/messages') return <div></div>;
+  if (
+    location.pathname.slice(0, 9) === '/messages' ||
+    location.pathname === '/signin' ||
+    location.pathname === '/signup'
+  )
+    return <div></div>;
   return (
     <div className={classes.root}>
       <div className={classes.footerContainer}>
