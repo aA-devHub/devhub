@@ -117,6 +117,8 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                         fontWeight: 800,
                         cursor: 'pointer',
                         textDecoration: 'underline',
+                        transition: 'opacity 0.2s',
+                        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
                       }}
                       onClick={() => {
                         history.push(`/projects/${project._id}`);

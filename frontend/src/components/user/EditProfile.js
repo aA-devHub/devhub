@@ -711,6 +711,11 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
   // }
   const history = useHistory();
 
+  const addHttps = (str) => {
+    if (!str) return str;
+    if (str.slice(0, 8) === 'https://') return str;
+    else return 'https://' + str;
+  };
   const handleSubmit = () => {
     const userinfo = {
       id: userId,
@@ -720,7 +725,13 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       email,
       imageUrl: avatarUrl,
       bio,
-      socials: { facebook, twitter, instagram, github, linkedin },
+      socials: {
+        facebook: addHttps(facebook),
+        twitter: addHttps(twitter),
+        instagram: addHttps(instagram),
+        github: addHttps(github),
+        linkedin: addHttps(linkedin),
+      },
       skills: skills,
       title,
       experience: Object.values(experience),

@@ -133,7 +133,12 @@ const Footer = ({ numProjects }) => {
         >
           <Avatar
             src="https://res.cloudinary.com/willwang/image/upload/v1609184704/logoround_tgdkrs.png"
-            style={{ width: 100, height: 100, opacity: '.9' }}
+            style={{
+              width: 100,
+              height: 100,
+              opacity: '.9',
+              cursor: 'pointer',
+            }}
             onClick={() => history.push('/')}
           />
         </div>
