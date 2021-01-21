@@ -72,15 +72,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     cursor: 'pointer',
   },
-  errors: {
-    position: 'absolute',
-    top: '20vh',
-    left: 0,
-    '& > li': {
-      color: 'red',
-      listStyle: 'none',
-    },
-  },
 }));
 
 function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
@@ -103,50 +94,31 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
     };
     login(user);
   };
-  const renderErrors = () => (
-    <ul className={classes.errors}>
-      {Object.keys(errors).map((err, i) => (
-        <li key={`error-${i}`}>{errors[err]}</li>
-      ))}
-    </ul>
-  );
+  const renderErrors = () => {
+    if (!errors || errors.length === 0) return null;
+    console.log(`errors: ${Object.values(errors)}`);
+    return (
+      <ul className="session-errors">
+        {Object.values(errors).map((err, i) => (
+          <li key={`error-${i}`}>{err}</li>
+        ))}
+      </ul>
+    );
+  };
   const navigateToSignup = () => {
     history.push('/signup');
   };
-  const type = () => {
-    const eml = document.getElementById('email');
-    const data = 'demo@demo.com'.split('');
-    let index = 0;
-    function writing(index) {
-      if (index < data.length) {
-        eml.value += data[index];
-        setTimeout(writing, 200, ++index);
-      }
-    }
-    writing(index);
-    const pass = document.getElementById('password');
-    let index1 = 0;
-    let pdata = 'password'.split('');
-    function writingpass(index1) {
-      if (index1 < pdata.length) {
-        pass.value += pdata[index1];
-        setTimeout(writingpass, 200, ++index1);
-      }
-    }
-    writingpass(index1);
-    setTimeout(() => {
-      login({ email: 'demo@demo.com', password: 'password' });
-    }, 3000);
-  };
+
   return (
     <div className={classes.root}>
-      {renderErrors()}
+      {/* {renderErrors()} */}
       <form className={classes.form} onSubmit={loginUser}>
         <div className={classes.leftPanel}>
           <img alt="devhub logo" className={classes.logo} src={logoUrl}></img>
           <Typography variant="h5" style={{ color: COLORS.DEVBLUE }}>
             Sign in
           </Typography>
+          {renderErrors()}
           <TextField
             className={classes.leftPanelItems}
             required
@@ -171,7 +143,7 @@ function SigninForm({ currentUser, login, demoLogin, errors, clearErrors }) {
           <Typography variant="body2" style={{ marginTop: '1rem' }}>
             No account yet?{' '}
             <span
-              onClick={type}
+              onClick={() => demoLogin()}
               style={{
                 color: COLORS.DEVBLUE,
                 cursor: 'pointer',
