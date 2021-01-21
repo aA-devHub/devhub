@@ -183,7 +183,9 @@ export default function Drawers({
           <Button
             onClick={() => {
               deleteProject(project._id);
-              history.push('/');
+              setTimeout(() => {
+                history.push('/');
+              }, 300);
             }}
             color="secondary"
             autoFocus

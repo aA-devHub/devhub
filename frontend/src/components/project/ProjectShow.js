@@ -87,7 +87,6 @@ function Project({ project, fetchProject, deleteProject, user, currentUser }) {
     }
   };
 
-  const history = useHistory();
   if (!project || !project.ui || !project.images) return null;
   const { title, overviewLayout, description, futureFeatures } = project;
   const { languageChart, featuresLayout } = project.ui;
