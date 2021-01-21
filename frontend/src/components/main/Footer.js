@@ -1,17 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import * as COLORS from '../../colors';
 import {
   Grid,
   makeStyles,
   Typography,
+  Link,
   Avatar,
   IconButton,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import './Footer.css';
 
-const Footer = () => {
+const Footer = ({ numProjects }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: '#F8F8F8',
@@ -48,6 +50,7 @@ const Footer = () => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      textAlign: 'center',
 
       [theme.breakpoints.up('sm')]: {
         flex: 0.3,
@@ -59,6 +62,7 @@ const Footer = () => {
       display: 'none',
       flexDirection: 'column',
       alignItems: 'center',
+      textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
         flex: 0.3,
@@ -70,7 +74,7 @@ const Footer = () => {
       fontWeight: 'bold',
     },
     rightCon: {
-      padding: '2rem 7rem',
+      padding: '1.5rem 5.5rem',
     },
     footerMid: {
       flex: 1,
@@ -139,11 +143,17 @@ const Footer = () => {
       </div>
       <div className={classes.footerContent}>
         <div className={classes.footerLeft}>
-          <Typography className={classes.leftCon}>PRIVACY POLICY</Typography>
-          <Typography className={classes.leftCon}>
-            TERMS & CONDITIONS
+          <Typography className={classes.rightCon}>
+            Designed and made with <span style={{ color: 'red' }}>♥</span> in
+            <br />
+            California by the{' '}
+            <a
+              href="https://github.com/aA-devHub/devhub"
+              style={{ color: COLORS.DEVDARKBLUE, fontWeight: 800 }}
+            >
+              Wonder4
+            </a>
           </Typography>
-          <Typography className={classes.leftCon}>ABOUT US</Typography>
         </div>
         <div className={classes.footerMid}>
           <Typography style={{ color: COLORS.DEVDARKBLUE, fontWeight: 900 }}>
@@ -214,21 +224,11 @@ const Footer = () => {
       <div className={classes.footer}>
         <Typography className={classes.footerText}>
           <span style={{ color: COLORS.DEVDARKBLUE, fontWeight: 800 }}>©</span>{' '}
-          2020 devHUB. All rights reserved.
-        </Typography>
-        <Typography className={classes.footerText}>
-          Designed and made with <span style={{ color: 'red' }}>♥</span> in
-          California by the{' '}
-          <a
-            href="https://github.com/aA-devHub/devhub"
-            style={{ color: COLORS.DEVDARKBLUE, fontWeight: 800 }}
-          >
-            Wonder4
-          </a>
+          2021 devHUB. All rights reserved.
         </Typography>
         <Typography className={classes.footerText}>
           <span style={{ color: COLORS.DEVDARKBLUE, fontWeight: 800 }}>
-            1234
+            {numProjects}
           </span>{' '}
           projects on devHUB now
         </Typography>
@@ -237,4 +237,6 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default connect((state) => ({
+  numProjects: Object.keys(state.entities.projects).length,
+}))(Footer);
