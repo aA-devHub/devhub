@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { IconButton, Typography, Badge } from '@material-ui/core';
+import { IconButton, Typography, Badge, Avatar } from '@material-ui/core';
 import { Menu, MenuItem } from '@material-ui/core';
 import { AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -215,8 +215,14 @@ function Navbar(props) {
         const project = data.projectName;
         return (
           <MenuItem key={idx} onClick={() => handleNotificationMenuClick(data)}>
+            <Avatar src={data.imageUrl} style={{ backgroundColor: 'white' }} />
             <Typography
-              style={{ color: COLORS.DEVBLUE, fontWeight: 800, marginRight: 5 }}
+              style={{
+                color: COLORS.DEVBLUE,
+                fontWeight: 800,
+                marginRight: 5,
+                marginLeft: '1rem',
+              }}
             >
               {user}
             </Typography>{' '}
