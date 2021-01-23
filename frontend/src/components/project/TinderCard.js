@@ -29,15 +29,8 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
     root: {
       display: display,
     },
-    hint: {},
-    card: {
-      '&:hover .hint': {
-        display: 'none',
-      },
-    },
   }));
   const classes = useStyles();
-  const outOfFrame = (imagesId) => {};
 
   const swiped = (direction, projectId) => {
     counter--;
@@ -56,7 +49,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
     <div>
       <Zoom
         in={showImage}
-        timeout={{ enter: 4500 }}
+        timeout={{ enter: 100 }}
         style={{ diplay: dispImage }}
       >
         <img
@@ -69,7 +62,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
         />
       </Zoom>
       <div className={clsx('tinderCards', classes.root)}>
-        <div className="tinderCards__cardContainer">
+        <div className={clsx('tinderCards__cardContainer')}>
           {Object.values(featuredProjects)
             .reverse()
             .map((project) => (
@@ -79,37 +72,87 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                 preventSwipe={['up, down']}
                 onSwipe={(dir) => {
                   swiped(dir, project._id);
-                  // setHint('none');
                 }}
-                onCardLeftScreen={() => outOfFrame(project._id)}
               >
                 <div
                   className="card"
                   style={{
                     backgroundImage: `url(${project.images.hero})`,
-                    position: 'relative',
+                    backgroundPosition: 'left 0px top 0px',
                   }}
-
-                  // onClick={() => {
-                  //   setFirst('none');
-                  // }}
                 >
                   <div
                     style={{
-                      padding: '4px 10px',
-                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      width: '100%',
+                      height: '10%',
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      borderTopRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      backgroundColor: COLORS.NAVBARBLACK,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       color: 'white',
-                      display: 'inline-block',
                     }}
                   >
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '2%',
+                        display: 'flex',
+                        width: '15%',
+                        justifyContent: 'space-around',
+                      }}
+                    >
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          width: 15,
+                          height: 15,
+                          borderRadius: 99,
+                          backgroundColor: '#FF5E57',
+                        }}
+                        onClick={() => {
+                          setDisplay('none');
+                          setShowImage(true);
+                          setDispImage('');
+                        }}
+                      ></div>
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          width: 15,
+                          height: 15,
+                          borderRadius: 99,
+                          backgroundColor: '#FEBB2F',
+                        }}
+                        onClick={() => {
+                          setDisplay('none');
+                          setShowImage(true);
+                          setDispImage('');
+                        }}
+                      ></div>
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          width: 15,
+                          height: 15,
+                          borderRadius: 99,
+                          backgroundColor: '#26C842',
+                        }}
+                        onClick={() => {
+                          history.push(`/projects/${project._id}`);
+                        }}
+                      ></div>
+                    </div>
                     <Typography
                       style={{
-                        fontSize: 30,
-                        fontWeight: 800,
                         cursor: 'pointer',
+                        color: 'white',
+                        fontWeight: '800',
                         textDecoration: 'underline',
-                        transition: 'opacity 0.2s',
-                        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
                       }}
                       onClick={() => {
                         history.push(`/projects/${project._id}`);
@@ -118,18 +161,20 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                       {project.title.toUpperCase()}
                     </Typography>
                   </div>
+
                   <div
                     className="hint"
+                    id="hint"
                     style={{
                       display: 'flex',
                       position: 'absolute',
                       justifyContent: 'center',
                       alignItems: 'center',
                       left: 0,
-                      top: '80%',
+                      top: '90%',
                       width: '100%',
-                      backgroundColor: 'rgba(255,255,255, 0.9)',
-                      height: '20%',
+                      backgroundColor: 'rgba(255,255,255, 1.0)',
+                      height: '10%',
                       borderBottomLeftRadius: 10,
                       borderBottomRightRadius: 10,
                     }}
@@ -143,12 +188,12 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                       }}
                     >
                       <Typography
-                        style={{ fontWeight: 800, color: COLORS.DEVBLUE }}
+                        style={{ fontWeight: 400, color: COLORS.DEVBLUE }}
                       >
                         Drag left to see the next
                       </Typography>
                       <Typography
-                        style={{ fontWeight: 800, color: COLORS.DEVBLUE }}
+                        style={{ fontWeight: 400, color: COLORS.DEVBLUE }}
                       >
                         Drag right to favorite
                       </Typography>
