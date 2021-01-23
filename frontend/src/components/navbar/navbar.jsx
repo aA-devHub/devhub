@@ -370,11 +370,13 @@ function Navbar(props) {
           />
         </IconButton>
 
-        <IconButton onClick={() => handleProfileMenuClick('uploadproject')}>
+        <IconButton
+          onClick={() => handleProfileMenuClick('uploadproject')}
+          style={{ marginLeft: '1.5rem' }}
+        >
           <CloudUploadIcon
             style={{
               color: COLORS.DEVBLUE,
-              marginLeft: 20,
               width: 30,
               height: 40,
             }}

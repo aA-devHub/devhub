@@ -180,24 +180,25 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
   const [showAddExp, setShowAddExp] = useState('none');
 
   useEffect(() => {
-    fetchUser(userId).then(({ user }) => {
-      setTitle(user.title);
-      setLocation(user.location);
-      setName(user.name);
-      setEmail(user.email);
-      setBio(user.bio);
-      setAvatarUrl(user.imageUrl);
-      const socials = user.socials;
-      setFacebook(socials?.facebook || '');
-      setTwitter(socials?.twitter || '');
-      setInstagram(socials?.instagram || '');
-      setGithub(socials?.github || '');
-      setLinkedin(socials?.linkedin || '');
-      setSkills(user.skills);
-      setExperience(user.experience);
-    });
+    if (userId)
+      fetchUser(userId).then(({ user }) => {
+        setTitle(user.title);
+        setLocation(user.location);
+        setName(user.name);
+        setEmail(user.email);
+        setBio(user.bio);
+        setAvatarUrl(user.imageUrl);
+        const socials = user.socials;
+        setFacebook(socials?.facebook || '');
+        setTwitter(socials?.twitter || '');
+        setInstagram(socials?.instagram || '');
+        setGithub(socials?.github || '');
+        setLinkedin(socials?.linkedin || '');
+        setSkills(user.skills);
+        setExperience(user.experience);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userId]);
 
   const classes = useStyles();
   const handleListItemClick = (event, index) => {
@@ -737,7 +738,7 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
       experience: Object.values(experience),
     };
     updateUser(userinfo);
-    history.push(`/users/${user._id}`);
+    history.push(`/users/${userId}`);
   };
 
   return (
@@ -781,8 +782,8 @@ function EditUserForm({ fetchUser, userId, updateUser, user }) {
 
 export default connect(
   (state) => ({
-    userId: state.session.user.id,
-    user: state.entities.users[state.session.user.id],
+    userId: state.session.user._id,
+    user: state.entities.users[state.session.user._id],
   }),
   (dispatch) => ({
     fetchUser: (userId) => dispatch(fetchUser(userId)),

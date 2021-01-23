@@ -111,7 +111,7 @@ export default connect(
       state.entities.users[
         state.entities.projects[ownProps.match.params.id]?.user
       ],
-    currentUser: state.session.user.id,
+    currentUser: state.session.user._id,
     project: state.entities.projects[ownProps.match.params.id],
   }),
   (dispatch) => ({

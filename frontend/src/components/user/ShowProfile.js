@@ -107,7 +107,7 @@ function ShowProfile({
           <div className="back-icon pointer" onClick={() => history.goBack()}>
             <ArrowBackIosIcon />
           </div>
-          {currentUser && currentUser.id === profileUser._id ? (
+          {currentUser && currentUser._id === profileUser._id ? (
             <div
               className="edit-icon pointer"
               onClick={() => history.push(`/users/edit`)}
