@@ -47,16 +47,14 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
   };
   return (
     <div>
-      <Zoom
-        in={showImage}
-        timeout={{ enter: 100 }}
-        style={{ diplay: dispImage }}
-      >
+      <Zoom in={showImage} timeout={{ enter: 100 }}>
         <img
           src={imageUrl}
           style={{
             display: dispImage,
-            maxWidth: '100%',
+            width: '100vw',
+            // position: 'absolute',
+            marginLeft: 'calc((1200px - 100vw)/2)',
           }}
           alt="featured projects"
         />

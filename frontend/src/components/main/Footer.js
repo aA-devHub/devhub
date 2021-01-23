@@ -19,7 +19,7 @@ const Footer = ({ receiveProjectCount, numProjects }) => {
   }, [receiveProjectCount]);
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundColor: '#F8F8F8',
+      backgroundColor: '#f9fffb',
     },
     footer: {
       maginTop: '2rem',

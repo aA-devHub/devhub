@@ -135,7 +135,7 @@ function Navbar(props) {
         props.history.push('/');
         return;
       case 'profile':
-        props.history.push(`/users/${props.currentUser.id}`);
+        props.history.push(`/users/${props.currentUser._id}`);
         return;
       case 'messages':
         props.history.push('/messages');
