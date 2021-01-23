@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid rgba(0,0,0,0.05)',
     maxWidth: 300,
     height: 170,
-    borderRadius: 10,
+    borderRadius: 5,
     marginBottom: '.7rem',
     cursor: 'pointer',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
@@ -118,8 +118,9 @@ function ProjectCard({ project, author }) {
             onClick={() => history.push(`/projects/${project._id}`)}
             style={{
               backgroundImage: `url(${item})`,
-              backgroundPosition: 'center',
+              backgroundPosition: 'top 0px left 0px',
               backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
             }}
           ></div>
         ))}
