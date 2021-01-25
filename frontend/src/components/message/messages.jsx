@@ -64,7 +64,6 @@ const Messages = ({ history }) => {
               alt="Messages"
             />
           </div>
-
           <Switch>
             <ProtectedRoute
               style={{ zIndex: 888 }}

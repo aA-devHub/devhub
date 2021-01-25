@@ -140,7 +140,7 @@ function ShowProfile({
           <h1 className="user-name">{profileUser.name}</h1>
           <h2 className="user-title">{profileUser.title}</h2>
 
-          {currentUser && currentUser.id !== profileUser._id ? (
+          {currentUser && currentUser._id !== profileUser._id ? (
             <MessageBox
               style={{ marginTop: 50, marginBottom: 30 }}
               receiverId={profileUser._id}

@@ -70,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const MessageBubble = ({ user, otherUser, showDate, message, classes }) => {
-  const from = user.id === message.from._id;
+  const from = user._id === message.from._id;
 
   return (
     <div style={{ width: 700 }}>
