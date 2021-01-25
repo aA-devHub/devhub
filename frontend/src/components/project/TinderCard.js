@@ -9,7 +9,7 @@ import './TinderCard.css';
 import { makeStyles } from '@material-ui/core';
 import { fetchFeaturedProjects } from '../../actions/project_actions';
 import { addFavorite } from '../../actions/project_actions';
-import { Zoom } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 function TinderCards({ featured, fetchProjects, addFavorite }) {
   const history = useHistory();
   const [featuredProjects, setFeatured] = useState(featured);
@@ -47,7 +47,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
   };
   return (
     <div>
-      <Zoom in={showImage} timeout={{ enter: 100 }}>
+      <Fade in={showImage} timeout={{ enter: 1000 }}>
         <img
           src={imageUrl}
           style={{
@@ -58,7 +58,7 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
           }}
           alt="featured projects"
         />
-      </Zoom>
+      </Fade>
       <div className={clsx('tinderCards', classes.root)}>
         <div className={clsx('tinderCards__cardContainer')}>
           {Object.values(featuredProjects)
