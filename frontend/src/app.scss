@@ -143,6 +143,11 @@ h6 {
 .social-icon img {
   height: 50px;
 }
+.user-spacer {
+  height: 2px;
+  background-color: rgb(234, 234, 234);
+  margin: 50px 0 70px 0;
+}
 
 .user-details {
   position: relative;
@@ -221,12 +226,12 @@ h6 {
 
 .skill-level-container {
   width: 100px;
-  height: calc(100% - 5px);
+  height: 15px;
   clear: both;
   background-color: #e7e7e7;
   margin-left: 20px;
   position: relative;
-  width: attr(width);
+  // width: attr(width);
 }
 
 .skill-level {

@@ -39,6 +39,8 @@ function ShowProfile({
   const renderProjects = () => {
     if (projects.length) {
       return <ProjectCarousel projects={projects} />;
+    } else {
+      return <div className="user-spacer"></div>;
     }
   };
 
