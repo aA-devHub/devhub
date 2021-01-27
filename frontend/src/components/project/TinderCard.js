@@ -106,42 +106,26 @@ function TinderCards({ featured, fetchProjects, addFavorite }) {
                     >
                       <div
                         style={{
-                          cursor: 'pointer',
                           width: 15,
                           height: 15,
                           borderRadius: 99,
                           backgroundColor: '#FF5E57',
                         }}
-                        onClick={() => {
-                          setDisplay('none');
-                          setShowImage(true);
-                          setDispImage('');
-                        }}
                       ></div>
                       <div
                         style={{
-                          cursor: 'pointer',
                           width: 15,
                           height: 15,
                           borderRadius: 99,
                           backgroundColor: '#FEBB2F',
                         }}
-                        onClick={() => {
-                          setDisplay('none');
-                          setShowImage(true);
-                          setDispImage('');
-                        }}
                       ></div>
                       <div
                         style={{
-                          cursor: 'pointer',
                           width: 15,
                           height: 15,
                           borderRadius: 99,
                           backgroundColor: '#26C842',
-                        }}
-                        onClick={() => {
-                          history.push(`/projects/${project._id}`);
                         }}
                       ></div>
                     </div>
